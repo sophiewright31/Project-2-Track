@@ -1,7 +1,3 @@
-*{
-    --mg-between-vid-lines: 25px;
-}
-
 .video-row{
     margin-top: var(--mg-between-vid-lines);
 }

@@ -19,7 +19,7 @@ class SongStyleManager extends AbstractManager
 
     public function selectByStyle($style): array
     {
-        $statement = $this->pdo->prepare('SELECT s.id, s.title, s.youtube_id 
+        $statement = $this->pdo->prepare('SELECT s.id, s.title, s.youtube_id, st.name as style_name
                   FROM ' . static::TABLE . ' ss' . '
                   JOIN song s ON s.id = ss.song_id
                   JOIN style st on st.id = ss.style_id
