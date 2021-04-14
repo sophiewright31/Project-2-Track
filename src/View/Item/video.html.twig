@@ -1,27 +1,37 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    <div class="container-fluid">
 
-    <h1>Videos</h1>
-
-
-        <div class="col-5 input-group mb-3">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Style</label>
-            </div>
-            <select class="custom-select" id="stylefilter">
-                {% for style in styles %}
-                <option value="{{ style.name}}">{{ style.name}}</option>
-                {% endfor %}
-            </select>
-            <input class="btn btn-primary" type="submit" value="Submit">
+        <div class="row" >
+            <h1>Videos</h1>
         </div>
 
+        <div class="row" >
+            <div class="col-5 input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Style</label>
+                </div>
+                <select class="custom-select" id="stylefilter">
+                    {% for style in styles %}
+                    <option value="{{ style.name}}">{{ style.name}}</option>
+                    {% endfor %}
+                </select>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </div>
 
-    {% for video in videos %}
+        <div class="row">
+            {% for video in videos %}
+                <div class="col-3 video-row">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}" allowfullscreen> </iframe>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
-            <iframe width="200" height="200" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}"> </iframe>
+    </div>
 
-    {% endfor %}
 
 {% endblock %}
