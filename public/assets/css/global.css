@@ -1,0 +1,9 @@
+body {
+background-color: var(--primary-color-black) ;
+}
+
+h1 {
+    color:var(--text-color);
+    margin-top : var(--mg-h1-top);
+}
+

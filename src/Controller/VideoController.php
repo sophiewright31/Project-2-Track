@@ -21,16 +21,17 @@ class VideoController extends AbstractController
         ]);
     }
 
-    public function style($style): string
+    public function style($identifier): string
     {
         $songStyleManager = new SongStyleManager();
         $styleManager = new StyleManager();
         $styles = $styleManager->selectAll();
-        $videos = $songStyleManager->selectByStyle($style);
+        $styleName = $styleManager->styleName($identifier);
+        $videos = $songStyleManager->selectByStyle($identifier);
         return $this->twig->render('Item/videoByStyle.html.twig', [
             'videos' => $videos,
             'styles' => $styles,
-            'styleMusic' => $style
+            'styleName' => $styleName
         ]);
     }
 }

@@ -7,19 +7,8 @@
             <h1>Videos</h1>
         </div>
 
-        <div class="row" >
-            <div class="col-5 input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Style</label>
-                </div>
-                <select class="custom-select" id="stylefilter">
-                    {% for style in styles %}
-                    <option value="{{ style.name}}">{{ style.name}}</option>
-                    {% endfor %}
-                </select>
-                <input class="btn btn-primary" type="submit" value="Submit">
-            </div>
-        </div>
+        {% include 'component/_selectStyle.html.twig' %}
+
 
         <div class="row">
             {% for video in videos %}
@@ -33,5 +22,8 @@
 
     </div>
 
-
+    {% block javascript %}
+    <script src="/assets/javascript/styleSelection.js"></script>
+    {% endblock %}
 {% endblock %}
+

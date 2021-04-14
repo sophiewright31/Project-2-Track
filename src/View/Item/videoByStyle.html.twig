@@ -1,31 +1,32 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    <div class="container-fluid">
 
+    <div class="row" >
+        <h1>{{ styleName[0]['name'] }}</h1>
+    </div>
 
-    <h1>{{ styleMusic }}</h1>
+    {% include 'component/_selectStyle.html.twig' %}
 
-    <form method="" action="">
-        <div class="col-5 input-group mb-3">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Style</label>
+    {% if (videos | length) > 0 %}
+        <h4>{{ videos | length }} songs trouvées</h4>
+    {% else %}
+        <h4> Aucun résultat </h4>
+     {% endif %}
+
+    <div class="row">
+        {% for video in videos %}
+        <div class="col-3 video-row">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe width="200" height="200" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}"> </iframe>
             </div>
-            <select class="custom-select" id="stylefilter">
-                {% for style in styles %}
-                    <option value="{{ style.name}}">{{ style.name}}</option>
-                {% endfor %}
-            </select>
-            <input class="btn btn-primary" type="submit" value="Submit">
         </div>
-    </form>
+        {% endfor %}
+    </div>
 
+{% endblock %}
 
-
-
-    {% for video in videos %}
-
-            <iframe width="200" height="200" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}"> </iframe>
-
-    {% endfor %}
-
+{% block javascript %}
+        <script src="/assets/javascript/styleSelection.js"></script>
 {% endblock %}
