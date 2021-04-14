@@ -2,20 +2,24 @@
 
 {% block content %}
 
-    <h1>Videos</h1>
 
+    <h1>{{ styleMusic }}</h1>
 
+    <form method="" action="">
         <div class="col-5 input-group mb-3">
             <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">Style</label>
             </div>
             <select class="custom-select" id="stylefilter">
                 {% for style in styles %}
-                <option value="{{ style.name}}">{{ style.name}}</option>
+                    <option value="{{ style.name}}">{{ style.name}}</option>
                 {% endfor %}
             </select>
             <input class="btn btn-primary" type="submit" value="Submit">
         </div>
+    </form>
+
+
 
 
     {% for video in videos %}
