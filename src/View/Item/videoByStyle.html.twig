@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+
+    <h1>{{ styleMusic }}</h1>
+
+    <form method="" action="">
+        <div class="col-5 input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Style</label>
+            </div>
+            <select class="custom-select" id="stylefilter">
+                {% for style in styles %}
+                    <option value="{{ style.name}}">{{ style.name}}</option>
+                {% endfor %}
+            </select>
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </div>
+    </form>
+
+
+
+
+    {% for video in videos %}
+
+            <iframe width="200" height="200" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}"> </iframe>
+
+    {% endfor %}
+
+{% endblock %}
