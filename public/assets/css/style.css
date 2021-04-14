@@ -1,0 +1,25 @@
+a {
+    color: #D81F25;
+    text-shadow:
+            0 0 5px #D81F25,
+            0 0 10px #D81F25,
+            0 0 20px #D81F25,
+            0 0 40px #00AEFF,
+            0 0 80px #00AEFF,
+            0 0 90px #00AEFF,
+            0 0 100px #00AEFF,
+            0 0 150px #00AEFF;
+}
+
+button {
+    color: #D81F25;
+    text-shadow:
+            0 0 5px #D81F25,
+            0 0 10px #D81F25,
+            0 0 20px #D81F25,
+            0 0 40px #00AEFF,
+            0 0 80px #00AEFF,
+            0 0 90px #00AEFF,
+            0 0 100px #00AEFF,
+            0 0 150px #00AEFF;
+}
