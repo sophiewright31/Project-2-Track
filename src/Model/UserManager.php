@@ -8,8 +8,8 @@ class UserManager extends AbstractManager
 
     public function insert($userData)
     {
-        //role_id est hard codé : role de contributeur par défaut
-        $query = 'INSERT INTO user (pseudo, role_id, password, github, created_at, updated_at) VALUES (:pseudo, 1, :password, :github, NOW(), NOW())';
+        //role_id est hard codé : role de contributeur(2) par défaut
+        $query = 'INSERT INTO user (pseudo, role_id, password, github, created_at, updated_at) VALUES (:pseudo, 2, :password, :github, NOW(), NOW())';
         $statement = $this->pdo->prepare($query);
 
         $statement->bindValue(':pseudo', $userData['pseudo'], \PDO::PARAM_STR);
@@ -18,5 +18,15 @@ class UserManager extends AbstractManager
 
         $statement->execute();
         return $this->pdo->lastInsertId();
+    }
+
+    public function selectAll(string $orderBy = '', string $direction = 'DESC'): array
+    {
+        $query = 'SELECT pseudo, github, contribution_force, created_at, name
+                  FROM ' . static::TABLE . '
+                  JOIN role ON role.id = user.role_id
+                  ORDER BY ' . $orderBy . ' ' . $direction;
+
+        return $this->pdo->query($query)->fetchAll();
     }
 }
