@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Model\UserManager;
 
+use function Sodium\crypto_box_publickey_from_secretkey;
+
 class UserController extends AbstractController
 {
     public function add(): string
@@ -27,5 +29,13 @@ class UserController extends AbstractController
         return $this->twig->render('User/add.html.twig', [
             'errors' => $errors,
         ]);
+    }
+
+    public function all(): string
+    {
+        $userManager = new UserManager();
+        $users = $userManager->selectAll('contribution_force');
+
+        return $this->twig->render('User/all.html.twig', ['users' => $users]);
     }
 }

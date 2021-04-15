@@ -1,5 +1,6 @@
 body {
 background-color: var(--primary-color-black) ;
+    color:var(--text-color);
 }
 
 h1 {
