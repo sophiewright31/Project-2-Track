@@ -8,3 +8,7 @@ h1 {
     margin-top : var(--mg-h1-top);
 }
 
+.row {
+    margin-top: 8px;
+}
+

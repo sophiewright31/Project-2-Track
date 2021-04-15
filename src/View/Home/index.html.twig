@@ -8,8 +8,10 @@
 
         {% include 'component/_selectStyle.html.twig' %}
 
-        <div class="row">
 
+        <a class="btn btn-primary col-4 btn btn-danger" href="/addSong/add" role="button">Ajouter une chanson</a>
+
+        <div class="row">
             {% for video in videos %}
                 <div class="card">
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
