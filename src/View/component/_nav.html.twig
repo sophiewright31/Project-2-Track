@@ -1,33 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Logo</a>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/"><img src="/assets/images/logo.png" class="img-fluid" alt="Responsive image"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Battle<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">DJ Set</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Fighters</a>
+        <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" >
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#">Battle <i class="fas fa-headphones"></i></i></i><span class="sr-only">(current)</span></a>
+                <div></div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Connect
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                    <li><a class="dropdown-item" href="#">Sign up with GitHub</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Connect your account</a></li>
-                </ul>
+                <a class="nav-link" href="#">DJ Set <i class="fas fa-compact-disc"></i></a>
+                <div></div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="/User/all">Fighters <i class="fas fa-crown"></i></a>
+                <div></div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="/User/add" > Connexion <i class="far fa-user"></i></a>
+
             </li>
         </ul>
-        <form class="d-flex">
-            <input class="form-control mr-2" type="search" placeholder="Search a music" aria-label="Search">
-            <button class="btn btn-outline-danger" type="submit">Search</button>
-        </form>
     </div>
 </nav>
