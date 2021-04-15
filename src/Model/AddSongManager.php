@@ -8,7 +8,7 @@ class AddSongManager extends AbstractManager
     public function insert($songData)
     {
 
-        $query = 'INSERT INTO song (user_id, title, youtube_id, created_at) VALUES (:user_id, :title, :youtube_id, NOW())';
+        $query = 'INSERT INTO song (user_id, title, youtube_id, created_at, power) VALUES (:user_id, :title, :youtube_id, NOW(), 0)';
         $statement = $this->pdo->prepare($query);
         //TODO user_id hardcodé
         $statement->bindValue('user_id', 4,\PDO::PARAM_STR);
