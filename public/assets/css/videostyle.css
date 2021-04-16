@@ -1,0 +1,7 @@
+.video-row{
+    margin-top: var(--mg-between-vid-lines);
+}
+
+.card-body{
+    background-color: var(--primary-color-black);
+}

@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+{% block figthers %}
+
+<h1>Fighters</h1>
+    <div class="row user">
+    <ul>
+    {% for userData in users %}
+        <div class="col-12 video-row">
+    <li> Fighter : {{ userData.pseudo }} {% if userData.github %}- (Github : {{ userData.github }}){% endif %}</li>
+        {% if userData.contribution_force %}<li> Contributed {{ userData.contribution_force }} times</li>{% endif %}
+        <li> Role : {{ userData.name }}</li><br>
+        </div>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+

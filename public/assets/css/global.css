@@ -1,0 +1,14 @@
+body {
+background-color: var(--primary-color-black) ;
+    color:var(--text-color);
+}
+
+h1 {
+    color:var(--text-color);
+    margin-top : var(--mg-h1-top);
+}
+
+.row {
+    margin-top: 8px;
+}
+

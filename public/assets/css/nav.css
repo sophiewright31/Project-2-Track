@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
+
+.navbar-nav{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+}
+
+.img-fluid{
+    width:150px;
+    height:150px;
+}
+
+.nav-link{
+    font-size: 2em;
+    font-family: 'Train One', cursive;
+    letter-spacing: 0.15em;
+    text-shadow: var(--primary-color-red) 0px 0px 2px,
+    var(--primary-color-red) 0px 0px 5px,
+    var(--primary-color-red) 0px 0px 10px;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+    color:var(--text-color);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+    color:var(--text-color);
+}
+
+.nav-item::after {
+    background-color: var(--text-color) ;
+    box-shadow: var(--primary-color-red)  0px 0px 2px,
+    var(--primary-color-red)  0px 0px 4px,
+    var(--primary-color-red) 0px 0px 8px,
+    var(--primary-color-red) 0px 0px 15px;
+    content: "";
+    width: 0;
+    height:0.2px;
+    left: 0;
+    bottom: 0;
+    transition: width 0.35s ease 0s;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}

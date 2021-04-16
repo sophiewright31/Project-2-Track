@@ -1,5 +1,35 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Hello Wilder !</h1>
+    <div class="container-fluid">
+
+        <div class="row">
+        </div>
+
+        {% include 'component/_selectStyle.html.twig' %}
+
+
+        <a class="btn btn-primary col-4 btn btn-danger" href="/addSong/add" role="button">Ajouter une chanson</a>
+
+        <div class="row">
+            {% for video in videos %}
+                <div class="card">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
+                            id="video {{ video.id }}" allowfullscreen></iframe>
+                    <div class="card-body">
+                        <form method="POST" action="Force/raiseUpId/{{ video.id }}">
+                            <h5 class="card-title"> {{ video.title }}  Power : {{ video.power }}  </h5>
+                            <p class="card-text">Power : {{ video.power }}</p>
+                            <button type="submit" class="btn btn-primary" name="{{ video.id }}">POWER</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% block javascript %}
+    <script src="/assets/javascript/styleSelection.js"></script>
+    {% endblock %}
 {% endblock %}
