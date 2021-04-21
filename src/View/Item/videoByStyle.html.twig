@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="container-fluid">
+<div class="container-fluid">
 
     <div class="row" >
         <h1>{{ styleName[0]['name'] }}</h1>
@@ -13,20 +13,20 @@
         <h4>{{ videos | length }} songs trouvées</h4>
     {% else %}
         <h4> Aucun résultat </h4>
-     {% endif %}
+    {% endif %}
 
     <div class="row">
         {% for video in videos %}
-        <div class="col-3 video-row">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe width="200" height="200" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}"> </iframe>
+            <div class="col-3 video-row">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="200" height="200" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}"> </iframe>
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 
-{% endblock %}
+    {% endblock %}
 
-{% block javascript %}
-        <script src="/assets/javascript/styleSelection.js"></script>
+    {% block javascript %}
+    <script src="/assets/javascript/styleSelection.js"></script>
 {% endblock %}

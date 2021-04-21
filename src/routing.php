@@ -19,6 +19,6 @@ if (class_exists($controller) && method_exists(new $controller(), $method)) {
     echo (new $controller())->$method(...$vars);
 } else {
     header("HTTP/1.0 404 Not Found");
-    echo '404 - Page not found';
+    echo (new \App\Controller\PageNotFoundController())->pageNotFound();
     exit();
 }

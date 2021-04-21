@@ -26,7 +26,7 @@ class VideoController extends AbstractController
         $songStyleManager = new SongStyleManager();
         $styleManager = new StyleManager();
         $styles = $styleManager->selectAll();
-        $styleName = $styleManager->styleName($identifier);
+        $styleName = $styleManager->retrieveStyleName($identifier);
         $videos = $songStyleManager->selectByStyle($identifier);
         return $this->twig->render('Item/videoByStyle.html.twig', [
             'videos' => $videos,

@@ -12,3 +12,13 @@ h1 {
     margin-top: 8px;
 }
 
+.card{
+    background-color: var(--primary-color-black) ;
+}
+
+
+.modal-header, .modal-body, .modal-footer {
+    background-color: var(--primary-color-black) ;
+    border: var(--primary-color-black);
+}
+
