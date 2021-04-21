@@ -29,6 +29,15 @@
                     </div>
                     <input type="text" name="youtube_id" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
                 </div>
+                <h4> Choix du style (optionnel) </h4>
+                {% for style in styles %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{ style.id }}" name="style[]" id="defaultCheck1">
+                    <label class="form-check-label"  for="defaultCheck1">
+                        {{ style.name }}
+                    </label>
+                </div>
+                {% endfor %}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
