@@ -1,17 +1,42 @@
 {% extends 'layout.html.twig' %}
 {% block figthers %}
 
-<h1>Fighters</h1>
+    <h6 class="nav-link">Who is the best DJ of the month?</h6>
 
-    <ul class="row user">
-    {% for userData in users %}
-        <div class="col-12 video-row">
-    <li> Fighter : {{ userData.pseudo }} {% if userData.github %}- (Github : {{ userData.github }}){% endif %}</li>
-        {% if userData.contribution_force %}<li> Contributed {{ userData.contribution_force }} times</li>{% endif %}
-        <li> Role : {{ userData.name }}</li><br>
+    <nav aria-label="Page navigation example" class="container row">
+        <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
+            <ul class="pagination">
+
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                {% for userData in users %}
+
+                <li class="page-item">
+
+                    <div class="card card-fighters" style="width: 18rem;">
+                        <img src="/assets/images/dj.jpeg" class="card-img-top" alt="image of a DJ">
+                        <div class="card-body">
+                            <h5 class="card-title fighters-name">{{ userData.id }}{{ userData.pseudo }}</h5>
+                            <p class="card-text">{% if userData.github %}Github {{ userData.github }}{% endif %}</p>
+                            <p class="card-text">{% if userData.contribution_force %} Contributed {{ userData.contribution_force }} times{% endif %}</p>
+                            <p class="card-text">Role : {{ userData.name }}</p>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-    {% endfor %}
-    </ul>
+    </nav>
 
 {% endblock %}
 

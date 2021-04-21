@@ -13,9 +13,15 @@ h1 {
 }
 
 .card{
-    background-color: var(--primary-color-black) ;
+    background-color: var(--primary-color-black);
 }
 
+.card-fighters{
+    background-color: var(--primary-color-black);
+    border-width: thin;
+    border-color: var(--primary-color-blue);
+    border-radius: 10px;
+}
 
 .modal-header, .modal-body, .modal-footer {
     background-color: var(--primary-color-black) ;
