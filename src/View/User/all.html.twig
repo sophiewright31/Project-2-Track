@@ -2,8 +2,8 @@
 {% block figthers %}
 
 <h1>Fighters</h1>
-    <div class="row user">
-    <ul>
+
+    <ul class="row user">
     {% for userData in users %}
         <div class="col-12 video-row">
     <li> Fighter : {{ userData.pseudo }} {% if userData.github %}- (Github : {{ userData.github }}){% endif %}</li>
@@ -12,7 +12,7 @@
         </div>
     {% endfor %}
     </ul>
-</div>
+
 {% endblock %}
 
 
