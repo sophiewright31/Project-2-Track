@@ -20,8 +20,8 @@ class UserController extends AbstractController
             }
             if (empty($errors)) {
                 $userManager = new UserManager();
-                $users = array_map('trim', $_POST);
-                $userManager->insert($users);
+                $userData = array_map('trim', $_POST);
+                $userManager->insert($userData);
                 header('Location: /');
             }
         }
@@ -34,8 +34,8 @@ class UserController extends AbstractController
     public function all(): string
     {
         $userManager = new UserManager();
-        $users = $userManager->selectAll('contribution_force');
+        $userData = $userManager->selectAll('contribution_force');
 
-        return $this->twig->render('User/all.html.twig', ['users' => $users]);
+        return $this->twig->render('User/all.html.twig', ['users' => $userData]);
     }
 }
