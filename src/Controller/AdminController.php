@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\AdminManager;
 use App\Model\BadgeManager;
 
 class AdminController extends AbstractController
@@ -18,5 +19,14 @@ class AdminController extends AbstractController
         return $this->twig->render('admin/badges.html.twig', [
             'badges' => $badges
         ]);
+    }
+
+    public function delete(int $id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $adminManager = new AdminManager();
+            $adminManager->delete($id);
+            header('Location: /');
+        }
     }
 }
