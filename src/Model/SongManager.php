@@ -2,9 +2,16 @@
 
 namespace App\Model;
 
-class AddSongManager extends AbstractManager
+class SongManager extends AbstractManager
 {
     public const TABLE = 'song';
+
+    public function delete(int $id): void
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . static::TABLE . " WHERE id=:id");
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 
     public function insert($songData): int
     {
@@ -15,5 +22,12 @@ class AddSongManager extends AbstractManager
         $statement->bindValue('youtube_id', $songData['youtube_id']);
         $statement->execute();
         return(int)$this->pdo->lastInsertId();
+    }
+
+    public function updatePowerById($id): void
+    {
+        $statement = $this->pdo->prepare('UPDATE song SET power = power+1 WHERE id=:id');
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
     }
 }
