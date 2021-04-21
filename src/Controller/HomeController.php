@@ -76,8 +76,8 @@ class HomeController extends AbstractController
             }
 
             if (empty($errors)) {
-                $SongManager = new SongManager();
-                $SongManager->insert($_POST);
+                $songManager = new SongManager();
+                $songManager->insert($_POST);
                 header('Location: /');
             }
         }
