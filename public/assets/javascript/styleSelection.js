@@ -4,5 +4,9 @@ select.addEventListener('change', locationChange);
 
 function locationChange(e)
 {
-    window.location = '/Home/Style/' + e.target.value;
+    if (e.target.value === "Tous les Styles") {
+        window.location = '/';
+    } else {
+        window.location = '/Home/Style/' + e.target.value;
+    }
 }

@@ -13,7 +13,7 @@ class SongManager extends AbstractManager
         $statement->execute();
     }
 
-    public function insert($songData): int
+    public function insert($songData): void
     {
         $query = 'INSERT INTO song (user_id, youtube_id, created_at, updated_at, power)
                   VALUES (:user_id, :youtube_id, NOW(), NOW(), 0)';
@@ -21,7 +21,17 @@ class SongManager extends AbstractManager
         $statement->bindValue('user_id', $songData['user_id'], \PDO::PARAM_INT);
         $statement->bindValue('youtube_id', $songData['youtube_id']);
         $statement->execute();
-        return(int)$this->pdo->lastInsertId();
+        $id = $this->pdo->lastInsertId();
+        if (!empty($songData['style'])) {
+            foreach ($songData['style'] as $style) {
+                $query = 'INSERT INTO song_style (style_id, song_id)
+                      VALUES (:styleid, :songid)';
+                $statement = $this->pdo->prepare($query);
+                $statement->bindValue(':styleid', $style, \PDO::PARAM_INT);
+                $statement->bindValue(':songid', $id, \PDO::PARAM_INT);
+                $statement->execute();
+            }
+        }
     }
 
     public function updatePowerById($id): void
