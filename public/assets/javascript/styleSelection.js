@@ -4,5 +4,5 @@ select.addEventListener('change', locationChange);
 
 function locationChange(e)
 {
-    window.location = '/Video/Style/' + e.target.value;
+    window.location = '/Home/Style/' + e.target.value;
 }

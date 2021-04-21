@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\AdminManager;
+use App\Model\SongManager;
 use App\Model\BadgeManager;
 
 class AdminController extends AbstractController
@@ -24,7 +24,7 @@ class AdminController extends AbstractController
     public function delete(int $id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $adminManager = new AdminManager();
+            $adminManager = new SongManager();
             $adminManager->delete($id);
             header('Location: /');
         }
