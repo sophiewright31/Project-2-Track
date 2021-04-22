@@ -15,25 +15,28 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="">
+            <form method="post" action="addBadge">
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Nom</span>
+                            {{ errors.name }}
                         </div>
-                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" name="name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Image</span>
+                            {{ errors.picture_url }}
                         </div>
-                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" name="picture_url" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                            {{ errors.description }}
                         </div>
-                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" name="description" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
                 <div class="modal-footer">
