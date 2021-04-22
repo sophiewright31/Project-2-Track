@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\AbstractManager;
 use App\Model\SongManager;
 use App\Model\BadgeManager;
 use App\Model\UserBadgeManager;
@@ -68,5 +69,27 @@ class AdminController extends AbstractController
         }
         //If don't come from a post go to error 404
         return $this->twig->render('error/error404.html.twig');
+    }
+    public function addBadge()
+    {
+        $errors = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (empty($_POST['name'])) {
+                $errors['name'] = 'Please enter your badge name';
+            }
+            if (empty($_POST['picture_url'])) {
+                $errors['picture_url'] = 'Please enter your picture URL';
+            }
+            if (empty($_POST['description'])) {
+                $errors['description'] = 'Please enter your badge description';
+            }
+
+            if (empty($errors)) {
+                $badgeManager = new BadgeManager();
+                $badgeManager->insert($_POST);
+                header('Location: /admin/showAllBadges');
+            }
+        }
+
     }
 }
