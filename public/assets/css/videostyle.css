@@ -5,3 +5,7 @@
 .card-body{
     background-color: var(--primary-color-black);
 }
+.avatar-github {
+    height: 32px;
+    width: auto;
+}
