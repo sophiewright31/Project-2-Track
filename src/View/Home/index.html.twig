@@ -9,6 +9,23 @@
 
 
         {% include 'component/_selectStyle.html.twig' %}
+        <div class="row">
+            {% for topSong in topSongs %}
+
+                <div class="card">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ topSong.youtube_id }}"
+                            id="video {{ topSong.id }}" allowfullscreen></iframe>
+                    <div class="card-body">
+                        <form method="POST" action="/Home/powerUpById/{{ topSong.id }}">
+                            <h5 class="card-title"> {{ topSong.title }}  Power : {{ topSong.power }}  </h5>
+                            <p class="card-text">Post by : {{ topSong.pseudo }}</p>
+                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ topSong.github }}">
+                            <button type="submit" class="btn btn-primary" name="{{ topSong.id }}">POWER</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
 
         <div class="row">

@@ -22,7 +22,7 @@ class ConnectController extends AbstractController
                 $userManager = new UserManager();
                 $userData = array_map('trim', $_POST);
                 $userManager->insert($userData);
-                header('Location: /');
+                header('Location: /DJSet/index');
             }
         }
 

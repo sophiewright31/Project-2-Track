@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use App\Model\AbstractManager;
 use App\Model\SongStyleManager;
 use App\Model\StyleManager;
 use App\Model\SongManager;
@@ -32,12 +33,15 @@ class HomeController extends AbstractController
     {
         $songManager = new SongManager();
         $styleManager = new StyleManager();
+        $topManager = new SongManager();
         $songs = $songManager->selectAll();
         $styles = $styleManager->selectAll();
+        $topSongs = $topManager->selectAllTopSong('song.power');
 
         return $this->twig->render('Home/index.html.twig', [
             'videos' => $songs,
             'styles' => $styles,
+            'topSongs' => $topSongs,
         ]);
     }
 

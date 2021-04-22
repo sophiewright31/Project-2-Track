@@ -1,38 +1,35 @@
 {% extends 'layout.html.twig' %}
-{% block signin %}
+{% block signIn %}
 
-    {% block form %} <h1>Utilisez ce formulaire pour vous inscrire :</h1>
-        <form method="post" action="add">
-            <div class="col-5 input-group mb-3 user">
-                <div class="form-floating mb-3">
-                    <label for="pseudo" class="form-label">Pseudo</label>
-                    <input type="text" class="form-control" id="pseudo" name="pseudo">
-                    {{ errors.pseudo }}
-                </div>
-                <div class="form-floating mb-3">
-                    <label for="github" class="form-label">github</label>
-                    <input type="text" class="form-control" id="github" name="github">
-                </div>
-                <div class="form-floating mb-3">
-                    <label for="inputPassword5" class="form-label">Password</label>
-                    <input type="password" id="inputPassword5" class="form-control"
-                           aria-describedby="passwordHelpBlock" name="password">
-                    {{ errors.password}}
-                    <div id="passwordHelpBlock" class="form-text">
-                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain
-                        spaces, special characters, or emoji.
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="contributeur"
-                           aria-label="readonly input example" name="role_id" readonly>
-                </div>
-            <div class="form-floating mb-3">
-            <button type="submit" class="btn btn-primary">Submit</button>
+    {% block form %}
+        <form class="container" method="post" action="add">
+
+            <h4 class="nav-link"> INSCRIVEZ-VOUS</h4>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
+                <label for="pseudo" class="form-label" id="floatingInputGrid">Pseudo*</label>
+                <input type="text" class="form-control" id="pseudo" name="pseudo">
+                <div class="blockquote-footer">{{ errors.pseudo }}</div>
             </div>
 
-        </form>
+            <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
+                <label for="github" class="form-label" id="floatingInputGrid">Pseudo github</label>
+                <input type="text" class="form-control" id="github" name="github">
+                <div class="blockquote-footer">Pour affichage de votre avatar</div>
+            </div>
 
+            <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
+                <label for="inputPassword5" class="form-label" id="floatingInputGrid">Password*</label>
+                <input type="password" id="inputPassword5" class="form-control"
+                       aria-describedby="passwordHelpBlock" name="password">
+                <div class="blockquote-footer">{{ errors.password }}</div>
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
+                <button type="submit" class="btn-danger"> ENVOYER</button>
+            </div>
+        </form>
     {% endblock %}
 
 {% endblock %}
