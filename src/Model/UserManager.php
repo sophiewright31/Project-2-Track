@@ -22,7 +22,7 @@ class UserManager extends AbstractManager
 
     public function selectAll(string $orderBy = '', string $direction = 'DESC'): array
     {
-        $query = 'SELECT pseudo, github, contribution_force, created_at, name
+        $query = 'SELECT user.id, pseudo, github, contribution_force, created_at, name
                   FROM ' . static::TABLE . '
                   JOIN role ON role.id = user.role_id
                   ORDER BY ' . $orderBy . ' ' . $direction;

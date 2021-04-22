@@ -20,6 +20,15 @@
     var(--primary-color-red) 0px 0px 10px;
 }
 
+.fighters-name{
+    font-size: 1em;
+    font-family: 'Train One', cursive;
+    letter-spacing: 0.15em;
+    text-shadow: var(--primary-color-red) 0px 0px 1px,
+    var(--primary-color-red) 0px 0px 5px,
+    var(--primary-color-red) 0px 0px 10px;
+}
+
 .navbar-dark .navbar-nav .nav-link{
     color:var(--text-color);
 }
