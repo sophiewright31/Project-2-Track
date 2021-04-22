@@ -40,4 +40,13 @@ class SongManager extends AbstractManager
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }
+    public function selectAllTopSong(string $orderBy = '', string $direction = 'DESC'): array
+    {
+        $query = 'SELECT youtube_id, power, user.pseudo, user.github, song.id 
+                  FROM ' . self::TABLE . '
+                  JOIN user ON song.user_id = user.id
+                  ORDER BY ' . $orderBy . ' ' . $direction . ' LIMIT 3';
+
+        return $this->pdo->query($query)->fetchAll();
+    }
 }
