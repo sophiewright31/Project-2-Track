@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    <h1>Gestion des Badges</h1>
+    </div>
+
+    {% if errors|length > 0 %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Erreur rencontrée !</strong> <br>
+        <ul>
+        {% for key,message in errors %}
+            <li> {{ message }} </li>
+        {% endfor %}
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% if success_badge_attribute %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong> Badge attribué au DJ !</strong> <br>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+    {% include 'component/_addbadge.html.twig' %}
+
+    {% include 'component/_attributebadge.html.twig' %}
+
+
+    <div class="row justify-content-center">
+        {% for badge in badges %}
+            <div class="card col-3" style="width: 18rem;">
+                <img src="{{ badge.picture_url}}" class="card-img-top" alt="image du badge : {{ badge.name}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ badge.name}}</h5>
+                    <p class="card-text">{{ badge.description}}</p>
+                    <a href="#" class="btn btn-primary">Update</a>
+                    <a href="#" class="btn btn-primary">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

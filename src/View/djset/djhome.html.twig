@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <h1>Sara</h1>
+    <div class="row nav-link">
+        <button type="button" class="btn nav-link" data-toggle="modal" data-target="#onAir">
+            On Air
+        </button>
+        <a href="logout.html.twig" >Disconnect</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="onAir" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h5 class="modal-title" id="exampleModalLongTitle">CONNEXION REUSSIE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'component/_addsong.html.twig' %}
+
+
+
+
+
+
+{% endblock %}

@@ -6,7 +6,7 @@ use App\Model\UserManager;
 
 use function Sodium\crypto_box_publickey_from_secretkey;
 
-class UserController extends AbstractController
+class ConnectController extends AbstractController
 {
     public function add(): string
     {
@@ -20,9 +20,9 @@ class UserController extends AbstractController
             }
             if (empty($errors)) {
                 $userManager = new UserManager();
-                $users = array_map('trim', $_POST);
-                $userManager->insert($users);
-                header('Location: /');
+                $userData = array_map('trim', $_POST);
+                $userManager->insert($userData);
+                header('Location: /DJSet/index');
             }
         }
 
@@ -34,8 +34,8 @@ class UserController extends AbstractController
     public function all(): string
     {
         $userManager = new UserManager();
-        $users = $userManager->selectAll('contribution_force');
+        $userData = $userManager->selectAll('contribution_force');
 
-        return $this->twig->render('User/all.html.twig', ['users' => $users]);
+        return $this->twig->render('User/all.html.twig', ['users' => $userData]);
     }
 }

@@ -4,7 +4,8 @@
             <label class="input-group-text" for="inputGroupSelect01">Style</label>
         </div>
         <select class="custom-select" id="stylefilter">
-            <option selected>Liste des Styles</option>
+            <option selected>Choisir un style</option>
+            <option name="allstyle">Tous les Styles</option>
             {% for style in styles %}
                 <option name="{{ style.name}}" value="{{ style.identifier}}">{{ style.name}}</option>
             {% endfor %}

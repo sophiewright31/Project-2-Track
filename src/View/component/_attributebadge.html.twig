@@ -1,0 +1,42 @@
+<div class="row">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attributeBadge">
+        Attribuer un Badge
+    </button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="attributeBadge" tabindex="-1" role="dialog" aria-labelledby="attributeBadgeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="attributeBadgeLabel">Attribuer un badge</h5>
+                <button type="button" class="close bg-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="/admin/attributeBadgeToUser">
+                <div class="modal-body">
+                    <select name="user_id" class="form-select" aria-label="Default select example">
+                        <option selected>Choisir le User</option>
+                        {% for user in users %}
+                        <option  value="{{ user.id }}">{{ user.pseudo }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select class="form-select" name="badge_id" aria-label="Default select example">
+                        <option selected>Choisir le badge</option>
+                        {% for badge in badges %}
+                            <option  value="{{ badge.id }}">{{ badge.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Attribuer le Badge !</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

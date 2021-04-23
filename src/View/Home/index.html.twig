@@ -3,13 +3,34 @@
 {% block content %}
     <div class="container-fluid">
 
-        <div class="row">
-        </div>
+
+
+
+
 
         {% include 'component/_selectStyle.html.twig' %}
+        <a href="/admin/index">
+            <button type="button" class="btn btn-primary">Admin</button>
+        </a>
 
+        <div class="row">
+            {% for topSong in topSongs %}
 
-        <a class="btn btn-primary col-4 btn btn-danger" href="/addSong/add" role="button">Ajouter une chanson</a>
+                <div class="card">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ topSong.youtube_id }}"
+                            id="video {{ topSong.id }}" allowfullscreen></iframe>
+                    <div class="card-body">
+                        <form method="POST" action="/Home/powerUpById/{{ topSong.id }}">
+                            <h5 class="card-title"> {{ topSong.title }}  Power : {{ topSong.power }}  </h5>
+                            <p class="card-text">Post by : {{ topSong.pseudo }}</p>
+                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ topSong.github }}">
+                            <button type="submit" class="btn btn-primary" name="{{ topSong.id }}">POWER</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
 
         <div class="row">
             {% for video in videos %}
@@ -17,10 +38,13 @@
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
                             id="video {{ video.id }}" allowfullscreen></iframe>
                     <div class="card-body">
-                        <form method="POST" action="Force/raiseUpId/{{ video.id }}">
-                            <h5 class="card-title"> {{ video.title }}  Power : {{ video.power }}  </h5>
-                            <p class="card-text">Power : {{ video.power }}</p>
+                        <form method="POST" action="/Home/powerUpById/{{ video.id }}">
+                            <h5 class="card-title"> Power : {{ video.power }}  </h5>
+                            <p class="card-text">Texte ??</p>
                             <button type="submit" class="btn btn-primary" name="{{ video.id }}">POWER</button>
+                        </form>
+                        <form method="POST" action="Admin/delete/{{ video.id }}">
+                            <button type="submit" class="btn btn-primary" name="{{ video.id }}">DELETE</button>
                         </form>
                     </div>
                 </div>
