@@ -11,7 +11,7 @@
     height:150px;
 }
 
-.nav-link, .modal-title{
+.nav-link, .modal-title, h1{
     font-size: 2em;
     font-family: 'Train One', cursive;
     letter-spacing: 0.15em;
