@@ -1,11 +1,11 @@
 <div class="row" >
-    <div class="col-5 input-group mb-3">
+    <div class="col-3 input-group mb-3">
         <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Style</label>
         </div>
         <select class="custom-select" id="stylefilter">
             <option selected>Choisir un style</option>
-            <option name="allstyle">Tous les Styles</option>
+            <option name="Allstyle">Tous les Styles</option>
             {% for style in styles %}
                 <option name="{{ style.name}}" value="{{ style.identifier}}">{{ style.name}}</option>
             {% endfor %}

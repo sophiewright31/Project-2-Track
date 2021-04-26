@@ -9,17 +9,39 @@
 
     {% include 'component/_selectStyle.html.twig' %}
 
-    {% if (videos | length) > 0 %}
+    {% if (videos | length) > 1 %}
         <h4>{{ videos | length }} songs trouvées</h4>
+    {% elseif (videos | length) == 1 %}
+        <h4>{{ videos | length }} song trouvée</h4>
     {% else %}
-        <h4> Aucun résultat </h4>
+        <h4>Aucun résultat</h4>
     {% endif %}
 
     <div class="row">
         {% for video in videos %}
-            <div class="col-3 video-row">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe width="200" height="200" src="https://www.youtube.com/embed/{{ video.youtube_id }}" id="video {{ video.id }}"> </iframe>
+            <div class="card card-fighters col-3">
+                <div class="card-header p-0 d-flex justify-content-between">
+                    <div >
+                        <form method="POST" class="d-inline" action="/Home/powerUpById/{{ video.id }}">
+                            <button type="submit" class="power-button " name="{{ video.id }}"><i class="fas fa-bolt"></i></button>
+                        </form>
+                        <p class="d-inline power">
+                            {% if video.power >= 1000000000 %}
+                                {{ (video.power/1000000000)|round(1, 'floor')  }}G
+                            {% elseif video.power >= 1000000 %}
+                                {{ (video.power/1000000)|round(1, 'floor')  }}M
+                            {% elseif video.power >= 1000 %}
+                                {{ (video.power/1000)|round(1, 'floor') }}K
+                            {% else %}
+                                {{ video.power }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ video.github }}">
+                </div>
+                <div class="embed-responsive embed-responsive-21by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
+                            id="video {{ video.id }}" allowfullscreen></iframe>
                 </div>
             </div>
         {% endfor %}

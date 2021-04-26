@@ -4,7 +4,7 @@ select.addEventListener('change', locationChange);
 
 function locationChange(e)
 {
-    if (e.target.value === "Tous les Styles") {
+    if (e.target.selectedOptions[0].getAttribute('name') === "Allstyle") {
         window.location = '/';
     } else {
         window.location = '/Home/Style/' + e.target.value;
