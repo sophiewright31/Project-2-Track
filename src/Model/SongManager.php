@@ -49,4 +49,15 @@ class SongManager extends AbstractManager
 
         return $this->pdo->query($query)->fetchAll();
     }
+
+    public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
+    {
+        $query = 'SELECT s.id, s.youtube_id, s.power, s.created_at, s.updated_at, u.github  
+                  FROM song s
+                  JOIN user u on u.id = s.user_id';
+        if ($orderBy) {
+            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+        }
+        return $this->pdo->query($query)->fetchAll();
+    }
 }

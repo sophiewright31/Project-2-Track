@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Model\AbstractManager;
 use App\Model\SongManager;
 use App\Model\BadgeManager;
 use App\Model\UserBadgeManager;
 use App\Model\UserManager;
 use App\Service\Badge\BadgeValidator;
+use App\Controller\ErrorHandleController;
 
 class AdminController extends AbstractController
 {
@@ -68,7 +68,8 @@ class AdminController extends AbstractController
             ]);
         }
         //If don't come from a post go to error 404
-        return $this->twig->render('error/error404.html.twig');
+        header("HTTP/1.0 405 Method Not Allowed");
+        return (new ErrorHandleController())->badMethod();
     }
     public function addBadge()
     {
@@ -90,6 +91,5 @@ class AdminController extends AbstractController
                 header('Location: /admin/showAllBadges');
             }
         }
-
     }
 }

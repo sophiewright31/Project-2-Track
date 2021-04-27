@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Model\UserManager;
 
-use function Sodium\crypto_box_publickey_from_secretkey;
-
 class ConnectController extends AbstractController
 {
     public function add(): string
