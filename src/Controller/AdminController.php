@@ -37,6 +37,15 @@ class AdminController extends AbstractController
         }
     }
 
+    public function deleteBadge(int $id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $badgeManager = new BadgeManager();
+            $badgeManager->delete($id);
+            header('Location: /admin/showAllBadges');
+        }
+    }
+
     public function attributeBadgeToUser(): string
     {
         // For twig
