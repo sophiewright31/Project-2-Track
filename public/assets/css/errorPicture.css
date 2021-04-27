@@ -1,0 +1,5 @@
+.error {
+    border-radius: 10%;
+    box-shadow: 0 0 15px 15px var(--primary-color-black) inset;
+    width: 50em;
+}

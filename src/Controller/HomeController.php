@@ -75,7 +75,6 @@ class HomeController extends AbstractController
             parse_str($urlString, $args);
             if (isset($args['v'])) {
                 $_POST['youtube_id'] = $args['v'];
-                echo $args['v'];
             } else {
                 $errors['youtube_id'] = 'Please enter a valid youtube URL';
             }
