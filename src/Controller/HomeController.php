@@ -32,6 +32,7 @@ class HomeController extends AbstractController
     public function all(): string
     {
         $songManager = new SongManager();
+        $_SESSION['login'] = 'test';
         $styleManager = new StyleManager();
         $topManager = new SongManager();
         $songs = $songManager->selectAll();
