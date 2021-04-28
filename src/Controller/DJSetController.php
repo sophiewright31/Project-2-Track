@@ -24,5 +24,4 @@ class DJSetController extends AbstractController
             return $this->twig->render('djset/connect.html.twig');
         }
     }
-
 }

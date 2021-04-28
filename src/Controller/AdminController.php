@@ -130,7 +130,7 @@ class AdminController extends AbstractController
         return (new ErrorHandleController())->badMethod();
     }
 
-    public function Stat()
+    public function stat()
     {
         if (isset($_SESSION["role"])) {
             if ($_SESSION["role"] === 'admin') {
@@ -148,8 +148,7 @@ class AdminController extends AbstractController
                         'monthlySongs' => $monthlySongs,
                         'dailySongs' => $dailySongs,
                     ]);
-                }
             }
+        }
     }
-
 }
