@@ -27,4 +27,18 @@ class UserManager extends AbstractManager
                 JOIN role as r ON r.id = u.role_id';
         return $this->pdo->query($query)->fetchAll();
     }
+
+    public function showNbUser()
+    {
+        $query = 'SELECT count(pseudo) FROM ' . self::TABLE;
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+    public function showNbUserByMonth()
+    {
+        $thisMonth = date("Y-m");
+        $query = 'SELECT count(pseudo) FROM ' . self::TABLE . '
+                WHERE DATE_FORMAT(created_at, "%Y-%m") = "' . $thisMonth . '"';
+        return $this->pdo->query($query)->fetchAll();
+    }
 }
