@@ -6,11 +6,11 @@ class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
 
-    public function insert($userData)
+    public function addUser($userData)
     {
         //TODO role_id est hard codé : role de contributeur(2) par défaut
-        $query = 'INSERT INTO user (pseudo, role_id, password, github, created_at, updated_at)
-                  VALUES (:pseudo, 2, :password, :github, NOW(), NOW())';
+        $query = 'INSERT INTO user (pseudo, role_id, password, github, created_at, updated_at, contribution_force)
+                  VALUES (:pseudo, 2, :password, :github, NOW(), NOW(), 0)';
         $statement = $this->pdo->prepare($query);
 
         $statement->bindValue(':pseudo', $userData['pseudo']);
@@ -45,5 +45,17 @@ class UserManager extends AbstractManager
         $query = 'SELECT u.id, u.pseudo, u.password, u.github, r.identifier FROM user as u
                 JOIN role as r ON r.id = u.role_id';
         return $this->pdo->query($query)->fetchAll();
+    }
+
+    public function selectStatsContributor(int $id)
+    {
+        $query = 'SELECT u.contribution_force, u.github, u.pseudo, count(s.youtube_id)
+                FROM user u
+                LEFT JOIN song s ON u.id = s.user_id
+                WHERE u.id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
     }
 }

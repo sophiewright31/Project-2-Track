@@ -2,39 +2,58 @@
 
 namespace App\Service\Badge;
 
+use DateTime;
 use App\Model\UserBadgeManager;
 
 class GamificationCalculator
 {
 
+
     public function badgePower($contributionPower, $userId): string
     {
         $badgeName = '';
+        $userBadgeManager = new UserBadgeManager();
+        $badgeCheck = new BadgeValidator();
         switch ($contributionPower) {
             case 5:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '5 power given';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 100:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '100 power given';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 10000:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '10000 power given';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 100000:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '100000 power given';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 1000000:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '1000000 power given';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
         }
         return $badgeName;
@@ -43,32 +62,87 @@ class GamificationCalculator
     public function badgeSongs($songsPosted, $userId): string
     {
         $badgeName = '';
+        $badgeCheck = new BadgeValidator();
+        $userBadgeManager = new UserBadgeManager();
         switch ($songsPosted) {
             case 1:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '1 music shared';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 5:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '5 musics shared';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 10:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '10 musics shared';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 50:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '50 musics shared';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
             case 100:
-                $userBadgeManager = new UserBadgeManager();
                 $badgeName = '100 musics shared';
-                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                    $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+                } else {
+                    $badgeName = '';
+                }
                 break;
+        }
+        return $badgeName;
+    }
+
+    public function powerBadgeByNight(int $userId): string
+    {
+        $badgeName = '';
+        $date = new DateTime();
+        $hour = intval($date->format("H"));
+
+        if ($hour >= 2 && $hour <= 5) {
+            $badgeName = 'Sleepy Vote';
+            $badgeCheck = new BadgeValidator();
+            $userBadgeManager = new UserBadgeManager();
+            if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+            } else {
+                $badgeName = '';
+            }
+        }
+        return $badgeName;
+    }
+
+    public function powerBadgeWeekEnd(int $userId): string
+    {
+        $badgeName = '';
+        $date = new DateTime();
+        $day = $date->format("D");
+
+        if ($day === 'Sun' || $day === 'Sat') {
+            $badgeName = 'Weekend vote';
+            $badgeCheck = new BadgeValidator();
+            $userBadgeManager = new UserBadgeManager();
+            if (!$badgeCheck->checkDuplicateByName($userId, $badgeName)) {
+                $userBadgeManager->attributeByBadgeName($badgeName, $userId);
+            } else {
+                $badgeName = '';
+            }
         }
         return $badgeName;
     }

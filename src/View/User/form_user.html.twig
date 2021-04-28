@@ -1,28 +1,43 @@
 {% extends 'layout.html.twig' %}
-{% block signIn %}
+{% block content %}
 
-    {% block form %}
-        <form class="container" method="post" action="sign">
+        <form class="container" method="post" action="signIn">
 
             <h4 class="nav-link"> INSCRIVEZ-VOUS</h4>
 
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="pseudo" class="form-label" id="floatingInputGrid">Pseudo*</label>
-                <input type="text" class="form-control" id="pseudo" name="pseudo">
-                <div class="blockquote-footer">{{ errors.pseudo }}</div>
+                <input type="text" class="form-control" id="pseudo" name="pseudo" maxlength="100" required>
+                {% if  errors.pseudo != '' %}
+                <div class="alert-danger" role="alert">{{ errors.pseudo }}</div>
+                {% endif %}
+                {% if  errors.pseudoAlreadyUsed != '' %}
+                    <div class="alert-danger" role="alert">Pseudo déjà utilisé ! Vous devez trouver une autre idée !</div>
+                {% endif %}
+                {% if  errors.pseudoLength  %}
+                    <div class="alert-danger" role="alert">La longueur max de pseudo est de 100 caractères !</div>
+                {% endif %}
             </div>
 
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="github" class="form-label" id="floatingInputGrid">Pseudo github</label>
-                <input type="text" class="form-control" id="github" name="github">
+                <input type="text" class="form-control" id="github" name="github" maxlength="100">
                 <div class="blockquote-footer">Pour affichage de votre avatar</div>
+                {% if  errors.githubLength  %}
+                    <div class="alert-danger" role="alert">La longueur max du pseudo github est de 100 caractères !</div>
+                {% endif %}
             </div>
 
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="inputPassword5" class="form-label" id="floatingInputGrid">Password*</label>
                 <input type="password" id="inputPassword5" class="form-control"
-                       aria-describedby="passwordHelpBlock" name="password">
-                <div class="blockquote-footer">{{ errors.password }}</div>
+                       aria-describedby="passwordHelpBlock" name="password" maxlength="255" required>
+                {% if  errors.password != '' %}
+                    <div class="alert-danger" role="alert">{{ errors.password }}</div>
+                {% endif %}
+                {% if  errors.passwordLength %}
+                    <div class="alert-danger" role="alert">La longueur max de password est de 255 caractères !</div>
+                {% endif %}
             </div>
 
 
@@ -30,7 +45,6 @@
                 <button type="submit" class="btn-danger"> ENVOYER</button>
             </div>
         </form>
-    {% endblock %}
 
 {% endblock %}
 

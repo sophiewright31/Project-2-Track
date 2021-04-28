@@ -3,7 +3,6 @@
 
     {% include 'component/_badge_success.html.twig' %}
 
-
     <h1>Hello DJ</h1>
 
     <div class="row nav-link">
@@ -28,8 +27,8 @@
     </div>
 
     {% include 'component/_addsong.html.twig' %}
-    <h2>{{ djStat.pseudo }}</h2>
-    <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djStat.github }}">
+    <h2>{{ djStats.pseudo }}</h2>
+    <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djStats.github }}">
 
 
 {% endblock %}

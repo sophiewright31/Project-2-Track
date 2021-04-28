@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Model\SongManager;
-use App\Model\DJSetManager;
 use App\Model\StyleManager;
+use App\Model\UserManager;
 use App\Service\Badge\GamificationCalculator;
 
 class DJSetController extends AbstractController
@@ -13,14 +13,13 @@ class DJSetController extends AbstractController
     {
         if (isset($_SESSION['id'])) {
             $id = $_SESSION['id'];
-            $djSetManager = new DJSetManager();
+            $userManager = new UserManager();
             $styleManager = new StyleManager();
             $styles = $styleManager->selectAll();
-            $djStats = $djSetManager->selectStatsContributor($id);
+            $djStats = $userManager->selectStatsContributor($id);
             return $this->twig->render('djset/djhome.html.twig', [
-                'djStat' => $djStats,
+                'djStats' => $djStats,
                 'styles' => $styles,
-                'user_id' => $_SESSION['id']
             ]);
         } else {
             return $this->twig->render('djset/connect.html.twig');
@@ -29,11 +28,8 @@ class DJSetController extends AbstractController
 
     public function addSong(): string
     {
-        $errors = [];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (empty($_POST['user_id'])) {
-                $errors['user_id'] = 'Please enter your id';
-            }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id'])) {
+            $errors = [];
             if (empty($_POST['youtube_id'])) {
                 $errors['youtube_id'] = 'Please enter your youtube URL';
             }
@@ -45,29 +41,41 @@ class DJSetController extends AbstractController
             } else {
                 $errors['youtube_id'] = 'Please enter a valid youtube URL';
             }
+            $id = $_SESSION['id'];
+            $_POST['user_id'] = $id;
+            $styleManager = new StyleManager();
+            $userManager = new UserManager();
+            $djStats = $userManager->selectStatsContributor($id);
+            $styles = $styleManager->selectAll();
+
 
             if (empty($errors)) {
-                $styleManager = new StyleManager();
                 $songManager = new SongManager();
                 $gamificationService = new GamificationCalculator();
-                $songManager->insert($_POST);
-                //TODO ICI ON PLACE LA GAMIFICATION
-                //TODO 1- Récupère le nb chanson posté par le user
-                $userId = $_POST['user_id'];
-                $songPosted = $songManager->songPostedByUser($userId);
-                $badgeName = $gamificationService->badgeSongs($songPosted['countSongs'], $userId);
+                $songData = $_POST;
+                $songData['user_id'] = $id;
+                $songManager->insert($songData);
 
-                $styles = $styleManager->selectAll();
+                $badges = [];
+                $userId = $_SESSION['id'];
+                $songPosted = $songManager->songPostedByUser($userId);
+                $badges[] = $gamificationService->badgeSongs($songPosted['countSongs'], $userId);
 
                 return $this->twig->render('djset/djhome.html.twig', [
                     'styles' => $styles,
-                    'badgeName' => $badgeName,
+                    'badges' => $badges,
+                    'djStats' => $djStats,
                 ]);
             }
+            //TODO modifier le chemin pour affichage des erreurs
+            return $this->twig->render('djset/djhome.html.twig', [
+                'errors' => $errors,
+                'styles' => $styles,
+                'djStats' => $djStats,
+            ]);
         }
-        //TODO modifier le chemin pour affichage des erreurs
-        return $this->twig->render('djset/djhome.html.twig', [
-            'errors' => $errors,
-        ]);
+        //If don't come from a post go to error 405
+        header("HTTP/1.0 405 Method Not Allowed");
+        return (new ErrorHandleController())->badMethod();
     }
 }

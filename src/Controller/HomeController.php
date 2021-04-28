@@ -55,12 +55,15 @@ class HomeController extends AbstractController
 
         $songManager->updatePowerById($id);
         //TODO  /!\ USER ID HARDCODER /!\
-        $userID = 6;
-        $userManager->powerUpById($userID);
-        $userPower = $userManager->powerByUser($userID);
-        $gamificationService = new GamificationCalculator();
-        $badgeName = $gamificationService->badgePower($userPower['contribution_force'], $userID);
-
+        $badges = [];
+        if (!empty($_SESSION)) {
+            $userManager->powerUpById($_SESSION['id']);
+            $userPower = $userManager->powerByUser($_SESSION['id']);
+            $gamificationService = new GamificationCalculator();
+            $badges[] = $gamificationService->badgePower($userPower['contribution_force'], $_SESSION['id']);
+            $badges[] = $gamificationService->powerBadgeWeekEnd($_SESSION['id']);
+            $badges[] = $gamificationService->powerBadgeByNight($_SESSION['id']);
+        }
         $songs = $songManager->selectAll();
         $styles = $styleManager->selectAll();
         $topSongs = $songManager->selectAllTopSong('song.power');
@@ -69,7 +72,7 @@ class HomeController extends AbstractController
             'videos' => $songs,
             'styles' => $styles,
             'topSongs' => $topSongs,
-            'badgeName' => $badgeName,
+            'badges' => $badges,
         ]);
     }
 }
