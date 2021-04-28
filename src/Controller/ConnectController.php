@@ -44,7 +44,7 @@ class ConnectController extends AbstractController
     public function all(): string
     {
         $userManager = new UserManager();
-        $userData = $userManager->selectAll('contribution_force');
+        $userData = $userManager->selectAll('contribution_force', 'DESC');
 
         return $this->twig->render('User/all.html.twig', ['users' => $userData]);
     }
