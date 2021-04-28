@@ -8,6 +8,7 @@ use App\Model\UserBadgeManager;
 use App\Model\UserManager;
 use App\Service\Badge\BadgeValidator;
 use App\Controller\ErrorHandleController;
+use App\Service\Badge\GamificationCalculator;
 
 class AdminController extends AbstractController
 {

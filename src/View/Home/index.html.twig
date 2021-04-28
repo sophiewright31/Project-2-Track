@@ -7,6 +7,7 @@
         </a>
 
         <h1> TOP SONGS </h1>
+        {% include 'component/_badge_success.html.twig' %}
 
 
         {% include 'component/_podium.html.twig' %}
@@ -14,27 +15,12 @@
 
         <h1> Catalogue de chanson du mois </h1>
 
-        {% include 'component/_selectStyle.html.twig' %}
+        {% include 'component/_select_style.html.twig' %}
         <div class="row">
             {% for video in videos %}
             <div class="card card-fighters col-3">
                 <div class="card-header p-0 d-flex justify-content-between">
-                    <div >
-                        <form method="POST" class="d-inline" action="/Home/powerUpById/{{ video.id }}">
-                            <button type="submit" class="power-button " name="{{ video.id }}"><i class="fas fa-bolt"></i></button>
-                        </form>
-                        <p class="d-inline power">
-                           {% if video.power >= 1000000000 %}
-                            {{ (video.power/1000000000)|round(1, 'floor')  }}G
-                            {% elseif video.power >= 1000000 %}
-                                {{ (video.power/1000000)|round(1, 'floor')  }}M
-                            {% elseif video.power >= 1000 %}
-                                {{ (video.power/1000)|round(1, 'floor') }}K
-                            {% else %}
-                                {{ video.power }}
-                            {% endif %}
-                                </p>
-                    </div>
+                    {% include 'component/_power_button.html.twig' %}
                     <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ video.github }}">
                 </div>
                 <div class="embed-responsive embed-responsive-21by9">

@@ -9,27 +9,15 @@
 
 namespace App\Controller;
 
-use App\Model\AbstractManager;
 use App\Model\SongStyleManager;
 use App\Model\StyleManager;
 use App\Model\SongManager;
+use App\Model\UserManager;
+use App\Service\Badge\GamificationCalculator;
 
 class HomeController extends AbstractController
 {
-    /**
-     * Display home page
-     *
-     * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function index()
-    {
-        return $this->twig->render('Home/index.html.twig');
-    }
-
-    public function all(): string
+    public function index(): string
     {
         $songManager = new SongManager();
         $styleManager = new StyleManager();
@@ -59,42 +47,31 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function add(): string
-    {
-        $errors = [];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (empty($_POST['user_id'])) {
-                $errors['user_id'] = 'Please enter your id';
-            }
-            if (empty($_POST['youtube_id'])) {
-                $errors['youtube_id'] = 'Please enter your youtube URL';
-            }
-            $urlString = parse_url($_POST['youtube_id'], PHP_URL_QUERY);
-            $args = [];
-            parse_str($urlString, $args);
-            if (isset($args['v'])) {
-                $_POST['youtube_id'] = $args['v'];
-            } else {
-                $errors['youtube_id'] = 'Please enter a valid youtube URL';
-            }
 
-            if (empty($errors)) {
-                $songManager = new SongManager();
-                $songManager->insert($_POST);
-                header('Location: /');
-            }
-        }
-        //TODO modifier le chemin pour affichage des erreurs
-        return $this->twig->render('User/addSong.html.twig', [
-            'errors' => $errors,
-        ]);
-    }
 
-    public function powerUpById(int $id)
+    public function powerUpById(int $id): string
     {
         $songManager = new SongManager();
+        $userManager = new UserManager();
+        $styleManager = new StyleManager();
+
         $songManager->updatePowerById($id);
-        header('Location: /');
-        return $this->twig->render('Home/index.html.twig');
+        //TODO  /!\ USER ID HARDCODER /!\
+        $userID = 6;
+        $userManager->powerUpById($userID);
+        $userPower = $userManager->powerByUser($userID);
+        $gamificationService = new GamificationCalculator();
+        $badgeName = $gamificationService->badgePower($userPower['contribution_force'], $userID);
+
+        $songs = $songManager->selectAll();
+        $styles = $styleManager->selectAll();
+        $topSongs = $songManager->selectAllTopSong('song.power');
+
+        return $this->twig->render('Home/index.html.twig', [
+            'videos' => $songs,
+            'styles' => $styles,
+            'topSongs' => $topSongs,
+            'badgeName' => $badgeName,
+        ]);
     }
 }

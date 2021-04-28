@@ -36,10 +36,15 @@ class SongManager extends AbstractManager
 
     public function updatePowerById($id): void
     {
-        $statement = $this->pdo->prepare('UPDATE song SET power = power+1 WHERE id=:id');
+        $query = 'UPDATE song
+                  SET power = power+1,
+                      updated_at = NOW() 
+                  WHERE id=:id';
+        $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }
+
     public function selectAllTopSong(string $orderBy = '', string $direction = 'DESC'): array
     {
         $query = 'SELECT youtube_id, power, user.pseudo, user.github, song.id 
@@ -59,5 +64,15 @@ class SongManager extends AbstractManager
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }
         return $this->pdo->query($query)->fetchAll();
+    }
+
+
+    //TODO /!\ ATTENTION PEUT ETRE REDONDANT AVEC LE STATISTIQUE DE MATTHIEU
+    public function songPostedByUser($userId): array
+    {
+        $statement = $this->pdo->prepare("SELECT COUNT(id) as countSongs FROM " . self::TABLE . " WHERE user_id = :id");
+        $statement->bindValue(':id', $userId);
+        $statement->execute();
+        return $statement->fetch();
     }
 }
