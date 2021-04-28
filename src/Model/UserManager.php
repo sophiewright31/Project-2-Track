@@ -20,4 +20,11 @@ class UserManager extends AbstractManager
         $statement->execute();
         return $this->pdo->lastInsertId();
     }
+
+    public function connect()
+    {
+        $query = 'SELECT u.id, u.pseudo, u.password, u.github, r.identifier FROM user as u
+                JOIN role as r ON r.id = u.role_id';
+        return $this->pdo->query($query)->fetchAll();
+    }
 }
