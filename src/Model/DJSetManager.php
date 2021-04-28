@@ -6,7 +6,7 @@ class DJSetManager extends AbstractManager
 {
     public const TABLE = 'user';
 
-    public function selectStatsContributor(int $id)
+    public function selectStatsByUser(int $id)
     {
         $query = 'SELECT u.contribution_force, u.github, u.pseudo, count(s.youtube_id) as countSong
                 FROM user as u
@@ -19,7 +19,7 @@ class DJSetManager extends AbstractManager
         return $statement->fetch();
     }
 
-    public function selectBadgeContributor(int $id)
+    public function selectBadgeByUser(int $id)
     {
         $query = 'SELECT u.id, b.name, b.picture_url, b.description 
                 FROM badge b
@@ -28,6 +28,18 @@ class DJSetManager extends AbstractManager
                 WHERE u.id = :id';
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function selectSongByUser($id): array
+    {
+        $query = 'SELECT s.id, s.youtube_id, s.power, s.created_at, s.updated_at, u.github  
+                  FROM song s
+                  JOIN user u on u.id = s.user_id
+                  WHERE u.id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $id);
         $statement->execute();
         return $statement->fetchAll();
     }

@@ -24,7 +24,7 @@
 
     {% include 'component/_addsong.html.twig' %}
     <div class="card-header p-0 d-flex justify-content-between">
-        <h2>Your pseudo : {{ djStat.pseudo }}</h2>
+        <h2>You are signed in as : {{ djStat.pseudo }}</h2>
         <img class="avatar-github" alt="avatar-github" src="https://avatars.githubusercontent.com/{{ djStat.github }}">
         <h3>{% if djStat.countSong <= 0 %} Number of song post : 0 {% else %} Number of song post : {{ djStat.countSong }} {% endif %}</h3>
         <h3>{% if djStat.contribution_force <= 0 %} Your Power contribution : 0 {% else %} Your Power contribution : {{ djStat.contribution_force }} {% endif %}</h3>
@@ -37,6 +37,35 @@
                     <p>{{ djBadge.description }}</p>
                 </div>
             {% endfor %}
+    </div>
+    <div class="row">
+        {% for djSong in djSongs %}
+            <div class="card card-fighters col-3">
+                <div class="card-header p-0 d-flex justify-content-between">
+                    <div >
+                        <form method="POST" class="d-inline" action="/Home/powerUpById/{{ djSong.id }}">
+                            <button type="submit" class="power-button " name="{{ djSong.id }}"></i></button>
+                        </form>
+                        <p class="d-inline power">
+                            {% if djSong.power >= 1000000000 %}
+                                {{ (djSong.power/1000000000)|round(1, 'floor')  }}G
+                            {% elseif djSong.power >= 1000000 %}
+                                {{ (djSong.power/1000000)|round(1, 'floor')  }}M
+                            {% elseif djSong.power >= 1000 %}
+                                {{ (djSong.power/1000)|round(1, 'floor') }}K
+                            {% else %}
+                                {{ djSong.power }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djSong.github }}">
+                </div>
+                <div class="embed-responsive embed-responsive-21by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ djSong.youtube_id }}"
+                            id="video {{ djSong.id }}" allowfullscreen></iframe>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}
