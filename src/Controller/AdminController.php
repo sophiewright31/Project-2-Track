@@ -129,4 +129,27 @@ class AdminController extends AbstractController
         header("HTTP/1.0 405 Method Not Allowed");
         return (new ErrorHandleController())->badMethod();
     }
+
+    public function Stat()
+    {
+        if (isset($_SESSION["role"])) {
+            if ($_SESSION["role"] === 'admin') {
+                    $userManager = new UserManager();
+                    $users = $userManager->showNbUser();
+                    $monthlyUsers = $userManager->showNbUserByMonth();
+                    $songManager = new SongManager();
+                    $songs = $songManager->showNbSong();
+                    $monthlySongs = $songManager->showNbSongsByMonth();
+                    $dailySongs = $songManager->showNbSongsByDay();
+                    return $this->twig->render('admin/stat.html.twig', [
+                        'nbUsers' => $users,
+                        'monthlyUsers' => $monthlyUsers,
+                        'nbSongs' => $songs,
+                        'monthlySongs' => $monthlySongs,
+                        'dailySongs' => $dailySongs,
+                    ]);
+                }
+            }
+    }
+
 }
