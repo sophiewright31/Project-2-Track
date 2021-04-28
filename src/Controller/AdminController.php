@@ -14,20 +14,41 @@ class AdminController extends AbstractController
 {
     public function index(): string
     {
-        return $this->twig->render('admin/admin.html.twig');
+        if (isset($_SESSION["role"])) {
+            if ($_SESSION["role"] === 'admin') {
+                return $this->twig->render('admin/admin.html.twig');
+            } else {
+                header("HTTP/1.0 403 Forbidden");
+                return (new ErrorHandleController())->forbidden();
+            }
+        } else {
+            header("HTTP/1.0 403 Forbidden");
+            return (new ErrorHandleController())->forbidden();
+        }
     }
 
     public function showAllBadges(): string
     {
-        $badgeManager = new BadgeManager();
-        $userManager = new UserManager();
-        $users = $userManager->selectAll();
-        $badges = $badgeManager->selectAll();
-        return $this->twig->render('admin/badges.html.twig', [
-            'badges' => $badges,
-            'users' => $users,
-        ]);
+        if (isset($_SESSION["role"])) {
+            if ($_SESSION["role"] === 'admin') {
+                $badgeManager = new BadgeManager();
+                $userManager = new UserManager();
+                $users = $userManager->selectAll();
+                $badges = $badgeManager->selectAll();
+                return $this->twig->render('admin/badges.html.twig', [
+                    'badges' => $badges,
+                    'users' => $users,
+                ]);
+            } else {
+                    header("HTTP/1.0 403 Forbidden");
+                    return (new ErrorHandleController())->forbidden();
+            }
+        } else {
+                header("HTTP/1.0 403 Forbidden");
+                return (new ErrorHandleController())->forbidden();
+        }
     }
+//TODO changer de nom du delete (supprimer une chanson actuellement)
 
     public function delete(int $id)
     {
@@ -36,6 +57,9 @@ class AdminController extends AbstractController
             $adminManager->delete($id);
             header('Location: /');
         }
+        //If don't come from a post go to error 405
+        header("HTTP/1.0 405 Method Not Allowed");
+        return (new ErrorHandleController())->badMethod();
     }
 
     public function deleteBadge(int $id)
@@ -77,7 +101,8 @@ class AdminController extends AbstractController
                 'success_badge_attribute' => true,
             ]);
         }
-        //If don't come from a post go to error 404
+
+        //If don't come from a post go to error 405
         header("HTTP/1.0 405 Method Not Allowed");
         return (new ErrorHandleController())->badMethod();
     }
@@ -101,5 +126,8 @@ class AdminController extends AbstractController
                 header('Location: /admin/showAllBadges');
             }
         }
+        //If don't come from a post go to error 405
+        header("HTTP/1.0 405 Method Not Allowed");
+        return (new ErrorHandleController())->badMethod();
     }
 }

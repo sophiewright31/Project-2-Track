@@ -6,7 +6,7 @@ use App\Model\UserManager;
 
 class ConnectController extends AbstractController
 {
-    public function add(): string
+    public function sign(): string
     {
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,12 +19,13 @@ class ConnectController extends AbstractController
             if (empty($errors)) {
                 $userManager = new UserManager();
                 $userData = array_map('trim', $_POST);
+                $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
                 $userManager->insert($userData);
                 header('Location: /DJSet/index');
             }
         }
 
-        return $this->twig->render('User/add.html.twig', [
+        return $this->twig->render('User/form_user.html.twig', [
             'errors' => $errors,
         ]);
     }
@@ -35,5 +36,29 @@ class ConnectController extends AbstractController
         $userData = $userManager->selectAll('contribution_force');
 
         return $this->twig->render('User/all.html.twig', ['users' => $userData]);
+    }
+
+    public function connectUser(): void
+    {
+        $userManager = new UserManager();
+        $userData = $userManager->connect();
+        foreach ($userData as $user) {
+            if ($_POST['pseudo'] === $user['pseudo']) {
+                if (password_verify($_POST['password'], $user['password'])) {
+                        $_SESSION['pseudo'] = $user['pseudo'];
+                        $_SESSION['github'] = $user['github'];
+                        $_SESSION['role'] = $user['identifier'];
+                        $_SESSION['id'] = $user['id'];
+                }
+            }
+        }
+        header('Location: /');
+    }
+
+    public function disconnect(): void
+    {
+        session_destroy();
+        unset($_SESSION);
+        header('location: /');
     }
 }

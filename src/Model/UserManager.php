@@ -13,9 +13,9 @@ class UserManager extends AbstractManager
                   VALUES (:pseudo, 2, :password, :github, NOW(), NOW())';
         $statement = $this->pdo->prepare($query);
 
-        $statement->bindValue(':pseudo', $userData['pseudo'], \PDO::PARAM_STR);
-        $statement->bindValue(':password', $userData['password'], \PDO::PARAM_STR);
-        $statement->bindValue(':github', $userData['github'], \PDO::PARAM_STR);
+        $statement->bindValue(':pseudo', $userData['pseudo']);
+        $statement->bindValue(':password', $userData['password']);
+        $statement->bindValue(':github', $userData['github']);
 
         $statement->execute();
         return $this->pdo->lastInsertId();
@@ -31,12 +31,19 @@ class UserManager extends AbstractManager
         $statement->execute();
     }
 
-
+    //TODO CHECK IF THIS FUNCTION IS NECESSARY
     public function powerByUser($userID): array
     {
         $statement = $this->pdo->prepare("SELECT contribution_force FROM " . self::TABLE . " WHERE id=:id");
         $statement->bindValue(':id', $userID);
         $statement->execute();
         return $statement->fetch();
+    }
+
+    public function connect(): array
+    {
+        $query = 'SELECT u.id, u.pseudo, u.password, u.github, r.identifier FROM user as u
+                JOIN role as r ON r.id = u.role_id';
+        return $this->pdo->query($query)->fetchAll();
     }
 }

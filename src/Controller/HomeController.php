@@ -47,8 +47,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-
-
     public function powerUpById(int $id): string
     {
         $songManager = new SongManager();
