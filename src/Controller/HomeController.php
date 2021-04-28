@@ -32,7 +32,6 @@ class HomeController extends AbstractController
     public function all(): string
     {
         $songManager = new SongManager();
-        $_SESSION['login'] = 'test';
         $styleManager = new StyleManager();
         $topManager = new SongManager();
         $songs = $songManager->selectAll();
@@ -86,7 +85,7 @@ class HomeController extends AbstractController
             }
         }
         //TODO modifier le chemin pour affichage des erreurs
-        return $this->twig->render('User/addSong.html.twig', [
+        return $this->twig->render('djset/djhome.html.twig', [
             'errors' => $errors,
         ]);
     }
