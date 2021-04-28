@@ -11,11 +11,14 @@ class DJSetController extends AbstractController
     {
         if (isset($_SESSION['id'])) {
             $id = $_SESSION['id'];
-            $djSetManager = new DJSetManager();
+            $djSetManagerStats = new DJSetManager();
             $styleManager = new StyleManager();
+            $djSetManagerBadge = new DJSetManager();
             $styles = $styleManager->selectAll();
-            $djStats = $djSetManager->selectStatsContributor($id);
+            $djStats = $djSetManagerStats->selectStatsContributor($id);
+            $djBadges = $djSetManagerBadge->selectBadgeContributor($id);
             return $this->twig->render('djset/djhome.html.twig', [
+                'djBadges' => $djBadges,
                 'djStat' => $djStats,
                 'styles' => $styles,
                 'user_id' => $_SESSION['id']

@@ -23,30 +23,20 @@
     </div>
 
     {% include 'component/_addsong.html.twig' %}
-    <h2>{{ djStat.pseudo }}</h2>
     <div class="card-header p-0 d-flex justify-content-between">
-        <div >
-            <form method="POST" class="d-inline" action="/Home/powerUpById/{{ djStat.id }}">
-                <button type="submit" class="power-button " name="{{ djStat.id }}"><i class="fas fa-bolt"></i></button>
-            </form>
-            <p class="d-inline power">
-                {% if video.power >= 1000000000 %}
-                    {{ (video.power/1000000000)|round(1, 'floor')  }}G
-                {% elseif video.power >= 1000000 %}
-                    {{ (video.power/1000000)|round(1, 'floor')  }}M
-                {% elseif video.power >= 1000 %}
-                    {{ (video.power/1000)|round(1, 'floor') }}K
-                {% else %}
-                    {{ video.power }}
-                {% endif %}
-            </p>
-        </div>
-        <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djStat.github }}">
+        <h2>Your pseudo : {{ djStat.pseudo }}</h2>
+        <img class="avatar-github" alt="avatar-github" src="https://avatars.githubusercontent.com/{{ djStat.github }}">
+        <h3>{% if djStat.countSong <= 0 %} Number of song post : 0 {% else %} Number of song post : {{ djStat.countSong }} {% endif %}</h3>
+        <h3>{% if djStat.contribution_force <= 0 %} Your Power contribution : 0 {% else %} Your Power contribution : {{ djStat.contribution_force }} {% endif %}</h3>
     </div>
-    <div class="embed-responsive embed-responsive-21by9">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ djStat.youtube_id }}"
-                id="video {{ djStat.id }}" allowfullscreen></iframe>
-    </div>
+        {% for djBadge in djBadges %}
+            <h2>All your won badges :</h2>
+                <div>
+                    <h3>{{ djBadge.name }}</h3>
+                    <img class="avatar-github" alt="badge-contributor" src="{{ djBadge.picture_url }}">
+                    <p>{{ djBadge.description }}</p>
+                </div>
+            {% endfor %}
     </div>
 
 {% endblock %}
