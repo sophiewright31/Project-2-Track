@@ -42,9 +42,11 @@ class SongManager extends AbstractManager
     }
     public function selectAllTopSong(string $orderBy = '', string $direction = 'DESC'): array
     {
+        $thisMonth = date("Y-m");
         $query = 'SELECT youtube_id, power, user.pseudo, user.github, song.id 
                   FROM ' . self::TABLE . '
                   JOIN user ON song.user_id = user.id
+                  WHERE DATE_FORMAT(song.created_at, "%Y-%m") = "' . $thisMonth . '"
                   ORDER BY ' . $orderBy . ' ' . $direction . ' LIMIT 3';
 
         return $this->pdo->query($query)->fetchAll();
@@ -52,9 +54,12 @@ class SongManager extends AbstractManager
 
     public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
     {
+        $thisMonth = date("Y-m");
         $query = 'SELECT s.id, s.youtube_id, s.power, s.created_at, s.updated_at, u.github  
                   FROM song s
-                  JOIN user u on u.id = s.user_id';
+                  JOIN user u on u.id = s.user_id
+                  WHERE DATE_FORMAT(s.created_at, "%Y-%m") = "' . $thisMonth . '"';
+                  ;
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }
