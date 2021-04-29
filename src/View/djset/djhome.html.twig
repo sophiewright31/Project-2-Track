@@ -46,7 +46,7 @@
                         <div class=" card-header p-0 d-flex justify-content-between">
                             <div>
                                 <form method="POST" class="d-inline" action="/Home/powerUpById/{{ djSong.id }}">
-                                    <button type="submit" class="power-button " name="{{ djSong.id }}"></i></button>
+                                    <button type="submit" class="power-button " name="{{ djSong.id }}"></button>
                                 </form>
                                 <p class="d-inline power">
                                     {% if djSong.power >= 1000000000 %}
@@ -70,4 +70,31 @@
             {% endfor %}
         </div>
     </div>
+    {% include 'component/_badge_success.html.twig' %}
+    <h1>Hello DJ</h1>
+
+    <div class="row nav-link">
+        <button type="button" class="btn nav-link" data-toggle="modal" data-target="#onAir">
+            On Air
+        </button>
+        <a href="/Connect/disconnect" >Disconnect</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="onAir" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h5 class="modal-title" id="exampleModalLongTitle">CONNEXION REUSSIE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'component/_addsong.html.twig' %}
+    <h2>{{ djStats.pseudo }}</h2>
+    <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djStats.github }}">
 {% endblock %}

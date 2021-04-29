@@ -7,7 +7,6 @@ use App\Model\BadgeManager;
 use App\Model\UserBadgeManager;
 use App\Model\UserManager;
 use App\Service\Badge\BadgeValidator;
-use App\Controller\ErrorHandleController;
 
 class AdminController extends AbstractController
 {
@@ -61,6 +60,15 @@ class AdminController extends AbstractController
         return (new ErrorHandleController())->badMethod();
     }
 
+    public function deleteBadge(int $id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $badgeManager = new BadgeManager();
+            $badgeManager->delete($id);
+            header('Location: /admin/showAllBadges');
+        }
+    }
+
     public function attributeBadgeToUser(): string
     {
         // For twig
@@ -72,7 +80,7 @@ class AdminController extends AbstractController
             // Check of Badge // User
             $userBadgeManager = new UserBadgeManager();
             $userBadges = $userBadgeManager->selectAll();
-            $badgeValidator = new BadgeValidator($_POST);
+            $badgeValidator = new BadgeValidator();
             $badgeValidator->incorrectIDField('user_id', $_POST['user_id']);
             $badgeValidator->incorrectIDField('badge_id', $_POST['badge_id']);
             $badgeValidator->badgeAlreadyGiven($userBadges, $_POST);
@@ -119,5 +127,27 @@ class AdminController extends AbstractController
         //If don't come from a post go to error 405
         header("HTTP/1.0 405 Method Not Allowed");
         return (new ErrorHandleController())->badMethod();
+    }
+
+    public function stat()
+    {
+        if (isset($_SESSION["role"])) {
+            if ($_SESSION["role"] === 'admin') {
+                    $userManager = new UserManager();
+                    $users = $userManager->showNbUser();
+                    $monthlyUsers = $userManager->showNbUserByMonth();
+                    $songManager = new SongManager();
+                    $songs = $songManager->showNbSong();
+                    $monthlySongs = $songManager->showNbSongsByMonth();
+                    $dailySongs = $songManager->showNbSongsByDay();
+                    return $this->twig->render('admin/stat.html.twig', [
+                        'nbUsers' => $users,
+                        'monthlyUsers' => $monthlyUsers,
+                        'nbSongs' => $songs,
+                        'monthlySongs' => $monthlySongs,
+                        'dailySongs' => $dailySongs,
+                    ]);
+            }
+        }
     }
 }

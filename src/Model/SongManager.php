@@ -36,15 +36,22 @@ class SongManager extends AbstractManager
 
     public function updatePowerById($id): void
     {
-        $statement = $this->pdo->prepare('UPDATE song SET power = power+1 WHERE id=:id');
+        $query = 'UPDATE song
+                  SET power = power+1,
+                      updated_at = NOW() 
+                  WHERE id=:id';
+        $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }
+
     public function selectAllTopSong(string $orderBy = '', string $direction = 'DESC'): array
     {
+        $thisMonth = date("Y-m");
         $query = 'SELECT youtube_id, power, user.pseudo, user.github, song.id 
                   FROM ' . self::TABLE . '
                   JOIN user ON song.user_id = user.id
+                  WHERE DATE_FORMAT(song.created_at, "%Y-%m") = "' . $thisMonth . '"
                   ORDER BY ' . $orderBy . ' ' . $direction . ' LIMIT 3';
 
         return $this->pdo->query($query)->fetchAll();
@@ -52,12 +59,46 @@ class SongManager extends AbstractManager
 
     public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
     {
+        $thisMonth = date("Y-m");
         $query = 'SELECT s.id, s.youtube_id, s.power, s.created_at, s.updated_at, u.github  
                   FROM song s
-                  JOIN user u on u.id = s.user_id';
+                  JOIN user u on u.id = s.user_id
+                  WHERE DATE_FORMAT(s.created_at, "%Y-%m") = "' . $thisMonth . '"';
+                  ;
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+    //TODO /!\ ATTENTION PEUT ETRE REDONDANT AVEC LE STATISTIQUE DE MATTHIEU
+    public function songPostedByUser($userId): array
+    {
+        $statement = $this->pdo->prepare("SELECT COUNT(id) as countSongs FROM " . self::TABLE . " WHERE user_id = :id");
+        $statement->bindValue(':id', $userId);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    public function showNbSong()
+    {
+        $query = 'SELECT COUNT(youtube_id) FROM ' . self::TABLE;
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+    public function showNbSongsByMonth()
+    {
+        $thisMonth = date("Y-m");
+        $query = 'SELECT count(youtube_id) FROM ' . self::TABLE . '
+                WHERE DATE_FORMAT(created_at, "%Y-%m") = "' . $thisMonth . '"';
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+    public function showNbSongsByDay()
+    {
+        $today = date("Y-m-d");
+        $query = 'SELECT count(youtube_id) FROM ' . self::TABLE . '
+        WHERE DATE_FORMAT(created_at, "%Y-%m-%e") = "' . $today . '"';
         return $this->pdo->query($query)->fetchAll();
     }
 }
