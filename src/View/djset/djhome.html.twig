@@ -1,8 +1,76 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
-
+    <div class="container-fluid">
+        <div class="row">
+            <h1 class="col-6 col-lg-6 d-flex justify-content-center align-items-center">Hello DJ</h1>
+            <div class="col-6 col-lg-6 d-flex justify-content-center">
+            {% include 'component/_addsong.html.twig' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 col-lg-4 p-0 d-flex justify-content-between">
+                <h2>You are signed in as : {{ djStat.pseudo }}</h2>
+                <img class="avatar-github" alt="avatar-github" src="https://avatars.githubusercontent.com/{{ djStat.github }}">
+            </div>
+                <h3 class="col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.countSong <= 0 %} Number of song post : 0 {% else %} Number of song post : {{ djStat.countSong }} {% endif %}</h3>
+                <h3 class="col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.contribution_force <= 0 %} Your Power contribution : 0 {% else %} Your Power contribution : {{ djStat.contribution_force }} {% endif %}</h3>
+        </div>
+        <div class="row col-12 col-xs-12 d-flex justify-content-center">
+            {% if (djBadges | length) > 1 %}
+                <h2>All your won badges :</h2>
+            {% elseif (djBadges | length) == 1 %}
+                <h2>Your first won badge :</h2>
+            {% else %}
+            {% endif %}
+        </div>
+        <div class="row">
+            {% for djBadge in djBadges %}
+                        <div class="col-12 col-md-6 col-lg-4 d-flex-column text-center">
+                            <h3>{{ djBadge.name }}</h3>
+                            <img class="avatar-github" alt="badge-contributor" src="{{ djBadge.picture_url }}">
+                            <p>{{ djBadge.description }}</p>
+                        </div>
+            {% endfor %}
+        </div>
+        <div class="row col-12 col-xs-12 d-flex justify-content-center">
+                {% if (djSongs | length) > 1 %}
+                    <h4>All your songs posted</h4>
+                {% elseif (djSongs | length) == 1 %}
+                    <h4>Your song posted</h4>
+                {% else %}
+                {% endif %}
+        </div>
+        <div class="row">
+            {% for djSong in djSongs %}
+                    <div class="card card-fighters col-12 col-md-6 col-lg-4">
+                        <div class=" card-header p-0 d-flex justify-content-between">
+                            <div>
+                                <form method="POST" class="d-inline" action="/Home/powerUpById/{{ djSong.id }}">
+                                    <button type="submit" class="power-button " name="{{ djSong.id }}"></button>
+                                </form>
+                                <p class="d-inline power">
+                                    {% if djSong.power >= 1000000000 %}
+                                        {{ (djSong.power/1000000000)|round(1, 'floor')  }}G
+                                    {% elseif djSong.power >= 1000000 %}
+                                        {{ (djSong.power/1000000)|round(1, 'floor')  }}M
+                                    {% elseif djSong.power >= 1000 %}
+                                        {{ (djSong.power/1000)|round(1, 'floor') }}K
+                                    {% else %}
+                                        {{ djSong.power }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djSong.github }}">
+                        </div>
+                        <div class="embed-responsive embed-responsive-21by9">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ djSong.youtube_id }}"
+                                    id="video {{ djSong.id }}" allowfullscreen></iframe>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
     {% include 'component/_badge_success.html.twig' %}
-
     <h1>Hello DJ</h1>
 
     <div class="row nav-link">
@@ -29,6 +97,4 @@
     {% include 'component/_addsong.html.twig' %}
     <h2>{{ djStats.pseudo }}</h2>
     <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djStats.github }}">
-
-
 {% endblock %}
