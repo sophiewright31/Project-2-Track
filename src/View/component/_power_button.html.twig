@@ -1,0 +1,16 @@
+<div >
+    <form method="POST" class="d-inline" action="/Home/powerUpById/{{ video.id }}">
+        <button type="submit" class="power-button " name="{{ video.id }}"><i class="fas fa-bolt"></i></button>
+    </form>
+    <p class="d-inline power">
+        {% if video.power >= 1000000000 %}
+            {{ (video.power/1000000000)|round(1, 'floor')  }}G
+        {% elseif video.power >= 1000000 %}
+            {{ (video.power/1000000)|round(1, 'floor')  }}M
+        {% elseif video.power >= 1000 %}
+            {{ (video.power/1000)|round(1, 'floor') }}K
+        {% else %}
+            {{ video.power }}
+        {% endif %}
+    </p>
+</div>

@@ -23,4 +23,12 @@ class BadgeManager extends AbstractManager
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }
+
+    public function idByName(string $badgeName): array
+    {
+        $statement = $this->pdo->prepare("SELECT id FROM " . self::TABLE . " WHERE name = :badgeName");
+        $statement->bindValue(':badgeName', $badgeName);
+        $statement->execute();
+        return $statement->fetch();
+    }
 }

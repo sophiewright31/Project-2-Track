@@ -58,7 +58,7 @@ h1 {
     background: none;
 }
 
-.modal-header, .modal-body, .modal-footer {
+.modal-header, .modal-body, .modal-footer{
     background-color: var(--primary-color-black) ;
     border: var(--primary-color-black);
 }

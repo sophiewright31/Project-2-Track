@@ -7,7 +7,6 @@ use App\Model\BadgeManager;
 use App\Model\UserBadgeManager;
 use App\Model\UserManager;
 use App\Service\Badge\BadgeValidator;
-use App\Controller\ErrorHandleController;
 
 class AdminController extends AbstractController
 {
@@ -81,7 +80,7 @@ class AdminController extends AbstractController
             // Check of Badge // User
             $userBadgeManager = new UserBadgeManager();
             $userBadges = $userBadgeManager->selectAll();
-            $badgeValidator = new BadgeValidator($_POST);
+            $badgeValidator = new BadgeValidator();
             $badgeValidator->incorrectIDField('user_id', $_POST['user_id']);
             $badgeValidator->incorrectIDField('badge_id', $_POST['badge_id']);
             $badgeValidator->badgeAlreadyGiven($userBadges, $_POST);
