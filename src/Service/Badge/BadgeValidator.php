@@ -2,15 +2,13 @@
 
 namespace App\Service\Badge;
 
+use App\Model\BadgeManager;
+use App\Model\UserBadgeManager;
+
 class BadgeValidator
 {
     private array $errors = [];
-    private array $post;
 
-    public function __construct($post)
-    {
-        $this->post = $post;
-    }
     public function getErrors(): array
     {
         return $this->errors;
@@ -25,10 +23,13 @@ class BadgeValidator
         return $this->errors;
     }
 
-    public function badgeAlreadyGiven(array $userBadges, array $post): array
+    public function badgeAlreadyGiven(array $badgesAttributed, array $badgeSelected): array
     {
-        foreach ($userBadges as $userBadge) {
-            if ($userBadge['user_id'] === $post['user_id'] && $userBadge['badge_id'] === $post['badge_id']) {
+        foreach ($badgesAttributed as $badgeAttributed) {
+            if (
+                $badgeAttributed['user_id'] === $badgeSelected['user_id'] &&
+                $badgeAttributed['badge_id'] === $badgeSelected['badge_id']
+            ) {
                 $this->errors['badgeAlreadyGiven'] = 'Cet utilisateur possède déjà le badge sélectionné';
             }
         }
@@ -36,21 +37,32 @@ class BadgeValidator
     }
 
 
+    public function formatBadgeForTest(int $userId, string $badgeName): array
+    {
+        $badgeTested = [];
+        $badgeManager = new BadgeManager();
+        $badgeId = $badgeManager->idByName($badgeName);
+        $badgeTested['user_id'] = strval($userId);
+        $badgeTested['badge_id'] = $badgeId['id'];
+        return $badgeTested;
+    }
+
+
+    public function checkDuplicateByName(int $userid, string $badgeName): bool
+    {
+        $errors = [];
+        $userBadgeManager = new UserBadgeManager();
+        $userBadges = $userBadgeManager->selectAll();
+        $badgeTested = $this->formatBadgeForTest($userid, $badgeName);
+        $errors = $this->badgeAlreadyGiven($userBadges, $badgeTested);
+        return !empty($errors);
+    }
+
+
 
     public function setErrors(array $errors): BadgeValidator
     {
         $this->errors = $errors;
-        return $this;
-    }
-
-    public function getPost(): array
-    {
-        return $this->post;
-    }
-
-    public function setPost(array $post): BadgeValidator
-    {
-        $this->post = $post;
         return $this;
     }
 }
