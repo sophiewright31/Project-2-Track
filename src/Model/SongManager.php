@@ -72,6 +72,5 @@ class SongManager extends AbstractManager
 
         $query = 'SELECT sum(power) as total FROM ' . static::TABLE . ' WHERE user_id=' . $id;
         return $this->pdo->query($query)->fetch();
-
     }
 }

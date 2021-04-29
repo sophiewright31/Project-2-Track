@@ -37,7 +37,7 @@ class ConnectController extends AbstractController
         $songManager = new SongManager();
         $totalPower = $songManager->countTotalPower();
         $totalPowerId = 0;
-        if($id !== null) {
+        if ($id !== null) {
             $songManager = new SongManager();
             $totalPowerId = $songManager->countTotalPowerById($id);
         }
@@ -47,7 +47,5 @@ class ConnectController extends AbstractController
             'totalPower' => $totalPower,
             'totalPowerById' => $totalPowerId,
             ]);
-
     }
-
 }
