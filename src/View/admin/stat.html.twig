@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block stat %}
+    <h1>COUCOU ADMIN</h1>
+
+    <h2> Voir les stats</h2>
+    TOUS LES UTILISATEURS : {{ dump(nbUsers) }}
+    LES NOUVEAUX UTILISATEURS DU MOIS : {{ dump(monthlyUsers) }}
+
+    TOUTES LES CHANSONS : {{ dump(nbSongs) }}
+    LES NOUVELLES CHANSONS DU MOIS : {{ dump(monthlySongs) }}
+    LES NOUVELLES CHANSONS DU JOUR : {{ dump(dailySongs) }}
+
+    {% block javascript %}
+    {% endblock %}
+{% endblock %}

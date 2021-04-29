@@ -25,6 +25,27 @@ class UserManager extends AbstractManager
     {
         $query = 'SELECT * FROM ' . static::TABLE . ' ORDER BY contribution_force LIMIT 10';
 
+    }
+
+    public function connect()
+    {
+        $query = 'SELECT u.id, u.pseudo, u.password, u.github, r.identifier FROM user as u
+                JOIN role as r ON r.id = u.role_id';
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+    public function showNbUser()
+    {
+        $query = 'SELECT count(pseudo) FROM ' . self::TABLE;
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+    public function showNbUserByMonth()
+    {
+        $thisMonth = date("Y-m");
+        $query = 'SELECT count(pseudo) FROM ' . self::TABLE . '
+                WHERE DATE_FORMAT(created_at, "%Y-%m") = "' . $thisMonth . '"';
+
         return $this->pdo->query($query)->fetchAll();
     }
 }
