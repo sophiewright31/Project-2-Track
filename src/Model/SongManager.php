@@ -99,6 +99,5 @@ class SongManager extends AbstractManager
         $query = 'SELECT count(youtube_id) FROM ' . self::TABLE . '
         WHERE DATE_FORMAT(created_at, "%Y-%m-%e") = "' . $today . '"';
         return $this->pdo->query($query)->fetchAll();
-
     }
 }

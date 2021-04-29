@@ -24,7 +24,7 @@ class UserManager extends AbstractManager
     public function showUsers()
     {
         $query = 'SELECT * FROM ' . static::TABLE . ' ORDER BY contribution_force LIMIT 10';
-
+        return $this->pdo->query($query)->fetchAll();
     }
 
     public function connect()
