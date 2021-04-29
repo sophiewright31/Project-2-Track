@@ -95,23 +95,23 @@ class SongManager extends AbstractManager
 
     public function showNbSong()
     {
-        $query = 'SELECT COUNT(youtube_id) FROM ' . self::TABLE;
-        return $this->pdo->query($query)->fetchAll();
+        $query = 'SELECT COUNT(youtube_id) as count FROM ' . self::TABLE;
+        return $this->pdo->query($query)->fetch();
     }
 
     public function showNbSongsByMonth()
     {
         $thisMonth = date("Y-m");
-        $query = 'SELECT count(youtube_id) FROM ' . self::TABLE . '
+        $query = 'SELECT count(youtube_id) as count FROM ' . self::TABLE . '
                 WHERE DATE_FORMAT(created_at, "%Y-%m") = "' . $thisMonth . '"';
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetch();
     }
 
     public function showNbSongsByDay()
     {
         $today = date("Y-m-d");
-        $query = 'SELECT count(youtube_id) FROM ' . self::TABLE . '
+        $query = 'SELECT count(youtube_id) as count FROM ' . self::TABLE . '
         WHERE DATE_FORMAT(created_at, "%Y-%m-%e") = "' . $today . '"';
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetch();
     }
 }
