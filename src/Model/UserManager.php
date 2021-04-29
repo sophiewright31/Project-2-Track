@@ -21,6 +21,13 @@ class UserManager extends AbstractManager
         return $this->pdo->lastInsertId();
     }
 
+    public function showUsers()
+    {
+        $query = 'SELECT * FROM ' . static::TABLE . ' ORDER BY contribution_force LIMIT 10';
+
+        return $this->pdo->query($query)->fetchAll();
+    }
+
     public function powerUpById($userID): void
     {
         $query = 'UPDATE user
@@ -37,6 +44,7 @@ class UserManager extends AbstractManager
         $statement = $this->pdo->prepare("SELECT contribution_force FROM " . self::TABLE . " WHERE id=:id");
         $statement->bindValue(':id', $userID);
         $statement->execute();
+
         return $statement->fetch();
     }
 
@@ -44,6 +52,7 @@ class UserManager extends AbstractManager
     {
         $query = 'SELECT u.id, u.pseudo, u.password, u.github, r.identifier FROM user as u
                 JOIN role as r ON r.id = u.role_id';
+
         return $this->pdo->query($query)->fetchAll();
     }
 
@@ -56,12 +65,14 @@ class UserManager extends AbstractManager
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
+
         return $statement->fetch();
     }
 
     public function showNbUser()
     {
         $query = 'SELECT count(pseudo) FROM ' . self::TABLE;
+
         return $this->pdo->query($query)->fetchAll();
     }
 
@@ -70,6 +81,7 @@ class UserManager extends AbstractManager
         $thisMonth = date("Y-m");
         $query = 'SELECT count(pseudo) FROM ' . self::TABLE . '
                 WHERE DATE_FORMAT(created_at, "%Y-%m") = "' . $thisMonth . '"';
+
         return $this->pdo->query($query)->fetchAll();
     }
 }

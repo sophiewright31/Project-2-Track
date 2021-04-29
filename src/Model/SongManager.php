@@ -71,6 +71,19 @@ class SongManager extends AbstractManager
         return $this->pdo->query($query)->fetchAll();
     }
 
+    public function countTotalPower(): array
+    {
+        $query = 'SELECT sum(power) as total FROM song';
+        return $this->pdo->query($query)->fetch();
+    }
+
+    public function countTotalPowerById($id): array
+    {
+
+        $query = 'SELECT sum(power) as total FROM ' . static::TABLE . ' WHERE user_id=' . $id;
+        return $this->pdo->query($query)->fetch();
+    }
+
     //TODO /!\ ATTENTION PEUT ETRE REDONDANT AVEC LE STATISTIQUE DE MATTHIEU
     public function songPostedByUser($userId): array
     {
