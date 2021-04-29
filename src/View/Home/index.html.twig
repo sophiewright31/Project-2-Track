@@ -1,3 +1,4 @@
+
 {% extends 'layout.html.twig' %}
 
 {% block content %}
@@ -15,16 +16,16 @@
         {% include 'component/_select_style.html.twig' %}
         <div class="row">
             {% for video in videos %}
-            <div class="card card-fighters col-3">
-                <div class="card-header p-0 d-flex justify-content-between">
-                    {% include 'component/_power_button.html.twig' %}
-                    <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ video.github }}">
+                <div class="card card-fighters col-3">
+                    <div class="card-header p-0 d-flex justify-content-between">
+                        {% include 'component/_power_button.html.twig' %}
+                        <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ video.github }}">
+                    </div>
+                    <div class="embed-responsive embed-responsive-21by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
+                                id="video {{ video.id }}" allowfullscreen></iframe>
+                    </div>
                 </div>
-                <div class="embed-responsive embed-responsive-21by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
-                            id="video {{ video.id }}" allowfullscreen></iframe>
-                </div>
-            </div>
             {% endfor %}
         </div>
 

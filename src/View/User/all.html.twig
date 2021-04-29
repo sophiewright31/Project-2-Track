@@ -1,43 +1,49 @@
 {% extends 'layout.html.twig' %}
 {% block figthers %}
 
-    <h6 class="nav-link">Who is the best DJ of the month?</h6>
+    <div class="container-fluid figthers">
 
-    <nav aria-label="Page navigation example" class="container row">
-        <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4"><p class="blue-neon">Ils ont reçu le plus de votes sur leurs chansons</p></div>
+            <div class="col-4"></div>
+
+
             <ul class="pagination">
 
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-
+                {% set i = 0 %}
+                <li class="col-1"></li>
                 {% for userData in users %}
 
-                <li class="page-item">
+                    <li class="col-1 container-fighter">
+                        <div class="fighters-name">{{ userData.pseudo }}</div>
+                        <div class="row">
+                                <form action="" class="d-inline" method="GET"><a class="blue-neon" href="/Connect/all/{{ userData.id }}">Supported</a></form>
+                            </div>
+                        <div class="card card-fighters">
 
-                    <div class="card card-fighters" style="width: 18rem;">
-                        <img src="/assets/images/dj.jpeg" class="card-img-top" alt="image of a DJ">
-                        <div class="card-body">
-                            <h5 class="card-title fighters-name">{{ userData.id }}{{ userData.pseudo }}</h5>
-                            <p class="card-text">{% if userData.github %}Github {{ userData.github }}{% endif %}</p>
-                            <p class="card-text">{% if userData.contribution_force %} Contributed {{ userData.contribution_force }} times{% endif %}</p>
-                            <p class="card-text">Role : {{ userData.name }}</p>
+                            <img {% if userData.github %} src="https://avatars.githubusercontent.com/{{ userData.github }}" {% else %} src="/assets/images/dj.jpeg" {% endif %}
+                                     class="card-img-top" alt="image of a DJ">
+                            <p class="netflix-number card-text">{% set i = i + 1 %}{{ i }}</p>
                         </div>
-                    </div>
 
-                    {% endfor %}
+                    </li>
 
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                {% endfor %}
+                <li class="col-1"></li>
             </ul>
-        </div>
-    </nav>
-
+        {% if totalPowerById %}
+        <div class="col-5"></div>
+            <div class="col-1">
+                    <progress id="vote" max="{{ totalPower.total }}" value="{{ totalPowerById.total }}"></progress>
+            </div>
+            <div class="col-3">
+                <p class="blue-neon"> sur un total de {{ totalPower.total }}</p>
+            </div>
+            <div class="col-3></div>
+        {% endif %}
+    </div>
+    </div>
 {% endblock %}
 
 
