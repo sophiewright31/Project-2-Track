@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\SongManager;
 use App\Model\UserManager;
 
 class ConnectController extends AbstractController
@@ -29,11 +30,24 @@ class ConnectController extends AbstractController
         ]);
     }
 
-    public function all(): string
+    public function all($id = null): string
     {
         $userManager = new UserManager();
-        $userData = $userManager->selectAll('contribution_force', 'DESC');
+        $userData = $userManager->showUsers();
+        $songManager = new SongManager();
+        $totalPower = $songManager->countTotalPower();
+        $totalPowerId = 0;
+        if($id !== null) {
+            $songManager = new SongManager();
+            $totalPowerId = $songManager->countTotalPowerById($id);
+        }
 
-        return $this->twig->render('User/all.html.twig', ['users' => $userData]);
+        return $this->twig->render('User/all.html.twig', [
+            'users' => $userData,
+            'totalPower' => $totalPower,
+            'totalPowerById' => $totalPowerId,
+            ]);
+
     }
+
 }

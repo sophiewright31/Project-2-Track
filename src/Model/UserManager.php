@@ -20,4 +20,11 @@ class UserManager extends AbstractManager
         $statement->execute();
         return $this->pdo->lastInsertId();
     }
+
+    public function showUsers()
+    {
+        $query = 'SELECT * FROM ' . static::TABLE . ' ORDER BY contribution_force LIMIT 10';
+
+        return $this->pdo->query($query)->fetchAll();
+    }
 }

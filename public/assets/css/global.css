@@ -17,27 +17,45 @@ h1 {
 }
 
 .card-fighters{
-    border-width: thin;
-    border-color: var(--primary-color-blue);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
+    height: 200px;
+    width: auto;
+    background: none;
     position: relative;
-    height: 270px;
-    width: 205px;
 }
 
-
-.netflix-number{
-    font-size: 130px;
+.fighters-name{
+    font-size: medium;
     font-family: 'Train One', cursive;
     letter-spacing: 0.15em;
+    text-shadow: var(--primary-color-red) 0px 0px 1px,
+    var(--primary-color-red) 0px 0px 5px,
+    var(--primary-color-red) 0px 0px 10px;
+    position: absolute;
+    top: 1px;
+    background: none;
+}
+
+.netflix-number{
+    font-size: 80px;
+    font-family: 'Train One', cursive;
     text-shadow: var(--primary-color-blue) 0px 0px 1px,
     var(--primary-color-blue) 0px 0px 5px,
     var(--primary-color-blue) 0px 0px 10px;
     position: absolute;
-    bottom: 5px;
-    left: 5px;
+    bottom: 0;
+    margin: -1px;
+    left: -1px;
+}
+
+.blue-neon{
+    font-size: large;
+    font-family: 'Train One', cursive;
+    text-shadow: var(--primary-color-blue) 0px 0px 1px,
+    var(--primary-color-blue) 0px 0px 5px,
+    var(--primary-color-blue) 0px 0px 10px;
+    position: absolute;
+    bottom: 1px;
+    background: none;
 }
 
 .modal-header, .modal-body, .modal-footer {

@@ -21,7 +21,7 @@
                 <div class="card-header p-0 d-flex justify-content-between">
                     <div >
                         <form method="POST" class="d-inline" action="/Home/powerUpById/{{ video.id }}">
-                            <button type="submit" class="power-button " name="{{ video.id }}"><i class="fas fa-bolt"></i></button>
+                            <button type="submit" class="power-button " name="{{ video.id }}"></button>
                         </form>
                         <p class="d-inline power">
                            {% if video.power >= 1000000000 %}
