@@ -17,4 +17,23 @@ class BadgeManager extends AbstractManager
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
+    public function delete(int $id): void
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . static::TABLE . " WHERE id=:id");
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    public function idByName(string $badgeName): array
+    {
+        $statement = $this->pdo->prepare("SELECT id FROM " . self::TABLE . " WHERE name = :badgeName");
+        $statement->bindValue(':badgeName', $badgeName);
+        $statement->execute();
+        return $statement->fetch();
+    }
+    public function showNbBadge()
+    {
+        $query = 'SELECT count(id) as count FROM ' . self::TABLE;
+        return $this->pdo->query($query)->fetch();
+    }
 }

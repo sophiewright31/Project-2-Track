@@ -4,23 +4,39 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" >
+        <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll d-flex justify-content-start justify-content-around" >
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/">Battle <i class="fas fa-headphones"></i></i></i><span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/DJSet/index">DJ Set </i></a>
                 <div></div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/DJSet/index">DJ Set <i class="fas fa-compact-disc"></i></a>
+                <a class="nav-link" href="/Connect/all">Fighters </i></a>
                 <div></div>
             </li>
+            {% if session.role == 'admin' %}
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/Connect/all">Fighters <i class="fas fa-crown"></i></a>
-                <div></div>
+                <a class="nav-link" href="/admin/index" > Administration </i></a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="/Connect/add" > Connexion <i class="far fa-user"></i></a>
+            {% endif %}
 
+            {% if session is empty %}
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="/Connect/signIn" > Inscription <i class="far fa-user"></i></a>
             </li>
+            {% else %}
         </ul>
+            <div class="'d-flex justify-content-end">
+                <strong class="modal-title mr-3">ON AIR</strong>
+                <div class="dropdown d-inline">
+                        <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ session.github }}">
+                        </button>
+                        <div class="dropdown-menu mt-4" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/Connect/disconnect">Disconnect</a>
+                        </div>
+                </div>
+            </div>
+            {% endif %}
+
     </div>
 </nav>

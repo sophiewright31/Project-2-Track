@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="div col-4"></div>
+    <div class="card col-4 ">
+        <div class="card-header d-flex justify-content-between">
+            <div >
+                <form method="POST" class="d-inline" action="/Home/powerUpById/{{ topSongs[0].id }}">
+                    <button type="submit" class="power-button " name="{{ topSongs[0].id }}"><i class="fas fa-bolt"></i></button>
+                </form>
+                <p class="d-inline power">
+                    {% if topSongs[0].power >= 1000000000 %}
+                        {{ (topSongs[0].power/1000000000)|round(1, 'floor')  }}G
+                    {% elseif topSongs[0].power >= 1000000 %}
+                        {{ (topSongs[0].power/1000000)|round(1, 'floor')  }}M
+                    {% elseif topSongs[0].power >= 1000 %}
+                        {{ (topSongs[0].power/1000)|round(1, 'floor') }}K
+                    {% else %}
+                        {{ topSongs[0].power }}
+                    {% endif %}
+                </p>
+            </div>
+            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ topSongs[0].github }}">
+        </div>
+        <div class="embed-responsive embed-responsive-21by9 podium1">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ topSongs[0].youtube_id }}"
+                    id="video {{ topSongs[0].id }}" allowfullscreen></iframe>
+        </div>
+        <div class="card-body d-flex justify-content-center">
+            <i class="fas fa-medal firstvideo"></i>
+        </div>
+    </div>
+    <div class="div col-4"></div>
+</div>
+
+<div class="row">
+    <div class="div col-2"></div>
+    <div class="card col-4">
+        <div class="card-header d-flex justify-content-between">
+            <div >
+                <form method="POST" class="d-inline" action="/Home/powerUpById/{{ topSongs[1].id }}">
+                    <button type="submit" class="power-button " name="{{ topSongs[1].id }}"><i class="fas fa-bolt"></i></button>
+                </form>
+                <p class="d-inline power">
+                    {% if topSongs[1].power >= 1000000000 %}
+                        {{ (topSongs[1].power/1000000000)|round(1, 'floor')  }}G
+                    {% elseif topSongs[1].power >= 1000000 %}
+                        {{ (topSongs[1].power/1000000)|round(1, 'floor')  }}M
+                    {% elseif topSongs[1].power >= 1000 %}
+                        {{ (topSongs[1].power/1000)|round(1, 'floor') }}K
+                    {% else %}
+                        {{ topSongs[1].power }}
+                    {% endif %}
+                </p>
+            </div>
+            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ topSongs[1].github }}">
+        </div>
+        <div class="embed-responsive embed-responsive-21by9 podium2">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ topSongs[1].youtube_id }}"
+                    id="video {{ topSongs[1].id }}" allowfullscreen></iframe>
+        </div>
+        <div class="card-body d-flex justify-content-center">
+            <i class="fas fa-medal secondvideo"></i>
+        </div>
+    </div>
+    <div class="card col-4">
+        <div class="card-header d-flex justify-content-between">
+            <div >
+                <form method="POST" class="d-inline" action="/Home/powerUpById/{{ topSongs[2].id }}">
+                    <button type="submit" class="power-button " name="{{ topSongs[2].id }}"><i class="fas fa-bolt"></i></button>
+                </form>
+                <p class="d-inline power">
+                    {% if topSongs[2].power >= 1000000000 %}
+                        {{ (topSongs[2].power/1000000000)|round(1, 'floor')  }}G
+                    {% elseif topSongs[2].power >= 1000000 %}
+                        {{ (topSongs[2].power/1000000)|round(1, 'floor')  }}M
+                    {% elseif topSongs[2].power >= 1000 %}
+                        {{ (topSongs[2].power/1000)|round(1, 'floor') }}K
+                    {% else %}
+                        {{ topSongs[2].power }}
+                    {% endif %}
+                </p>
+            </div>
+            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ topSongs[2].github }}">
+        </div>
+        <div class="embed-responsive embed-responsive-21by9 podium3">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ topSongs[2].youtube_id }}"
+                    id="video {{ topSongs[2].id }}" allowfullscreen></iframe>
+        </div>
+        <div class="card-body d-flex justify-content-center">
+            <i class="fas fa-medal thirdvideo"></i>
+        </div>
+    </div>
+    <div class="div col-2"></div>
+</div>
+
+

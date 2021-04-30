@@ -1,9 +1,6 @@
-<div class="row">
-    <button type="button" class="btn btn-danger col-4" data-toggle="modal" data-target="#exampleModalCenter">
+<button type="button" class="btn btn-danger col-4" data-toggle="modal" data-target="#exampleModalCenter">
         Ajouter une chanson
-    </button>
-</div>
-
+</button>
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -14,15 +11,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="/Home/add">
+            <form method="post" action="/DJSet/addSong">
             <div class="modal-body">
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">UserID</span>
-                    </div>
-                    <input type="text" name="user_id" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Lien Youtube</span>
