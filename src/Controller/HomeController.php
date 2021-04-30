@@ -47,32 +47,29 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function powerUpById(int $id): string
+    public function powerUpById(int $id)
     {
-        $songManager = new SongManager();
-        $userManager = new UserManager();
-        $styleManager = new StyleManager();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userManager = new UserManager();
+           // $styleManager = new StyleManager();
+            $songManager = new SongManager();
+            $songManager->updatePowerById($id);
+            $songData = $songManager->selectOneById($id);
 
-        $songManager->updatePowerById($id);
-        //TODO  /!\ USER ID HARDCODER /!\
-        $badges = [];
-        if (!empty($_SESSION)) {
-            $userManager->powerUpById($_SESSION['id']);
-            $userPower = $userManager->powerByUser($_SESSION['id']);
-            $gamificationService = new GamificationCalculator();
-            $badges[] = $gamificationService->badgePower($userPower['contribution_force'], $_SESSION['id']);
-            $badges[] = $gamificationService->powerBadgeWeekEnd($_SESSION['id']);
-            $badges[] = $gamificationService->powerBadgeByNight($_SESSION['id']);
+            //TODO  /!\ USER ID HARDCODER /!\
+            $badges = [];
+            if (!empty($_SESSION)) {
+                $userManager->powerUpById($_SESSION['id']);
+                $userPower = $userManager->powerByUser($_SESSION['id']);
+                $gamificationService = new GamificationCalculator();
+                $badges[] = $gamificationService->badgePower($userPower['contribution_force'], $_SESSION['id']);
+                $badges[] = $gamificationService->powerBadgeWeekEnd($_SESSION['id']);
+                $badges[] = $gamificationService->powerBadgeByNight($_SESSION['id']);
+            }
+            return json_encode($songData['power']);
+            //$songs = $songManager->selectAll();
+            //$styles = $styleManager->selectAll();
+            //$topSongs = $songManager->selectAllTopSong('song.power');
         }
-        $songs = $songManager->selectAll();
-        $styles = $styleManager->selectAll();
-        $topSongs = $songManager->selectAllTopSong('song.power');
-
-        return $this->twig->render('Home/index.html.twig', [
-            'videos' => $songs,
-            'styles' => $styles,
-            'topSongs' => $topSongs,
-            'badges' => $badges,
-        ]);
     }
 }
