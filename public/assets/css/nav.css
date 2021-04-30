@@ -11,18 +11,37 @@
     height:150px;
 }
 
-.nav-link, .modal-title, h1 {
+.modal-title {
     font-size: 2em;
-    font-family: 'Train One', cursive;
+    font-family: 'Roboto', sans-serif;
     letter-spacing: 0.15em;
-    text-shadow: var(--primary-color-red) 0px 0px 2px,
-    var(--primary-color-red) 0px 0px 5px,
-    var(--primary-color-red) 0px 0px 10px;
+    text-shadow: var(--primary-color-red) 0px 0px 1px,
+    var(--primary-color-red) 0px 0px 2px,
+    var(--primary-color-red) 0px 0px 5px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    font-weight: 1000;
+}
+
+h1 {
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.15em;
+}
+
+.nav-link {
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.15em;
+    text-shadow: var(--primary-color-blue) 0px 0px 1px,
+    var(--primary-color-blue) 0px 0px 5px,
+    var(--primary-color-blue) 0px 0px 10px;
 }
 
 .fighters-name, .dropdown-item{
     font-size: 1em;
-    font-family: 'Train One', cursive;
+    font-family: 'Roboto', sans-serif;
     letter-spacing: 0.15em;
     text-shadow: var(--primary-color-red) 0px 0px 1px,
     var(--primary-color-red) 0px 0px 2px,

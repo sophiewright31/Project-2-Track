@@ -140,12 +140,15 @@ class AdminController extends AbstractController
                     $songs = $songManager->showNbSong();
                     $monthlySongs = $songManager->showNbSongsByMonth();
                     $dailySongs = $songManager->showNbSongsByDay();
+                    $badgeManager = new BadgeManager();
+                    $badges = $badgeManager->showNbBadge();
                     return $this->twig->render('admin/stat.html.twig', [
                         'nbUsers' => $users,
                         'monthlyUsers' => $monthlyUsers,
                         'nbSongs' => $songs,
                         'monthlySongs' => $monthlySongs,
                         'dailySongs' => $dailySongs,
+                        'badges' => $badges,
                     ]);
             }
         }
