@@ -1,25 +1,19 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
     <div class="container-fluid">
-        <div class="row">
-            <h1 class="col-6 col-lg-6 d-flex justify-content-center align-items-center">Hello DJ</h1>
-            <div class="col-6 col-lg-6 d-flex justify-content-center">
-            {% include 'component/_addsong.html.twig' %}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4 col-lg-4 p-0 d-flex justify-content-between">
-                <h2>You are signed in as : {{ djStat.pseudo }}</h2>
+        <div class="row mt-5 mb-5">
+            <div class="col-4 col-lg-4 p-0 d-flex">
+                <h3 class="dj-stat mr-2">Your Github avatar : </h3>
                 <img class="avatar-github" alt="avatar-github" src="https://avatars.githubusercontent.com/{{ djStat.github }}">
             </div>
-                <h3 class="col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.countSong <= 0 %} Number of song post : 0 {% else %} Number of song post : {{ djStat.countSong }} {% endif %}</h3>
-                <h3 class="col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.contribution_force <= 0 %} Your Power contribution : 0 {% else %} Your Power contribution : {{ djStat.contribution_force }} {% endif %}</h3>
+                <h3 class="dj-stat col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.countSong <= 0 %} Number of song post : 0 {% else %} Number of song post : {{ djStat.countSong }} {% endif %}</h3>
+                <h3 class="dj-stat col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.contribution_force <= 0 %} Your Power contribution : 0 {% else %} Your Power contribution : {{ djStat.contribution_force }} {% endif %}</h3>
         </div>
-        <div class="row col-12 col-xs-12 d-flex justify-content-center">
+        <div class="row col-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
             {% if (djBadges | length) > 1 %}
-                <h2>All your won badges :</h2>
+                <h2 class="djhome">All your won badges :</h2>
             {% elseif (djBadges | length) == 1 %}
-                <h2>Your first won badge :</h2>
+                <h2 class="djhome">Your first won badge :</h2>
             {% else %}
             {% endif %}
         </div>
@@ -32,11 +26,11 @@
                         </div>
             {% endfor %}
         </div>
-        <div class="row col-12 col-xs-12 d-flex justify-content-center">
+        <div class="row col-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
                 {% if (djSongs | length) > 1 %}
-                    <h4>All your songs posted</h4>
+                    <h2 class="djhome">All your songs posted</h2>
                 {% elseif (djSongs | length) == 1 %}
-                    <h4>Your song posted</h4>
+                    <h2 class="djhome">Your song posted</h2>
                 {% else %}
                 {% endif %}
         </div>
@@ -71,30 +65,7 @@
         </div>
     </div>
     {% include 'component/_badge_success.html.twig' %}
-    <h1>Hello DJ</h1>
-
-    <div class="row nav-link">
-        <button type="button" class="btn nav-link" data-toggle="modal" data-target="#onAir">
-            On Air
-        </button>
-        <a href="/Connect/disconnect" >Disconnect</a>
+    <div class="col-12 col-lg-12 d-flex justify-content-center mt-5">
+        {% include 'component/_addsong.html.twig' %}
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="onAir" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header ">
-                    <h5 class="modal-title" id="exampleModalLongTitle">CONNEXION REUSSIE</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% include 'component/_addsong.html.twig' %}
-    <h2>{{ djStats.pseudo }}</h2>
-    <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djStats.github }}">
 {% endblock %}
