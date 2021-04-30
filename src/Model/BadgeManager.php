@@ -31,4 +31,9 @@ class BadgeManager extends AbstractManager
         $statement->execute();
         return $statement->fetch();
     }
+    public function showNbBadge()
+    {
+        $query = 'SELECT count(id) as count FROM ' . self::TABLE;
+        return $this->pdo->query($query)->fetch();
+    }
 }

@@ -71,17 +71,17 @@ class UserManager extends AbstractManager
 
     public function showNbUser()
     {
-        $query = 'SELECT count(pseudo) FROM ' . self::TABLE;
+        $query = 'SELECT count(pseudo) as count FROM ' . self::TABLE;
 
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetch();
     }
 
     public function showNbUserByMonth()
     {
         $thisMonth = date("Y-m");
-        $query = 'SELECT count(pseudo) FROM ' . self::TABLE . '
+        $query = 'SELECT count(pseudo) as count FROM ' . self::TABLE . '
                 WHERE DATE_FORMAT(created_at, "%Y-%m") = "' . $thisMonth . '"';
 
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetch();
     }
 }
