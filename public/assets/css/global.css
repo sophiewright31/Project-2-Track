@@ -28,6 +28,22 @@ h1 {
     margin-top: 8px;
 }
 
+.line{
+    flex-direction: row;
+}
+
+.line:before,
+.line:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 2px solid var(--primary-color-red);
+    margin: auto;
+}
+
+.bg-line{
+    background-color: var(--second-background-color);
+}
+
 .card{
     background-color: var(--primary-color-black);
 }
@@ -49,6 +65,10 @@ h1 {
     position: absolute;
     top: 1px;
     background: none;
+}
+
+.badge{
+    box-shadow: var(--primary-color-blue) 0 0 10px;
 }
 
 .netflix-number{
