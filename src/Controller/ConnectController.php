@@ -47,6 +47,7 @@ class ConnectController extends AbstractController
         $userManager = new UserManager();
         $userData = $userManager->showUsers();
         $songManager = new SongManager();
+        $classement = $songManager->sortFighters();
         $totalPower = $songManager->countTotalPower();
         $totalPowerId = 0;
         if ($id !== null) {
@@ -58,6 +59,7 @@ class ConnectController extends AbstractController
             'users' => $userData,
             'totalPower' => $totalPower,
             'totalPowerById' => $totalPowerId,
+            'fighters' => $classement,
             ]);
     }
 
