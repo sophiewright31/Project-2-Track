@@ -19,14 +19,14 @@ class ConnectController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formCheck = new FormCheck();
             $_POST = $formCheck->cleanPost($_POST);
-            $errors['pseudo'] = $formCheck->emptyField('Pseudo', $_POST['pseudo']);
-            $errors['password'] = $formCheck->emptyField('Password', $_POST['password']);
-            $errors['pseudoAlreadyUsed'] = $formCheck->isPseudoUsed($_POST['pseudo']);
-            $errors['pseudoLength'] = $formCheck->isLengthRespected(self::MAX_LENGTH_PSEUDO, $_POST['pseudo']);
-            $errors['githubLength'] = $formCheck->isLengthRespected(self::MAX_LENGTH_GITHUB, $_POST['github']);
-            $errors['passwordLength'] = $formCheck->isLengthRespected(self::MAX_LENGTH_PASSWORD, $_POST['password']);
+            $formCheck->emptyField('pseudo', $_POST['pseudo']);
+            $formCheck->emptyField('password', $_POST['password']);
+            $formCheck->isPseudoUsed($_POST['pseudo']);
+            $formCheck->isLengthRespected(self::MAX_LENGTH_PSEUDO, $_POST['pseudo'], 'pseudo');
+            $formCheck->isLengthRespected(self::MAX_LENGTH_GITHUB, $_POST['github'], 'github');
+            $formCheck->isLengthRespected(self::MAX_LENGTH_PASSWORD, $_POST['password'], 'password');
+            $errors = $formCheck->getErrors();
 
-            $errors = $formCheck->cleanError($errors);
 
             if (empty($errors)) {
                 $userManager = new UserManager();

@@ -6,6 +6,7 @@ use App\Model\UserManager;
 
 class FormCheck
 {
+    protected array $errors = [];
 
     public function cleanPost(array $post): array
     {
@@ -13,37 +14,41 @@ class FormCheck
         return $post;
     }
 
-    public function emptyField(string $fieldName, string $field): string
+    public function emptyField(string $fieldName, string $field): void
     {
-        return empty($field) ? 'Veuillez renseigner le champ : ' . $fieldName : '';
-    }
-
-    public function cleanError(array $errors): array
-    {
-        $errorsCleaned = [];
-        foreach ($errors as $field => $error) {
-            if ($error !== '' && $error !== false) {
-                $errorsCleaned[$field] = $error;
-            }
+        if (empty($field)) {
+            $this->errors[$fieldName] = 'Veuillez renseigner le champ : ' . $fieldName;
         }
-        return $errorsCleaned;
     }
 
-    public function isPseudoUsed(string $pseudo): bool
+    public function isPseudoUsed(string $pseudo): void
     {
-        $result = false;
+
         $userManager = new UserManager();
         $users = $userManager->selectAll();
         foreach ($users as $user) {
             if ($pseudo === $user['pseudo']) {
-                $result = true;
+                $this->errors['pseudoAlreadyUsed'] = 'Pseudo déjà utilisé';
             }
         }
-        return $result;
     }
 
-    public function isLengthRespected(int $length, string $postField): bool
+    public function isLengthRespected(int $length, string $postField, string $fieldName): void
     {
-        return strlen($postField) > $length;
+        if (strlen($postField) > $length) {
+            $this->errors[$fieldName . 'Length'] = 'Longueur maximale du champ : ' . $fieldName
+                                        . ' est de ' . $length . ' caractères';
+        }
+    }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    public function setErrors(array $errors): FormCheck
+    {
+        $this->errors = $errors;
+        return $this;
     }
 }
