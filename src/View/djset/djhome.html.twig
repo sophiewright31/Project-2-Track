@@ -39,22 +39,6 @@
             {% for djSong in djSongs %}
                     <div class="card card-fighters col-12 col-md-6 col-lg-4">
                         <div class=" card-header p-0 d-flex justify-content-between">
-                            <div>
-                                <form method="POST" class="d-inline" action="/Home/powerUpById/{{ djSong.id }}">
-                                    <button type="submit" class="power-button " name="{{ djSong.id }}"></button>
-                                </form>
-                                <p class="d-inline power">
-                                    {% if djSong.power >= 1000000000 %}
-                                        {{ (djSong.power/1000000000)|round(1, 'floor')  }}G
-                                    {% elseif djSong.power >= 1000000 %}
-                                        {{ (djSong.power/1000000)|round(1, 'floor')  }}M
-                                    {% elseif djSong.power >= 1000 %}
-                                        {{ (djSong.power/1000)|round(1, 'floor') }}K
-                                    {% else %}
-                                        {{ djSong.power }}
-                                    {% endif %}
-                                </p>
-                            </div>
                             <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djSong.github }}">
                         </div>
                         <div class="embed-responsive embed-responsive-21by9">

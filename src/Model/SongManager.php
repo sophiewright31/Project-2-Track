@@ -114,4 +114,11 @@ class SongManager extends AbstractManager
         WHERE DATE_FORMAT(created_at, "%Y-%m-%e") = "' . $today . '"';
         return $this->pdo->query($query)->fetch();
     }
+
+    public function sortFighters()
+    {
+        $query =    'SELECT user.pseudo, song.power, song.user_id FROM ' . self::TABLE . '
+                    JOIN user ON song.user_id = user.id';
+        return $this->pdo->query($query)->fetchAll();
+    }
 }
