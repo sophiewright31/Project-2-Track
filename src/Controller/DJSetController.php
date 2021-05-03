@@ -14,21 +14,17 @@ class DJSetController extends AbstractController
     {
         if (isset($_SESSION['id'])) {
             $id = $_SESSION['id'];
-            $djSetManagerStats = new DJSetManager();
-            //$userManager = new UserManager(); //Etrange cette instance n'est plus utilisée
             $styleManager = new StyleManager();
-            $djSetManagerBadge = new DJSetManager();
-            $djSongManager = new DJSetManager();
+            $djSetManager = new DJSetManager();
             $styles = $styleManager->selectAll();
-            $djStats = $djSetManagerStats->selectStatsByUser($id);
-            $djBadges = $djSetManagerBadge->selectBadgeByUser($id);
-            $djSongs = $djSongManager->selectSongByUser($id);
+            $djStats = $djSetManager->selectStatsByUser($id);
+            $djBadges = $djSetManager->selectBadgeByUser($id);
+            $djSongs = $djSetManager->selectSongByUser($id);
             return $this->twig->render('djset/djhome.html.twig', [
                 'djBadges' => $djBadges,
                 'djStat' => $djStats,
                 'styles' => $styles,
-                'user_id' => $_SESSION['id'],
-                'djSongs' => $djSongs
+                'videos' => $djSongs
             ]);
         } else {
             return $this->twig->render('djset/connect.html.twig');
@@ -39,6 +35,9 @@ class DJSetController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id'])) {
             $errors = [];
+            $id = $_SESSION['id'];
+            $djSetManager = new DJSetManager();
+
             if (empty($_POST['youtube_id'])) {
                 $errors['youtube_id'] = 'Please enter your youtube URL';
             }
@@ -50,7 +49,6 @@ class DJSetController extends AbstractController
             } else {
                 $errors['youtube_id'] = 'Please enter a valid youtube URL';
             }
-            $id = $_SESSION['id'];
             $_POST['user_id'] = $id;
             $styleManager = new StyleManager();
             $userManager = new UserManager();
@@ -69,18 +67,25 @@ class DJSetController extends AbstractController
                 $userId = $_SESSION['id'];
                 $songPosted = $songManager->songPostedByUser($userId);
                 $badges[] = $gamificationService->badgeSongs($songPosted['countSongs'], $userId);
-
+                $djBadges = $djSetManager->selectBadgeByUser($id);
+                $djSongs = $djSetManager->selectSongByUser($id);
                 return $this->twig->render('djset/djhome.html.twig', [
+                    'djBadges' => $djBadges,
                     'styles' => $styles,
                     'badges' => $badges,
                     'djStats' => $djStats,
+                    'videos' => $djSongs,
                 ]);
             }
+            $djBadges = $djSetManager->selectBadgeByUser($id);
+            $djSongs = $djSetManager->selectSongByUser($id);
             //TODO modifier le chemin pour affichage des erreurs
             return $this->twig->render('djset/djhome.html.twig', [
+                'djBadges' => $djBadges,
                 'errors' => $errors,
                 'styles' => $styles,
                 'djStats' => $djStats,
+                'videos' => $djSongs,
             ]);
         }
         //If don't come from a post go to error 405

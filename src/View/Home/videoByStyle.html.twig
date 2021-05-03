@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <div class="row" >
-        <h1>{{ styleName['name'] }}</h1>
+        <h1 class="nav-link text-center font-weight-bold">{{ styleName['name'] }}</h1>
     </div>
 
     {% include 'component/_select_style.html.twig' %}
@@ -19,7 +19,7 @@
 
     <div class="row">
         {% for video in videos %}
-            <div class="card card-fighters col-3">
+            <div class="card card-fighters col-lg-3 col-12">
                 <div class="card-header p-0 d-flex justify-content-between">
                     {% include 'component/_power_button.html.twig' %}
                     <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ video.github }}">
@@ -34,6 +34,3 @@
 
     {% endblock %}
 
-    {% block javascript %}
-    <script src="/assets/javascript/styleSelection.js"></script>
-{% endblock %}

@@ -1,16 +1,75 @@
 {% extends 'layout.html.twig' %}
 
 {% block stat %}
-    <h1>COUCOU ADMIN</h1>
-
-    <h2> Voir les stats</h2>
-    TOUS LES UTILISATEURS : {{ dump(nbUsers) }}
-    LES NOUVEAUX UTILISATEURS DU MOIS : {{ dump(monthlyUsers) }}
-
-    TOUTES LES CHANSONS : {{ dump(nbSongs) }}
-    LES NOUVELLES CHANSONS DU MOIS : {{ dump(monthlySongs) }}
-    LES NOUVELLES CHANSONS DU JOUR : {{ dump(dailySongs) }}
-
+    <div class="col-12">
+        <section id="statistics">
+            <div class="card" >
+                <div class="card-header">
+                    <h1>ADMIN DASHBOARD</h1>
+                </div>
+                <div class="stats py-3 px-4">
+                    <div class="py-4">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                 style="width: {{ monthlySongs.count *100/nbSongs.count }}%" aria-valuenow="{{ monthlySongs.count *100/nbSongs.count }}"
+                                 aria-valuemin="0" aria-valuemax="5000">
+                            </div>
+                        </div>
+                        <p class="card-text">New Songs this Month on the Total Songs Number : {{ (monthlySongs.count *100/nbSongs.count) |number_format(0, '.', ',')}}%</p>
+                    </div>
+                    <div class="py-4">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-danger"
+                                 role="progressbar"
+                                 style="width:{{ monthlyUsers.count *100/ nbUsers.count }}%" aria-valuenow="{{ monthlyUsers.count *100/ nbUsers.count}}"
+                                 aria-valuemin="0" aria-valuemax="5000">
+                            </div>
+                        </div>
+                        <p class="card-text">New Users this Month on the Total Users Number : {{ (monthlyUsers.count *100/ nbUsers.count) |number_format(0, '.', ',')}}%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 card text-center">
+            <a href="/admin/showAllBadges">
+                <button type="button" class="btn btn-primary">Badges Management</button>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card text-center">Total Users</h1>
+                    <h2 class="card text-center">{{ nbUsers.count }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card text-center">Total Songs</h1>
+                    <h2 class="card text-center">{{ nbSongs.count }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card text-center">Badges Given</h1>
+                    <h2 class="card text-center">{{ badges.count }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card text-center">Daily New Songs</h1>
+                    <h2 class="card text-center">{{ dailySongs.count }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
     {% block javascript %}
     {% endblock %}
 {% endblock %}

@@ -15,13 +15,13 @@
             </li>
             {% if session.role == 'admin' %}
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/admin/index" > Administration </i></a>
+                <a class="nav-link" href="/admin/index" > Admin </i></a>
             </li>
             {% endif %}
 
             {% if session is empty %}
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/Connect/signIn" > Inscription <i class="far fa-user"></i></a>
+                <a class="nav-link" href="/Connect/signIn" > Inscription</a>
             </li>
             {% else %}
         </ul>

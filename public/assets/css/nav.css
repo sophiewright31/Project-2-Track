@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
 
-.navbar-nav{
+.navbar-nav {
     width:100%;
     display:flex;
     justify-content:space-around;
 }
 
-.img-fluid{
+.img-fluid {
     width:150px;
     height:150px;
 }
@@ -39,7 +39,7 @@ h1 {
     var(--primary-color-blue) 0px 0px 10px;
 }
 
-.fighters-name, .dropdown-item{
+.fighters-name, .dropdown-item {
     font-size: 1em;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 0.15em;
@@ -48,11 +48,11 @@ h1 {
     var(--primary-color-red) 0px 0px 5px;
 }
 
-.navbar-dark .navbar-nav .nav-link{
+.navbar-dark .navbar-nav .nav-link {
     color:var(--text-color);
 }
 
-.navbar-dark .navbar-nav .nav-link:hover{
+.navbar-dark .navbar-nav .nav-link:hover {
     color:var(--text-color);
 }
 
@@ -76,19 +76,19 @@ h1 {
     width: 100%;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     background-color: transparent;
     border: var(--text-color);
 }
-.btn{
+.btn {
     color:white;
 }
 
-.dropdown-item:active{
+.dropdown-item:active {
     background-color: transparent;
 }
 
-.navbar-nav{
+.navbar-nav {
     width: 60%
 }
 

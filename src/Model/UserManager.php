@@ -6,11 +6,12 @@ class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
 
+    public const ROLE = 2;
+
     public function addUser($userData)
     {
-        //TODO role_id est hard codé : role de contributeur(2) par défaut
         $query = 'INSERT INTO user (pseudo, role_id, password, github, created_at, updated_at, contribution_force)
-                  VALUES (:pseudo, 2, :password, :github, NOW(), NOW(), 0)';
+                  VALUES (:pseudo, ' . self::ROLE . ' , :password, :github, NOW(), NOW(), 0)';
         $statement = $this->pdo->prepare($query);
 
         $statement->bindValue(':pseudo', $userData['pseudo']);
@@ -71,17 +72,17 @@ class UserManager extends AbstractManager
 
     public function showNbUser()
     {
-        $query = 'SELECT count(pseudo) FROM ' . self::TABLE;
+        $query = 'SELECT count(pseudo) as count FROM ' . self::TABLE;
 
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetch();
     }
 
     public function showNbUserByMonth()
     {
         $thisMonth = date("Y-m");
-        $query = 'SELECT count(pseudo) FROM ' . self::TABLE . '
+        $query = 'SELECT count(pseudo) as count FROM ' . self::TABLE . '
                 WHERE DATE_FORMAT(created_at, "%Y-%m") = "' . $thisMonth . '"';
 
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetch();
     }
 }
