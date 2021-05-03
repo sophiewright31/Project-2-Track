@@ -28,22 +28,24 @@
             {% endfor %}
         </div>
         <div class="row col-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
-                {% if (djSongs | length) > 1 %}
+                {% if (videos | length) > 1 %}
                     <h2 class="djhome">All your songs posted</h2>
-                {% elseif (djSongs | length) == 1 %}
+                {% elseif (videos | length) == 1 %}
                     <h2 class="djhome">Your song posted</h2>
                 {% else %}
                 {% endif %}
         </div>
         <div class="row">
-            {% for djSong in djSongs %}
+            {% for video in videos %}
                     <div class="card card-fighters col-12 col-md-6 col-lg-4">
                         <div class=" card-header p-0 d-flex justify-content-between">
-                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djSong.github }}">
+                            {% include 'component/_power_button.html.twig' %}
+                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ session.github }}">
+
                         </div>
                         <div class="embed-responsive embed-responsive-21by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ djSong.youtube_id }}"
-                                    id="video {{ djSong.id }}" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
+                                    id="video {{ video.id }}" allowfullscreen></iframe>
                         </div>
                     </div>
             {% endfor %}
