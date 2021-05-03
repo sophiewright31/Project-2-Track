@@ -32,7 +32,6 @@ class AdminController extends AbstractController
                         'dailySongs' => $dailySongs,
                         'badges' => $badges,
                     ]);
-                return $this->twig->render('admin/admin.html.twig');
             } else {
                 header("HTTP/1.0 403 Forbidden");
                 return (new ErrorHandleController())->forbidden();
