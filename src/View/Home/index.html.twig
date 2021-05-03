@@ -4,12 +4,15 @@
 {% block content %}
     <div class="container-fluid">
 
-        <h1> TOP SONGS </h1>
-        {% include 'component/_badge_success.html.twig' %}
 
+        {% if videos %}
+            <h1> TOP SONGS </h1>
+            {% include 'component/_badge_success.html.twig' %}
 
         {% include 'component/_podium.html.twig' %}
-
+        {% else %}
+            <h1> SOIS LE PREMIER A POSTER UNE CHANSON </h1>
+        {% endif %}
 
         <h1> Catalogue de chanson du mois </h1>
 
