@@ -61,3 +61,9 @@ h1 {
     border: var(--primary-color-black);
 }
 
+.btn{
+    font-family: 'Roboto', sans-serif;
+    box-shadow: var(--primary-color-blue)0px 0px 10px;
+    margin-top: 5px;
+}
+
