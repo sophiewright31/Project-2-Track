@@ -86,5 +86,4 @@ class ConnectController extends AbstractController
         unset($_SESSION);
         header('location: /');
     }
-
 }
