@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\SongManager;
 use App\Model\UserManager;
+use App\Service\Form\ConnectCheck;
 use App\Service\Form\FormCheck;
 
 class ConnectController extends AbstractController
@@ -67,21 +68,20 @@ class ConnectController extends AbstractController
             ]);
     }
 
-    public function connectUser(): void
+    public function connectUser(): string
     {
-        $userManager = new UserManager();
-        $userData = $userManager->connect();
-        foreach ($userData as $user) {
-            if ($_POST['pseudo'] === $user['pseudo']) {
-                if (password_verify($_POST['password'], $user['password'])) {
-                        $_SESSION['pseudo'] = $user['pseudo'];
-                        $_SESSION['github'] = $user['github'];
-                        $_SESSION['role'] = $user['identifier'];
-                        $_SESSION['id'] = $user['id'];
-                }
-            }
+        $connectCheck = new ConnectCheck();
+        $connectCheck->isPseudoExist($_POST['pseudo']);
+        $connectCheck->isPasswordCorrect($_POST['pseudo'], $_POST['password']);
+        $errors = $connectCheck->getErrors();
+        if (empty($errors)) {
+            $connectCheck->getSessionData($_POST['pseudo']);
+            return $this->twig->render('djset/connect.html.twig');
+        } else {
+            return $this->twig->render('djset/connect.html.twig', [
+                    'errors' => $errors,
+            ]);
         }
-        header('Location: /');
     }
 
     public function disconnect(): void
