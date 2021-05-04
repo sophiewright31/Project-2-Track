@@ -19,6 +19,7 @@ class HomeController extends AbstractController
 {
     public function index(): string
     {
+        $daysInMonth = date('t');
         $songManager = new SongManager();
         $styleManager = new StyleManager();
         $topManager = new SongManager();
@@ -30,6 +31,7 @@ class HomeController extends AbstractController
             'videos' => $songs,
             'styles' => $styles,
             'topSongs' => $topSongs,
+            'daysInMonth' => $daysInMonth,
         ]);
     }
 

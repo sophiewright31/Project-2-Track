@@ -2,6 +2,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+
     <div class="container-fluid">
 
         {% if videos %}
@@ -31,5 +32,8 @@
         </div>
 
     </div>
-
+    <div class="progress">
+        <div class="progress-bar bg-dark" role="progressbar" style="width: {{ "now"|date("d") /daysInMonth *100 }}%"
+             aria-valuenow="3" aria-valuemin="0" aria-valuemax=""></div>
+    </div>
 {% endblock %}
