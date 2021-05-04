@@ -51,7 +51,20 @@ class ConnectController extends AbstractController
         $userManager = new UserManager();
         $userData = $userManager->showUsers();
         $songManager = new SongManager();
-        $classement = $songManager->sortFighters();
+        $songs = $songManager->sortFighters();
+        $rankings = [];
+
+        foreach ($songs as $song) {
+            if (empty($songs['github'])) {
+                $song['github'] = $song['pseudo'];
+            }
+            if (!array_key_exists($song['github'], $rankings)) {
+                $rankings[$song['github']] = (int)$song['power'];
+            } else {
+                $rankings[$song['github']] += $song['power'];
+            }
+        }
+        arsort($rankings);
         $totalPower = $songManager->countTotalPower();
         $totalPowerId = 0;
         if ($id !== null) {
@@ -63,7 +76,7 @@ class ConnectController extends AbstractController
             'users' => $userData,
             'totalPower' => $totalPower,
             'totalPowerById' => $totalPowerId,
-            'fighters' => $classement,
+            'fighters' => $rankings,
             ]);
     }
 
