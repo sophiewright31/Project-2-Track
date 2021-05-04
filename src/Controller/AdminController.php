@@ -137,8 +137,15 @@ class AdminController extends AbstractController
 
             if (empty($errors)) {
                 $badgeManager = new BadgeManager();
+                $userManager = new UserManager();
                 $badgeManager->insert($_POST);
-                header('Location: /admin/showAllBadges');
+                $users = $userManager->selectAll();
+                $badges = $badgeManager->selectAll();
+                return $this->twig->render('admin/badges.html.twig', [
+                    'badges' => $badges,
+                    'users' => $users,
+                    'success_badge_create' => true,
+                ]);
             }
         }
         //If don't come from a post go to error 405
