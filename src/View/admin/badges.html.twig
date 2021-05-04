@@ -40,7 +40,6 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ badge.name}}</h5>
                     <p class="card-text">{{ badge.description}}</p>
-                    <a href="#" class="btn btn-primary">Update</a>
                     <form method="POST" action="deleteBadge/{{ badge.id }}">
                         <button type="submit" class="btn btn-primary" name="{{ badge.id }}">Delete</button>
                     </form>
