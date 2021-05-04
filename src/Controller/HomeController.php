@@ -53,12 +53,9 @@ class HomeController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userManager = new UserManager();
-           // $styleManager = new StyleManager();
             $songManager = new SongManager();
             $songManager->updatePowerById($id);
             $songData = $songManager->selectOneById($id);
-
-            //TODO  /!\ USER ID HARDCODER /!\
             $badges = [];
             if (!empty($_SESSION)) {
                 $userManager->powerUpById($_SESSION['id']);
@@ -69,9 +66,6 @@ class HomeController extends AbstractController
                 $badges[] = $gamificationService->powerBadgeByNight($_SESSION['id']);
             }
             return json_encode($songData['power']);
-            //$songs = $songManager->selectAll();
-            //$styles = $styleManager->selectAll();
-            //$topSongs = $songManager->selectAllTopSong('song.power');
         }
     }
 }

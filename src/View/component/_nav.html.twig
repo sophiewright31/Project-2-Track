@@ -15,16 +15,47 @@
             </li>
             {% if session.role == 'admin' %}
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/admin/index" > Administration </i></a>
+                <a class="nav-link" href="/admin/index" > Admin </i></a>
             </li>
             {% endif %}
 
             {% if session is empty %}
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/Connect/signIn" > Inscription <i class="far fa-user"></i></a>
+                <a class="nav-link" href="/Connect/signIn" > Inscription</a>
             </li>
             {% else %}
         </ul>
+            <div class="rules">
+                <i data-toggle="modal" data-target="#exampleModal" class="information fas fa-info-circle"></i>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Les règles du jeu</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Nous y sommes ! Tu es prêt à entrer dans la cour des grands. Le game est simple.
+                                Si tu penses que tes titres préférés peuvent rivaliser avec les poids lourds du hit parade.
+                                    Si ce n'est pas déjà fait, inscrits toi. Puis, ajoutes sans plus tarder un lien YouTube,
+                                    et saute dans le grand bain.
+                                    Si tu séduits avec tes titres ajoutés, tu recevra un maximum de support.
+                                    Si à ton tour tu souhaites supporter un titre postés par un autre DJ.
+                                    Appuies à l'infini sur l'éclair et donne lui un max de power.
+                                    A la fin du mois, nous verrons qui sera sur le poduim et décrocher le Badge Suprème.
+                                    N'attends plus pour entrer dans la battle ! Viens nous rejoindre.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="'d-flex justify-content-end">
                 <strong class="modal-title mr-3">ON AIR</strong>
                 <div class="dropdown d-inline">

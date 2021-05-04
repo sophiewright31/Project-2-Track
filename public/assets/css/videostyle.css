@@ -49,19 +49,19 @@
 
 
 
-.firstvideo {
+.video1 {
     color: #FFD700;
     text-shadow: 1px 1px 1px #ccc;
     font-size: 3em;
 }
 
-.secondvideo {
+.video2 {
     color: #c0c0c0;
     text-shadow: 1px 1px 1px #ccc;
     font-size: 3em;
 }
 
-.thirdvideo {
+.video3 {
     color: #b87333;
     text-shadow: 1px 1px 1px #ccc;
     font-size: 3em;
@@ -88,3 +88,8 @@ button {
 .podium3 {
     box-shadow: 0px 0px 10px 11px rgba(134, 109, 78, 1);
 }
+
+.input-group-text, .input-group>.custom-select:not(:first-child) {
+    color: black;
+}
+

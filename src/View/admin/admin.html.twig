@@ -1,11 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>COUCOU ADMIN</h1>
-
-    <a href="/admin/showAllBadges"><button type="button" class="btn btn-primary">Gestion des Badges</button></a>
-
-    <a href="/admin/stat"><button type="button" class="btn btn-primary">Voir les stats</button></a
+    <h1>Hello ADMIN</h1>
+    {% include 'admin/stat.html.twig' %}
     {% block javascript %}
     {% endblock %}
 {% endblock %}

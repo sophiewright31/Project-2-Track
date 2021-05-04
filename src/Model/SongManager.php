@@ -57,7 +57,7 @@ class SongManager extends AbstractManager
         return $this->pdo->query($query)->fetchAll();
     }
 
-    public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
+    public function selectAll(string $orderBy = 'power', string $direction = 'DESC'): array
     {
         $thisMonth = date("Y-m");
         $query = 'SELECT s.id, s.youtube_id, s.power, s.created_at, s.updated_at, u.github  

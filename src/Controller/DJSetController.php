@@ -24,7 +24,7 @@ class DJSetController extends AbstractController
                 'djBadges' => $djBadges,
                 'djStat' => $djStats,
                 'styles' => $styles,
-                'djSongs' => $djSongs
+                'videos' => $djSongs
             ]);
         } else {
             return $this->twig->render('djset/connect.html.twig');
@@ -74,7 +74,7 @@ class DJSetController extends AbstractController
                     'styles' => $styles,
                     'badges' => $badges,
                     'djStats' => $djStats,
-                    'djSongs' => $djSongs,
+                    'videos' => $djSongs,
                 ]);
             }
             $djBadges = $djSetManager->selectBadgeByUser($id);
@@ -85,7 +85,7 @@ class DJSetController extends AbstractController
                 'errors' => $errors,
                 'styles' => $styles,
                 'djStats' => $djStats,
-                'djSongs' => $djSongs,
+                'videos' => $djSongs,
             ]);
         }
         //If don't come from a post go to error 405

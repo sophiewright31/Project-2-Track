@@ -3,15 +3,16 @@
 
         <form class="container form-connect" method="post" action="signIn">
 
+
             <h4 class="nav-link"> INSCRIVEZ-VOUS</h4>
 
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="pseudo" class="form-label" id="floatingInputGrid">Pseudo*</label>
                 <input type="text" class="form-control" id="pseudo" name="pseudo" maxlength="100" required>
-                {% if  errors.pseudo != '' %}
+                {% if  errors.pseudo  %}
                 <div class="alert-danger" role="alert">{{ errors.pseudo }}</div>
                 {% endif %}
-                {% if  errors.pseudoAlreadyUsed != '' %}
+                {% if  errors.pseudoAlreadyUsed  %}
                     <div class="alert-danger" role="alert">Pseudo déjà utilisé ! Vous devez trouver une autre idée !</div>
                 {% endif %}
                 {% if  errors.pseudoLength  %}
@@ -32,7 +33,7 @@
                 <label for="inputPassword5" class="form-label" id="floatingInputGrid">Password*</label>
                 <input type="password" id="inputPassword5" class="form-control"
                        aria-describedby="passwordHelpBlock" name="password" maxlength="255" required>
-                {% if  errors.password != '' %}
+                {% if  errors.password  %}
                     <div class="alert-danger" role="alert">{{ errors.password }}</div>
                 {% endif %}
                 {% if  errors.passwordLength %}

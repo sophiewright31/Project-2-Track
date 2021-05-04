@@ -1,49 +1,51 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
     <div class="container-fluid">
+        {% include 'component/_badge_success.html.twig' %}
         <div class="row mt-5 mb-5">
             <div class="col-4 col-lg-4 p-0 d-flex">
-                {% include 'component/_badge_success.html.twig' %}
+
                 <h3 class="dj-stat mr-2">Your Github avatar : </h3>
                 <img class="avatar-github" alt="avatar-github" src="https://avatars.githubusercontent.com/{{ session.github }}">
             </div>
                 <h3 class="dj-stat col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.countSong <= 0 %} Number of song post : 0 {% else %} Number of song post : {{ djStat.countSong }} {% endif %}</h3>
                 <h3 class="dj-stat col-4 col-lg-4 d-flex justify-content-center align-items-center">{% if djStat.contribution_force <= 0 %} Your Power contribution : 0 {% else %} Your Power contribution : {{ djStat.contribution_force }} {% endif %}</h3>
         </div>
-        <div class="row col-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
+        <div class="row line col-12 col-xs-12 d-flex justify-content-center mt-5 mb-5 pt-3">
             {% if (djBadges | length) > 1 %}
-                <h2 class="djhome">All your won badges :</h2>
+                <h2 class="djhome pl-5 pr-5">All your won badges :</h2>
             {% elseif (djBadges | length) == 1 %}
-                <h2 class="djhome">Your first won badge :</h2>
+                <h2 class="djhome pl-5 pr-5">Your first won badge :</h2>
             {% else %}
             {% endif %}
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             {% for djBadge in djBadges %}
-                        <div class="col-12 col-md-6 col-lg-4 d-flex-column text-center">
+                        <div class="badge bg-line col-6 col-lg-3 d-flex-column text-center mt-5 mr-2 ml-2">
                             <h3>{{ djBadge.name }}</h3>
                             <img class="avatar-github" alt="badge-contributor" src="{{ djBadge.picture_url }}">
-                            <p>{{ djBadge.description }}</p>
+                            <p class="pt-3">{{ djBadge.description }}</p>
                         </div>
             {% endfor %}
         </div>
-        <div class="row col-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
-                {% if (djSongs | length) > 1 %}
-                    <h2 class="djhome">All your songs posted</h2>
-                {% elseif (djSongs | length) == 1 %}
-                    <h2 class="djhome">Your song posted</h2>
+        <div class="row line col-12 col-xs-12 d-flex justify-content-center mt-5 mb-5 pt-3">
+                {% if (videos | length) > 1 %}
+                    <h2 class="djhome pl-5 pr-5">All your songs posted</h2>
+                {% elseif (videos | length) == 1 %}
+                    <h2 class="djhome pl-5 pr-5">Your song posted</h2>
                 {% else %}
                 {% endif %}
         </div>
         <div class="row">
-            {% for djSong in djSongs %}
-                    <div class="card card-fighters col-12 col-md-6 col-lg-4">
+            {% for video in videos %}
+                    <div class="card card-fighters col-lg-3 col-12">
                         <div class=" card-header p-0 d-flex justify-content-between">
-                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ djSong.github }}">
+                            {% include 'component/_power_button.html.twig' %}
+                            <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ session.github }}">
                         </div>
                         <div class="embed-responsive embed-responsive-21by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ djSong.youtube_id }}"
-                                    id="video {{ djSong.id }}" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
+                                    id="video {{ video.id }}" allowfullscreen></iframe>
                         </div>
                     </div>
             {% endfor %}
