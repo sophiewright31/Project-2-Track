@@ -32,7 +32,11 @@ class ConnectController extends AbstractController
                 $userManager = new UserManager();
                 $userData = array_map('trim', $_POST);
                 $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-                $userManager->addUser($userData);
+                $id = $userManager->addUser($userData);
+                $_SESSION['pseudo'] = $userData['pseudo'];
+                $_SESSION['github'] = $userData['github'];
+                $_SESSION['role'] = 'contributor';
+                $_SESSION['id'] = intval($id);
                 header('Location: /DJSet/index');
             }
         }
