@@ -117,7 +117,7 @@ class SongManager extends AbstractManager
 
     public function sortFighters()
     {
-        $query =    'SELECT user.pseudo, song.power, song.user_id FROM ' . self::TABLE . '
+        $query =    'SELECT user.github, user.pseudo, song.power, song.user_id FROM ' . self::TABLE . '
                     JOIN user ON song.user_id = user.id';
         return $this->pdo->query($query)->fetchAll();
     }
