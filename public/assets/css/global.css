@@ -26,6 +26,23 @@ h1 {
     margin-top: 8px;
 }
 
+<<<<<<< HEAD
+.line{
+    flex-direction: row;
+}
+
+.line:before,
+.line:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 2px solid var(--primary-color-red);
+    margin: auto;
+}
+
+.bg-line{
+    background-color: var(--second-background-color);
+}
+
 .card {
     background-color: var(--primary-color-black);
 }
@@ -41,6 +58,10 @@ h1 {
     position: absolute;
     top: 1px;
     background: none;
+}
+
+.badge{
+    box-shadow: var(--primary-color-blue) 0 0 10px;
 }
 
 .netflix-number {
@@ -59,5 +80,11 @@ h1 {
 .modal-header, .modal-body, .modal-footer{
     background-color: var(--primary-color-black) ;
     border: var(--primary-color-black);
+}
+
+.btn{
+    font-family: 'Roboto', sans-serif;
+    box-shadow: var(--primary-color-blue)0px 0px 10px;
+    margin-top: 5px;
 }
 

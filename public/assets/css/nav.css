@@ -95,3 +95,14 @@ h1 {
 .dropdown-menu {
     left:-60%;
 }
+
+.rules{
+    display: flex;
+    font-size: 30px;
+    margin-right: 20px;
+}
+.information{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
