@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
 
+.navbar {
+    background-color: #1c1c1e;
+}
+
 .navbar-nav {
     width:100%;
     display:flex;
@@ -89,7 +93,7 @@ h1 {
 }
 
 .navbar-nav {
-    width: 60%
+    width: 60%;
 }
 
 .dropdown-menu {

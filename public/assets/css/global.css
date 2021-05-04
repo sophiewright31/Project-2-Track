@@ -55,8 +55,11 @@ h1 {
 
 .fighters-name {
     position: absolute;
-    top: 1px;
+    font-size: 10px;
+    top: -15px;
     background: none;
+    border: none;
+    color: #fefefe;
 }
 
 .badge{
@@ -76,12 +79,32 @@ h1 {
     left: -1px;
 }
 
-.modal-header, .modal-body, .modal-footer{
+.modal-header, .modal-body, .modal-footer {
     background-color: var(--primary-color-black) ;
     border: var(--primary-color-black);
 }
 
-.btn{
+.footer {
+    background-color: #1c1c1e;
+    color : #fefefe;
+}
+
+.rounded-circle {
+    height: 35px;
+    width: auto;
+}
+
+.dropdown-toggle {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+.form-connect {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+.btn {
     font-family: 'Roboto', sans-serif;
     box-shadow: var(--primary-color-blue)0px 0px 10px;
     margin-top: 5px;
