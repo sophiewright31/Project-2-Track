@@ -105,8 +105,20 @@ h1 {
     font-size: 30px;
     margin-right: 20px;
 }
-.information{
+.information {
     display: flex;
     justify-content: center;
     align-content: center;
+}
+
+.logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.disconnect {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
