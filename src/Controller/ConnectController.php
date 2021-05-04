@@ -77,7 +77,7 @@ class ConnectController extends AbstractController
             'totalPower' => $totalPower,
             'totalPowerById' => $totalPowerId,
             'fighters' => $rankings,
-            ]);
+        ]);
     }
 
     public function connectUser(): void
@@ -87,10 +87,10 @@ class ConnectController extends AbstractController
         foreach ($userData as $user) {
             if ($_POST['pseudo'] === $user['pseudo']) {
                 if (password_verify($_POST['password'], $user['password'])) {
-                        $_SESSION['pseudo'] = $user['pseudo'];
-                        $_SESSION['github'] = $user['github'];
-                        $_SESSION['role'] = $user['identifier'];
-                        $_SESSION['id'] = $user['id'];
+                    $_SESSION['pseudo'] = $user['pseudo'];
+                    $_SESSION['github'] = $user['github'];
+                    $_SESSION['role'] = $user['identifier'];
+                    $_SESSION['id'] = $user['id'];
                 }
             }
         }
