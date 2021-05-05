@@ -21,7 +21,7 @@ class ConnectController extends AbstractController
         return $this->twig->render('User/form_user.html.twig');
     }
 
-    public function signIn(): string
+    public function signIn()
     {
         $errors = [];
 
@@ -35,6 +35,7 @@ class ConnectController extends AbstractController
             $formCheck->isLengthRespected(self::MAX_LENGTH_GITHUB, $_POST['github'], 'github');
             $formCheck->isLengthRespected(self::MAX_LENGTH_PASSWORD, $_POST['password'], 'password');
             $errors = $formCheck->getErrors();
+
             if (empty($errors)) {
                     $userManager = new UserManager();
                     $userData = array_map('trim', $_POST);
@@ -50,8 +51,6 @@ class ConnectController extends AbstractController
                 'errors' => $errors,
             ]);
         }
-        header("HTTP/1.0 405 Method Not Allowed");
-        return (new ErrorHandleController())->badMethod();
     }
 
     public function all($id = null): string
@@ -79,7 +78,6 @@ class ConnectController extends AbstractController
             $songManager = new SongManager();
             $totalPowerId = $songManager->countTotalPowerById($id);
         }
-
         return $this->twig->render('User/all.html.twig', [
             'users' => $userData,
             'totalPower' => $totalPower,
@@ -105,8 +103,6 @@ class ConnectController extends AbstractController
                 ]);
             }
         }
-        header("HTTP/1.0 405 Method Not Allowed");
-        return (new ErrorHandleController())->badMethod();
     }
 
     public function disconnect(): void
