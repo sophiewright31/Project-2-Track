@@ -50,24 +50,24 @@ class DJSetController extends AbstractController
 
 
             if (empty($errors)) {
-                $songManager = new SongManager();
-                $gamificationService = new GamificationCalculator();
-                $songData = $_POST;
-                $songData['user_id'] = $_POST['user_id'];
-                $songManager->insert($songData);
+                    $songManager = new SongManager();
+                    $gamificationService = new GamificationCalculator();
+                    $songData = $_POST;
+                    $songData['user_id'] = $_POST['user_id'];
+                    $songManager->insert($songData);
 
-                $badges = [];
-                $songPosted = $songManager->songPostedByUser($_POST['user_id']);
-                $badges[] = $gamificationService->badgeSongs($songPosted['countSongs'], $_POST['user_id']);
-                $djBadges = $djSetManager->selectBadgeByUser($_POST['user_id']);
-                $djSongs = $djSetManager->selectSongByUser($_POST['user_id']);
-                return $this->twig->render('djset/djhome.html.twig', [
-                    'djBadges' => $djBadges,
-                    'styles' => $styles,
-                    'badges' => $badges,
-                    'djStats' => $djStats,
-                    'videos' => $djSongs,
-                ]);
+                    $badges = [];
+                    $songPosted = $songManager->songPostedByUser($_POST['user_id']);
+                    $badges[] = $gamificationService->badgeSongs($songPosted['countSongs'], $_POST['user_id']);
+                    $djBadges = $djSetManager->selectBadgeByUser($_POST['user_id']);
+                    $djSongs = $djSetManager->selectSongByUser($_POST['user_id']);
+                    return $this->twig->render('djset/djhome.html.twig', [
+                        'djBadges' => $djBadges,
+                        'styles' => $styles,
+                        'badges' => $badges,
+                        'djStats' => $djStats,
+                        'videos' => $djSongs,
+                        ]);
             }
             $djBadges = $djSetManager->selectBadgeByUser($_POST['user_id']);
             $djSongs = $djSetManager->selectSongByUser($_POST['user_id']);
