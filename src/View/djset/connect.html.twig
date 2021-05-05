@@ -8,14 +8,18 @@
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="pseudo" class="form-label" id="floatingInputGrid">Pseudo*</label>
                 <input type="text" class="form-control" id="pseudo" name="pseudo">
-                <div class="blockquote-footer">{{ errors.pseudo }}</div>
+                {% if  errors.isPseudoExist  %}
+                    <div class="alert-danger" role="alert">{{ errors.isPseudoExist }}</div>
+                {% endif %}
             </div>
 
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="inputPassword5" class="form-label" id="floatingInputGrid">Password*</label>
                 <input type="password" id="inputPassword5" class="form-control"
                        aria-describedby="passwordHelpBlock" name="password">
-                <div class="blockquote-footer">{{ errors.password }}</div>
+                {% if  errors.isPasswordCorrect  %}
+                    <div class="alert-danger" role="alert">{{ errors.isPasswordCorrect }}</div>
+                {% endif %}
             </div>
 
 

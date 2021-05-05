@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\SongManager;
 use App\Model\UserManager;
+use App\Service\Form\ConnectCheck;
 use App\Service\Form\FormCheck;
 
 class ConnectController extends AbstractController
@@ -11,7 +12,6 @@ class ConnectController extends AbstractController
     private const MAX_LENGTH_PSEUDO = 100;
     private const MAX_LENGTH_GITHUB = 100;
     private const MAX_LENGTH_PASSWORD = 255;
-
 
     public function signIn(): string
     {
@@ -27,7 +27,6 @@ class ConnectController extends AbstractController
             $formCheck->isLengthRespected(self::MAX_LENGTH_PASSWORD, $_POST['password'], 'password');
             $errors = $formCheck->getErrors();
 
-
             if (empty($errors)) {
                 $userManager = new UserManager();
                 $userData = array_map('trim', $_POST);
@@ -40,7 +39,6 @@ class ConnectController extends AbstractController
                 header('Location: /DJSet/index');
             }
         }
-
         return $this->twig->render('User/form_user.html.twig', [
             'errors' => $errors,
         ]);
@@ -71,7 +69,6 @@ class ConnectController extends AbstractController
             $songManager = new SongManager();
             $totalPowerId = $songManager->countTotalPowerById($id);
         }
-
         return $this->twig->render('User/all.html.twig', [
             'users' => $userData,
             'totalPower' => $totalPower,
@@ -80,21 +77,20 @@ class ConnectController extends AbstractController
         ]);
     }
 
-    public function connectUser(): void
+    public function connectUser(): string
     {
-        $userManager = new UserManager();
-        $userData = $userManager->connect();
-        foreach ($userData as $user) {
-            if ($_POST['pseudo'] === $user['pseudo']) {
-                if (password_verify($_POST['password'], $user['password'])) {
-                    $_SESSION['pseudo'] = $user['pseudo'];
-                    $_SESSION['github'] = $user['github'];
-                    $_SESSION['role'] = $user['identifier'];
-                    $_SESSION['id'] = $user['id'];
-                }
-            }
+        $connectCheck = new ConnectCheck();
+        $connectCheck->isPseudoExist($_POST['pseudo']);
+        $connectCheck->isPasswordCorrect($_POST['pseudo'], $_POST['password']);
+        $errors = $connectCheck->getErrors();
+        if (empty($errors)) {
+            $connectCheck->getSessionData($_POST['pseudo']);
+            return $this->twig->render('djset/connect.html.twig');
+        } else {
+            return $this->twig->render('djset/connect.html.twig', [
+                    'errors' => $errors,
+            ]);
         }
-        header('Location: /');
     }
 
     public function disconnect(): void

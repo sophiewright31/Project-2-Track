@@ -13,3 +13,15 @@
     background-color: rgba(7, 149, 66, 0.35);
     transition:0.5s;
 }
+
+.badgeHidden {
+    display: none;
+}
+
+.fa{
+    font-size: 2em;
+}
+
+.badgeAttributed {
+    font-size: 2em;
+}
