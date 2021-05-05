@@ -28,9 +28,10 @@
     font-weight: 1000;
 }
 
-.dropdown, .dropleft, .dropright, .dropup{
+.dropdown{
     position: relative;
-    right: 80px;
+    top: 50px;
+    right: 130px;
 }
 
 h1 {
