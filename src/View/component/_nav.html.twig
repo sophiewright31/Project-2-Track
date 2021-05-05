@@ -6,22 +6,22 @@
     <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll d-flex justify-content-start justify-content-around" >
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/DJSet/index">DJ Set </i></a>
+                <a class="nav-link" href="/DJSet/index">DJ Set </a>
                 <div></div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/Connect/all">Fighters </i></a>
+                <a class="nav-link" href="/Connect/all">Fighters </a>
                 <div></div>
             </li>
             {% if session.role == 'admin' %}
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/admin/index" > Admin </i></a>
+                <a class="nav-link" href="/admin/index" > Admin </a>
             </li>
             {% endif %}
 
             {% if session is empty %}
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/Connect/signIn" > Inscription</a>
+                <a class="nav-link" href="/Connect/formSignIn" > Inscription</a>
             </li>
             {% else %}
         </ul>
