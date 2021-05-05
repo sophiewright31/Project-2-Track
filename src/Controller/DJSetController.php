@@ -7,6 +7,7 @@ use App\Model\SongManager;
 use App\Model\StyleManager;
 use App\Model\UserManager;
 use App\Service\Badge\GamificationCalculator;
+use App\Service\Form\VideoCheck;
 
 class DJSetController extends AbstractController
 {
@@ -35,24 +36,16 @@ class DJSetController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id'])) {
             $errors = [];
-            $id = $_SESSION['id'];
-            $djSetManager = new DJSetManager();
+            $videoCheck = new VideoCheck();
+            $videoId = $videoCheck->extractYoutubeId($_POST['youtube_id']);
+            $videoCheck->videoExistThisMonth($videoId);
+            $errors = $videoCheck->getErrors();
+            $_POST = $videoCheck->modifyPost($_POST, $videoId);
 
-            if (empty($_POST['youtube_id'])) {
-                $errors['youtube_id'] = 'Please enter your youtube URL';
-            }
-            $urlString = parse_url($_POST['youtube_id'], PHP_URL_QUERY);
-            $args = [];
-            parse_str($urlString, $args);
-            if (isset($args['v'])) {
-                $_POST['youtube_id'] = $args['v'];
-            } else {
-                $errors['youtube_id'] = 'Please enter a valid youtube URL';
-            }
-            $_POST['user_id'] = $id;
+            $djSetManager = new DJSetManager();
             $styleManager = new StyleManager();
             $userManager = new UserManager();
-            $djStats = $userManager->selectStatsContributor($id);
+            $djStats = $userManager->selectStatsContributor($_POST['user_id']);
             $styles = $styleManager->selectAll();
 
 
@@ -60,15 +53,14 @@ class DJSetController extends AbstractController
                 $songManager = new SongManager();
                 $gamificationService = new GamificationCalculator();
                 $songData = $_POST;
-                $songData['user_id'] = $id;
+                $songData['user_id'] = $_POST['user_id'];
                 $songManager->insert($songData);
 
                 $badges = [];
-                $userId = $_SESSION['id'];
-                $songPosted = $songManager->songPostedByUser($userId);
-                $badges[] = $gamificationService->badgeSongs($songPosted['countSongs'], $userId);
-                $djBadges = $djSetManager->selectBadgeByUser($id);
-                $djSongs = $djSetManager->selectSongByUser($id);
+                $songPosted = $songManager->songPostedByUser($_POST['user_id']);
+                $badges[] = $gamificationService->badgeSongs($songPosted['countSongs'], $_POST['user_id']);
+                $djBadges = $djSetManager->selectBadgeByUser($_POST['user_id']);
+                $djSongs = $djSetManager->selectSongByUser($_POST['user_id']);
                 return $this->twig->render('djset/djhome.html.twig', [
                     'djBadges' => $djBadges,
                     'styles' => $styles,
@@ -77,9 +69,8 @@ class DJSetController extends AbstractController
                     'videos' => $djSongs,
                 ]);
             }
-            $djBadges = $djSetManager->selectBadgeByUser($id);
-            $djSongs = $djSetManager->selectSongByUser($id);
-            //TODO modifier le chemin pour affichage des erreurs
+            $djBadges = $djSetManager->selectBadgeByUser($_POST['user_id']);
+            $djSongs = $djSetManager->selectSongByUser($_POST['user_id']);
             return $this->twig->render('djset/djhome.html.twig', [
                 'djBadges' => $djBadges,
                 'errors' => $errors,

@@ -19,6 +19,7 @@ class ConnectCheck extends FormCheck
         return false;
     }
 
+
     public function isPasswordCorrect(string $pseudo, string $password): bool
     {
         $userManager = new UserManager();

@@ -28,6 +28,11 @@
     font-weight: 1000;
 }
 
+.dropdown, .dropleft, .dropright, .dropup{
+    position: relative;
+    right: 80px;
+}
+
 h1 {
     font-size: 2em;
     font-family: 'Roboto', sans-serif;
@@ -94,6 +99,7 @@ h1 {
 
 .navbar-nav {
     width: 60%;
+    flex-flow: row wrap;
 }
 
 .dropdown-menu {
@@ -113,8 +119,8 @@ h1 {
 
 .logo {
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 0px;
+    top: 40px;
 }
 
 .disconnect {

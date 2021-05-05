@@ -2,7 +2,7 @@
 {% block content %}
     <div class="container-fluid" id="container">
         {% include 'component/_badge_success.html.twig' %}
-        <div class="row mt-5 mb-5">
+        <div class="row mt-5 mb-5 pt-5">
             <div class="col-4 col-lg-4 p-0 d-flex">
 
                 <h3 class="dj-stat mr-2">Your Github avatar : </h3>
@@ -55,4 +55,13 @@
     <div class="col-12 col-lg-12 d-flex justify-content-center mt-5 mb-5">
         {% include 'component/_addsong.html.twig' %}
     </div>
+    <div class="col-12 col-lg-12 d-flex justify-content-center mt-5">
+            {% if  errors.videoExist  %}
+                <div class="alert-danger col-4" role="alert"><i class="far fa-times-circle"></i>    {{errors.videoExist}}</div>
+            {% endif %}
+            {% if  errors.IncorrectUrl  %}
+                <div class="alert-danger" role="alert"><i class="far fa-times-circle"></i>    {{errors.IncorrectUrl}}</div>
+            {% endif %}
+    </div>
+
 {% endblock %}

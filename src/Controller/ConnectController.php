@@ -13,9 +13,16 @@ class ConnectController extends AbstractController
     private const MAX_LENGTH_GITHUB = 100;
     private const MAX_LENGTH_PASSWORD = 255;
 
-    public function signIn(): string
+
+    public function formSignIn(): string
+    {
+        return $this->twig->render('User/form_user.html.twig');
+    }
+
+    public function signIn()
     {
         $errors = [];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formCheck = new FormCheck();
             $_POST = $formCheck->cleanPost($_POST);
@@ -28,20 +35,20 @@ class ConnectController extends AbstractController
             $errors = $formCheck->getErrors();
 
             if (empty($errors)) {
-                $userManager = new UserManager();
-                $userData = array_map('trim', $_POST);
-                $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-                $id = $userManager->addUser($userData);
-                $_SESSION['pseudo'] = $userData['pseudo'];
-                $_SESSION['github'] = $userData['github'];
-                $_SESSION['role'] = 'contributor';
-                $_SESSION['id'] = intval($id);
-                header('Location: /DJSet/index');
+                    $userManager = new UserManager();
+                    $userData = array_map('trim', $_POST);
+                    $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+                    $id = $userManager->addUser($userData);
+                    $_SESSION['pseudo'] = $userData['pseudo'];
+                    $_SESSION['github'] = $userData['github'];
+                    $_SESSION['role'] = 'contributor';
+                    $_SESSION['id'] = intval($id);
+                    header('Location: /DJSet/index');
             }
+            return $this->twig->render('User/form_user.html.twig', [
+                'errors' => $errors,
+            ]);
         }
-        return $this->twig->render('User/form_user.html.twig', [
-            'errors' => $errors,
-        ]);
     }
 
     public function all($id = null): string
@@ -88,7 +95,7 @@ class ConnectController extends AbstractController
             return $this->twig->render('djset/connect.html.twig');
         } else {
             return $this->twig->render('djset/connect.html.twig', [
-                    'errors' => $errors,
+                'errors' => $errors,
             ]);
         }
     }
