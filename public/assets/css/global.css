@@ -55,8 +55,11 @@ h1 {
 
 .fighters-name {
     position: absolute;
-    top: 1px;
+    font-size: 10px;
+    top: -15px;
     background: none;
+    border: none;
+    color: #fefefe;
 }
 
 .badge{
@@ -76,23 +79,50 @@ h1 {
     left: -1px;
 }
 
-.modal-header, .modal-body, .modal-footer{
+.modal-header, .modal-body, .modal-footer {
     background-color: var(--primary-color-black) ;
     border: var(--primary-color-black);
 }
 
-.btn{
+.footer {
+    background-color: #1c1c1e;
+    color : #fefefe;
+}
+
+.rounded-circle {
+    height: 35px;
+    width: auto;
+}
+
+.dropdown-toggle {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+.form-connect {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+.btn {
     font-family: 'Roboto', sans-serif;
     box-shadow: var(--primary-color-blue)0px 0px 10px;
     margin-top: 5px;
 }
 
-.alert-danger{
+
+.alert-danger {
     border: 1px solid rgba(241, 6, 6, 0.81);
     background-color: rgba(220, 17, 1, 0.16);
     box-shadow: 0px 0px 2px #ff0303;
     color: #ff0303;
     text-shadow: 2px 1px #00040a;
-    transition:0.5s;
-    cursor:pointer;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.neon-red {
+    font-family: 'Roboto', sans-serif;
+    text-shadow: var(--primary-color-red)0px 0px 10px;
+
 }
