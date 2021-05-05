@@ -65,7 +65,11 @@ class HomeController extends AbstractController
                 $badges[] = $gamificationService->powerBadgeWeekEnd($_SESSION['id']);
                 $badges[] = $gamificationService->powerBadgeByNight($_SESSION['id']);
             }
-            return json_encode($songData['power']);
+            $result = [
+                'powerSong' => $songData['power'],
+                'badges'    => $badges,
+            ];
+            return json_encode($result);
         }
     }
 }
