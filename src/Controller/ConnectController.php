@@ -14,6 +14,11 @@ class ConnectController extends AbstractController
     private const MAX_LENGTH_PASSWORD = 255;
 
 
+    public function formSignIn(): string
+    {
+        return $this->twig->render('User/form_user.html.twig');
+    }
+
     public function signIn(): string
     {
         $errors = [];
@@ -27,24 +32,23 @@ class ConnectController extends AbstractController
             $formCheck->isLengthRespected(self::MAX_LENGTH_GITHUB, $_POST['github'], 'github');
             $formCheck->isLengthRespected(self::MAX_LENGTH_PASSWORD, $_POST['password'], 'password');
             $errors = $formCheck->getErrors();
-
-
             if (empty($errors)) {
-                $userManager = new UserManager();
-                $userData = array_map('trim', $_POST);
-                $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-                $id = $userManager->addUser($userData);
-                $_SESSION['pseudo'] = $userData['pseudo'];
-                $_SESSION['github'] = $userData['github'];
-                $_SESSION['role'] = 'contributor';
-                $_SESSION['id'] = intval($id);
-                header('Location: /DJSet/index');
+                    $userManager = new UserManager();
+                    $userData = array_map('trim', $_POST);
+                    $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+                    $id = $userManager->addUser($userData);
+                    $_SESSION['pseudo'] = $userData['pseudo'];
+                    $_SESSION['github'] = $userData['github'];
+                    $_SESSION['role'] = 'contributor';
+                    $_SESSION['id'] = intval($id);
+                    header('Location: /DJSet/index');
             }
+            return $this->twig->render('User/form_user.html.twig', [
+                'errors' => $errors,
+            ]);
         }
-
-        return $this->twig->render('User/form_user.html.twig', [
-            'errors' => $errors,
-        ]);
+        header("HTTP/1.0 405 Method Not Allowed");
+        return (new ErrorHandleController())->badMethod();
     }
 
     public function all($id = null): string
@@ -70,18 +74,22 @@ class ConnectController extends AbstractController
 
     public function connectUser(): string
     {
-        $connectCheck = new ConnectCheck();
-        $connectCheck->isPseudoExist($_POST['pseudo']);
-        $connectCheck->isPasswordCorrect($_POST['pseudo'], $_POST['password']);
-        $errors = $connectCheck->getErrors();
-        if (empty($errors)) {
-            $connectCheck->getSessionData($_POST['pseudo']);
-            return $this->twig->render('djset/connect.html.twig');
-        } else {
-            return $this->twig->render('djset/connect.html.twig', [
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $connectCheck = new ConnectCheck();
+            $connectCheck->isPseudoExist($_POST['pseudo']);
+            $connectCheck->isPasswordCorrect($_POST['pseudo'], $_POST['password']);
+            $errors = $connectCheck->getErrors();
+            if (empty($errors)) {
+                $connectCheck->getSessionData($_POST['pseudo']);
+                return $this->twig->render('djset/connect.html.twig');
+            } else {
+                return $this->twig->render('djset/connect.html.twig', [
                     'errors' => $errors,
-            ]);
+                ]);
+            }
         }
+        header("HTTP/1.0 405 Method Not Allowed");
+        return (new ErrorHandleController())->badMethod();
     }
 
     public function disconnect(): void
