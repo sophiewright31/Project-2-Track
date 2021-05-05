@@ -110,3 +110,7 @@ h1 {
     margin-top: 5px;
 }
 
+.neon-red {
+    font-family: 'Roboto', sans-serif;
+    text-shadow: var(--primary-color-red)0px 0px 10px;
+}
