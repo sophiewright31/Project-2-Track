@@ -22,6 +22,7 @@ class ConnectController extends AbstractController
     public function signIn(): string
     {
         $errors = [];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formCheck = new FormCheck();
             $_POST = $formCheck->cleanPost($_POST);

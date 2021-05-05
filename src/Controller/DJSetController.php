@@ -36,7 +36,6 @@ class DJSetController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id'])) {
             $errors = [];
-
             $videoCheck = new VideoCheck();
             $videoId = $videoCheck->extractYoutubeId($_POST['youtube_id']);
             $videoCheck->videoExistThisMonth($videoId);
