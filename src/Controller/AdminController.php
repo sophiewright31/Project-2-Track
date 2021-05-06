@@ -5,12 +5,18 @@ namespace App\Controller;
 use App\Model\AbstractManager;
 use App\Model\SongManager;
 use App\Model\BadgeManager;
+use App\Model\StyleManager;
 use App\Model\UserBadgeManager;
 use App\Model\UserManager;
 use App\Service\Badge\BadgeValidator;
+use App\Service\Form\BadgeFormCheck;
 
 class AdminController extends AbstractController
 {
+    private const MAX_LENGTH_NAME_BADGE = 100;
+    private const MAX_LENGTH_TEXT_BADGE = 255;
+    private const MAX_LENGTH_URL_BADGE = 255;
+
     public function index(): string
     {
         if (isset($_SESSION["role"])) {
@@ -19,6 +25,7 @@ class AdminController extends AbstractController
                     $users = $userManager->showNbUser();
                     $monthlyUsers = $userManager->showNbUserByMonth();
                     $songManager = new SongManager();
+                    $videos = $songManager->selectAllSong();
                     $songs = $songManager->showNbSong();
                     $monthlySongs = $songManager->showNbSongsByMonth();
                     $dailySongs = $songManager->showNbSongsByDay();
@@ -31,6 +38,7 @@ class AdminController extends AbstractController
                         'monthlySongs' => $monthlySongs,
                         'dailySongs' => $dailySongs,
                         'badges' => $badges,
+                        'videos' => $videos,
                     ]);
             } else {
                 header("HTTP/1.0 403 Forbidden");
@@ -63,18 +71,14 @@ class AdminController extends AbstractController
                 return (new ErrorHandleController())->forbidden();
         }
     }
-//TODO changer de nom du delete (supprimer une chanson actuellement)
 
-    public function delete(int $id)
+    public function deleteSong(int $id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $adminManager = new SongManager();
             $adminManager->delete($id);
-            header('Location: /');
+            header('Location:/admin/index');
         }
-        //If don't come from a post go to error 405
-        header("HTTP/1.0 405 Method Not Allowed");
-        return (new ErrorHandleController())->badMethod();
     }
 
     public function deleteBadge(int $id)
@@ -125,26 +129,34 @@ class AdminController extends AbstractController
     {
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (empty($_POST['name'])) {
-                $errors['name'] = 'Please enter your badge name';
-            }
-            if (empty($_POST['picture_url'])) {
-                $errors['picture_url'] = 'Please enter your picture URL';
-            }
-            if (empty($_POST['description'])) {
-                $errors['description'] = 'Please enter your badge description';
-            }
+            $badgeManager = new BadgeManager();
+            $userManager = new UserManager();
+            $users = $userManager->selectAll();
 
+
+            $badgeCheck = new BadgeFormCheck();
+            $_POST = $badgeCheck->cleanPost($_POST);
+            $badgeCheck->emptyField('name', $_POST['name']);
+            $badgeCheck->emptyField('picture_url', $_POST['picture_url']);
+            $badgeCheck->emptyField('description', $_POST['description']);
+            $badgeCheck->isLengthRespected(self::MAX_LENGTH_NAME_BADGE, $_POST['name'], 'name');
+            $badgeCheck->isLengthRespected(self::MAX_LENGTH_TEXT_BADGE, $_POST['description'], 'description');
+            $badgeCheck->isLengthRespected(self::MAX_LENGTH_URL_BADGE, $_POST['picture_url'], 'picture_url');
+            $errors = $badgeCheck->getErrors();
             if (empty($errors)) {
-                $badgeManager = new BadgeManager();
-                $userManager = new UserManager();
                 $badgeManager->insert($_POST);
-                $users = $userManager->selectAll();
                 $badges = $badgeManager->selectAll();
                 return $this->twig->render('admin/badges.html.twig', [
                     'badges' => $badges,
                     'users' => $users,
                     'success_badge_create' => true,
+                ]);
+            } else {
+                $badges = $badgeManager->selectAll();
+                return $this->twig->render('admin/badges.html.twig', [
+                    'badges' => $badges,
+                    'users'  => $users,
+                    'errors' => $errors,
                 ]);
             }
         }

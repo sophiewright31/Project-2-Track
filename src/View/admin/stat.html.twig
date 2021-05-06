@@ -29,6 +29,7 @@
                     </div>
                 </div>
             </div>
+
         </section>
     </div>
     <div class="row">
@@ -69,7 +70,33 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+    <div  class="col-11 ml-5">
+
+        <div class="row"><h1>DELETE SONGS</h1></div>
+
+        <div class="row">
+            {% for video in videos %}
+                <div class="card card-fighters col-lg-2 col-12">
+                    <div class="card-header p-0 d-flex justify-content-between">
+                        {% include 'component/_power_button.html.twig' %}
+                        <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ video.github }}">
+                    </div>
+                    <div class="embed-responsive embed-responsive-21by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
+                                id="video {{ video.id }}" allowfullscreen></iframe>
+                    </div>
+
+                    <div><form method="POST" action="deleteSong/{{ video.id }}">
+                            <button type="submit" class="btn btn-primary" name="{{ video.id }}">Delete</button>
+                        </form></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
     {% block javascript %}
     {% endblock %}
 {% endblock %}
