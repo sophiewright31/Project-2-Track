@@ -4,7 +4,7 @@ const test = document.getElementById('box-test');
 let clickPerSecond = 0;
 let start = null;
 let currentTime = null;
-let maxAuthorized = 8;
+let maxAuthorized =8;
 
 for (let i = 0; i < powerButtons.length; i++) {
     powerButtons[i].addEventListener('click',e => {
