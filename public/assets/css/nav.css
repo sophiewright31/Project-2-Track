@@ -2,6 +2,7 @@
 
 .navbar {
     background-color: #1c1c1e;
+    height: 80px;
 }
 
 .navbar-nav {
@@ -11,8 +12,8 @@
 }
 
 .img-fluid {
-    width:150px;
-    height:150px;
+    width:80px;
+    height:80px;
 }
 
 .modal-title {
@@ -113,8 +114,8 @@ h1 {
 
 .logo {
     position: absolute;
-    left: 20px;
-    top: 12px;
+    left: 0px;
+    top: 0px;
 }
 
 .disconnect {
