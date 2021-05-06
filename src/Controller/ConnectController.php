@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Model\DJSetManager;
 use App\Model\SongManager;
+use App\Model\StyleManager;
 use App\Model\UserManager;
 use App\Service\Form\ConnectCheck;
 use App\Service\Form\FormCheck;
@@ -43,7 +45,7 @@ class ConnectController extends AbstractController
                     $_SESSION['github'] = $userData['github'];
                     $_SESSION['role'] = 'contributor';
                     $_SESSION['id'] = intval($id);
-                    header('Location: /DJSet/index');
+                    header('location: /DJSet/index');
             }
             return $this->twig->render('User/form_user.html.twig', [
                 'errors' => $errors,
@@ -84,19 +86,22 @@ class ConnectController extends AbstractController
         ]);
     }
 
-    public function connectUser(): string
+    public function connectUser()
     {
-        $connectCheck = new ConnectCheck();
-        $connectCheck->isPseudoExist($_POST['pseudo']);
-        $connectCheck->isPasswordCorrect($_POST['pseudo'], $_POST['password']);
-        $errors = $connectCheck->getErrors();
-        if (empty($errors)) {
-            $connectCheck->getSessionData($_POST['pseudo']);
-            return $this->twig->render('djset/connect.html.twig');
-        } else {
-            return $this->twig->render('djset/connect.html.twig', [
-                'errors' => $errors,
-            ]);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $connectCheck = new ConnectCheck();
+            $connectCheck->isPseudoExist($_POST['pseudo']);
+            $connectCheck->isPasswordCorrect($_POST['pseudo'], $_POST['password']);
+            $errors = $connectCheck->getErrors();
+            if (empty($errors)) {
+                $connectCheck->getSessionData($_POST['pseudo']);
+                header('location: /DJSet/index');
+                exit;
+            } else {
+                return $this->twig->render('djset/connect.html.twig', [
+                    'errors' => $errors,
+                ]);
+            }
         }
     }
 
