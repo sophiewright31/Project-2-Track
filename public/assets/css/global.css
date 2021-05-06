@@ -46,6 +46,10 @@ h1 {
     background-color: var(--primary-color-black);
 }
 
+.card-dashboard{
+    margin-top: 80px;
+}
+
 .fighters-name {
     position: absolute;
     font-size: 10px;

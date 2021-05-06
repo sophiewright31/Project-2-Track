@@ -10,9 +10,14 @@
     justify-content:space-around;
 }
 
+.navbar-toggler{
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
 .img-fluid {
-    width:150px;
-    height:150px;
+    width:80px;
+    height:80px;
 }
 
 .modal-title {
@@ -113,13 +118,19 @@ h1 {
 
 .logo {
     position: absolute;
-    left: 20px;
-    top: 12px;
+    left: 0px;
+    top: 0px;
+}
+
+.on-air{
+    position: fixed;
+    right: 100px;
+    top: 20px;
 }
 
 .disconnect {
-    position: absolute;
-    top: 50px;
+    position: fixed;
+    top: 100px;
     right: 10px;
 }
 
