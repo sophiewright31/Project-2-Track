@@ -15,16 +15,19 @@
                 {% for key, user in fighters %}
                     {% set i = i + 1 %}
                     {% if i < 11 %}
-                        <li class="col-10 col-lg-1 container-fighter">
-                            <div class="card card-fighters">
+                        <li class="col-12 col-lg-1 container-fighter">
+                            <div class="card mt-5">
 
-                                <p><button type="button" class="fighters-name neon-red" data-toggle="tooltip" data-placement="top"
-                                        title="{{ user|e }} votes reçus">
-                                    {{ key }}
-                                </button></p>
+                                <p>
+                                    <button type="button" class="fighters-name neon-red" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="{{ user|e }} votes reçus">
+                                        {{ key }}
+                                    </button>
+                                </p>
 
-                                <img {% if key %} src="https://avatars.githubusercontent.com/{{ key }}" {% else %} src="/assets/images/dj.jpeg" {% endif %}
-                                        class="card-img-top" alt="image of a DJ">
+                                <img {% if key %} src="https://avatars.githubusercontent.com/{{ key }}" {% else %} src="https://avatars.githubusercontent.com/anonyme" {% endif %}
+                                        class="card-img-top" alt="image of a pig">
                                 <p class="netflix-number card-text">{{ i }}</p>
                             </div>
                         </li>
@@ -32,13 +35,17 @@
                     {% endif %}
                 {% endfor %}
 
-                <li class="col-1 "></li>
+                <li class="col-1"></li>
             </ul>
-            <div class="col-lg-2 "></div>
-            <div class="text-center col-4 col-lg-8">
+        </div>
+        <div class="container">
+
+            <div class="col-lg-2 col-12"></div>
+            <div class="text-center col-lg-8 col-12">
                 <button class="align-items-center dropdown-toggle alert alert-dark" type="button" id="dropdownMenu2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Voir le classement de tous les contributeurs .. sur un total de {{ totalPower.total }} votes reçues
+                    Voir le classement de tous les contributeurs .. sur un total de {{ totalPower.total }} votes
+                    reçues
                 </button>
                 <div class="dropdown-menu " aria-labelledby="dropdownMenu2">
                     <ul class="list-group">
@@ -47,14 +54,14 @@
                         {% for key, user in fighters %}
                             {% set j = j + 1 %}
                             <li class="list-group-item"><span class="dropdown-item-text"> {{ j }} <img
-                                            class="rounded-circle" {% if key %} src="https://avatars.githubusercontent.com/{{ key }}" {% else %} src="/assets/images/dj.jpeg" {% endif %}</span>
+                                            class="rounded-circle" {% if key %} src="https://avatars.githubusercontent.com/{{ key }}" {% else %} src="https://avatars.githubusercontent.com/anonyme" {% endif %}</span>
                                 {% if user %}{{ key }} , a reçu  {{ user }}  votes sur les chansons qu'il a posté.{% endif %}
                             </li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2 col-12"></div>
         </div>
     </div>
 

@@ -46,13 +46,6 @@ h1 {
     background-color: var(--primary-color-black);
 }
 
-.card-fighters {
-    height: 200px;
-    width: auto;
-    background: none;
-    position: relative;
-}
-
 .fighters-name {
     position: absolute;
     font-size: 10px;
@@ -87,6 +80,10 @@ h1 {
 .footer {
     background-color: #1c1c1e;
     color : #fefefe;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 .rounded-circle {
@@ -124,5 +121,4 @@ h1 {
 .neon-red {
     font-family: 'Roboto', sans-serif;
     text-shadow: var(--primary-color-red)0px 0px 10px;
-
 }

@@ -11,8 +11,8 @@ use App\Service\Form\FormCheck;
 
 class ConnectController extends AbstractController
 {
-    private const MAX_LENGTH_PSEUDO = 100;
-    private const MAX_LENGTH_GITHUB = 100;
+    private const MAX_LENGTH_PSEUDO = 20;
+    private const MAX_LENGTH_GITHUB = 20;
     private const MAX_LENGTH_PASSWORD = 255;
 
 
@@ -62,7 +62,7 @@ class ConnectController extends AbstractController
         $rankings = [];
 
         foreach ($songs as $song) {
-            if (empty($songs['github'])) {
+            if (empty($song['github'])) {
                 $song['github'] = $song['pseudo'];
             }
             if (!array_key_exists($song['github'], $rankings)) {

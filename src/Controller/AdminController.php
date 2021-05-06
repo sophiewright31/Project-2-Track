@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\AbstractManager;
 use App\Model\SongManager;
 use App\Model\BadgeManager;
+use App\Model\StyleManager;
 use App\Model\UserBadgeManager;
 use App\Model\UserManager;
 use App\Service\Badge\BadgeValidator;
@@ -24,6 +25,7 @@ class AdminController extends AbstractController
                     $users = $userManager->showNbUser();
                     $monthlyUsers = $userManager->showNbUserByMonth();
                     $songManager = new SongManager();
+                    $videos = $songManager->selectAllSong();
                     $songs = $songManager->showNbSong();
                     $monthlySongs = $songManager->showNbSongsByMonth();
                     $dailySongs = $songManager->showNbSongsByDay();
@@ -36,6 +38,7 @@ class AdminController extends AbstractController
                         'monthlySongs' => $monthlySongs,
                         'dailySongs' => $dailySongs,
                         'badges' => $badges,
+                        'videos' => $videos,
                     ]);
             } else {
                 header("HTTP/1.0 403 Forbidden");
@@ -68,18 +71,14 @@ class AdminController extends AbstractController
                 return (new ErrorHandleController())->forbidden();
         }
     }
-//TODO changer de nom du delete (supprimer une chanson actuellement)
 
-    public function delete(int $id)
+    public function deleteSong(int $id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $adminManager = new SongManager();
             $adminManager->delete($id);
-            header('Location: /');
+            header('Location:/admin/index');
         }
-        //If don't come from a post go to error 405
-        header("HTTP/1.0 405 Method Not Allowed");
-        return (new ErrorHandleController())->badMethod();
     }
 
     public function deleteBadge(int $id)
