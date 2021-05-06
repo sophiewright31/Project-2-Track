@@ -28,6 +28,18 @@
     animation-duration: .4s;
 }
 
+.fa-info-circle{
+    font-size:2em;
+    text-align: center;
+}
+
+.fa-info-circle:hover{
+    animation-name:bell;
+    animation-duration: .4s;
+}
+
+
+
 @keyframes bell {
     0% {
         transform: rotate(-40deg);
