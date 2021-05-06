@@ -12,6 +12,7 @@ for (let i = 0; i < powerButtons.length; i++) {
 }
 
 function displayChanges(data, powerNumber) {
+
     powerNumber.innerHTML = data.powerSong;
     let testBadge = false;
     for (let i = 0; i < data.badges.length; i++) {
