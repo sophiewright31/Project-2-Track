@@ -1,14 +1,14 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
 
-        <form class="container form-connect" method="post" action="signIn">
+        <form class="container-fluid form-connect" method="post" action="signIn">
 
 
             <h4 class="nav-link"> INSCRIVEZ-VOUS</h4>
 
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="pseudo" class="form-label" id="floatingInputGrid">Pseudo*</label>
-                <input type="text" class="form-control" id="pseudo" name="pseudo" maxlength="100" required>
+                <input type="text" class="form-control" id="pseudo" name="pseudo" maxlength="20" required>
                 {% if  errors.pseudo  %}
                 <div class="alert-danger" role="alert">{{ errors.pseudo }}</div>
                 {% endif %}
@@ -22,7 +22,7 @@
 
             <div class="col-md-6 col-sm-6 col-lg-6 form-floating mb-3">
                 <label for="github" class="form-label" id="floatingInputGrid">Pseudo github</label>
-                <input type="text" class="form-control" id="github" name="github" maxlength="100">
+                <input type="text" class="form-control" id="github" name="github" maxlength="20">
                 <div class="blockquote-footer">Pour affichage de votre avatar</div>
                 {% if  errors.githubLength  %}
                     <div class="alert-danger" role="alert">La longueur max du pseudo github est de 100 caractères !</div>
