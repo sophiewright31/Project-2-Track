@@ -28,12 +28,6 @@
     font-weight: 1000;
 }
 
-.dropdown{
-    position: relative;
-    top: 50px;
-    right: 130px;
-}
-
 h1 {
     font-size: 2em;
     font-family: 'Roboto', sans-serif;
@@ -87,8 +81,11 @@ h1 {
 }
 
 .dropdown-menu {
+    position: absolute;
+    top: 80px;
     background-color: transparent;
     border: var(--text-color);
+    left: -132px;
 }
 .btn {
     color:white;
@@ -101,10 +98,6 @@ h1 {
 .navbar-nav {
     width: 60%;
     flex-flow: row wrap;
-}
-
-.dropdown-menu {
-    left:-60%;
 }
 
 .rules{
@@ -120,12 +113,16 @@ h1 {
 
 .logo {
     position: absolute;
-    left: 0px;
-    top: 40px;
+    left: 20px;
+    top: 12px;
 }
 
 .disconnect {
     position: absolute;
-    left: 0;
-    top: 0;
+    top: 50px;
+    right: 10px;
+}
+
+.dropdown{
+    position: relative;
 }

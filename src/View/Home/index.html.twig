@@ -12,7 +12,9 @@
 
         {% include 'component/_podium.html.twig' %}
         {% else %}
-            <h1 class="nav-link text-center font-weight-bold"> SOIS LE PREMIER A POSTER UNE CHANSON </h1>
+            <div class="row justify-content-center">
+            <h1 class="nav-link text-center font-weight-bold col-4 col-lg-12"> SOIS LE PREMIER A POSTER UNE CHANSON </h1>
+            </div>
         {% endif %}
 
         <h1 class="nav-link text-center font-weight-bold"> Catalogue de chanson du mois </h1>
@@ -20,16 +22,18 @@
         {% include 'component/_select_style.html.twig' %}
         <div class="row">
             {% for video in videos %}
+                {%  if(loop.index0) > 2 %}
                 <div class="card card-fighters col-lg-3 col-12">
-                    <div class="card-header p-0 d-flex justify-content-between">
+                    <div class=" card-header p-0 d-flex justify-content-between">
                         {% include 'component/_power_button.html.twig' %}
                         <img class="avatar-github" src="https://avatars.githubusercontent.com/{{ video.github }}">
                     </div>
                     <div class="embed-responsive embed-responsive-21by9">
                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.youtube_id }}"
-                                id="video {{ video.id }}" allowfullscreen></iframe>
+                                id="video {{ video.id }}"  loading="lazy" allowfullscreen></iframe>
                     </div>
                 </div>
+                {% endif %}
             {% endfor %}
         </div>
 

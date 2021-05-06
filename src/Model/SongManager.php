@@ -123,7 +123,7 @@ class SongManager extends AbstractManager
     {
         $today = date("Y-m-d");
         $query = 'SELECT count(youtube_id) as count FROM ' . self::TABLE . '
-        WHERE DATE_FORMAT(created_at, "%Y-%m-%e") = "' . $today . '"';
+        WHERE DATE_FORMAT(created_at, "%Y-%m-%d") = "' . $today . '"';
         return $this->pdo->query($query)->fetch();
     }
 

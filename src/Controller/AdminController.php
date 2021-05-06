@@ -9,9 +9,14 @@ use App\Model\StyleManager;
 use App\Model\UserBadgeManager;
 use App\Model\UserManager;
 use App\Service\Badge\BadgeValidator;
+use App\Service\Form\BadgeFormCheck;
 
 class AdminController extends AbstractController
 {
+    private const MAX_LENGTH_NAME_BADGE = 100;
+    private const MAX_LENGTH_TEXT_BADGE = 255;
+    private const MAX_LENGTH_URL_BADGE = 255;
+
     public function index(): string
     {
         if (isset($_SESSION["role"])) {
@@ -124,26 +129,34 @@ class AdminController extends AbstractController
     {
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (empty($_POST['name'])) {
-                $errors['name'] = 'Please enter your badge name';
-            }
-            if (empty($_POST['picture_url'])) {
-                $errors['picture_url'] = 'Please enter your picture URL';
-            }
-            if (empty($_POST['description'])) {
-                $errors['description'] = 'Please enter your badge description';
-            }
+            $badgeManager = new BadgeManager();
+            $userManager = new UserManager();
+            $users = $userManager->selectAll();
 
+
+            $badgeCheck = new BadgeFormCheck();
+            $_POST = $badgeCheck->cleanPost($_POST);
+            $badgeCheck->emptyField('name', $_POST['name']);
+            $badgeCheck->emptyField('picture_url', $_POST['picture_url']);
+            $badgeCheck->emptyField('description', $_POST['description']);
+            $badgeCheck->isLengthRespected(self::MAX_LENGTH_NAME_BADGE, $_POST['name'], 'name');
+            $badgeCheck->isLengthRespected(self::MAX_LENGTH_TEXT_BADGE, $_POST['description'], 'description');
+            $badgeCheck->isLengthRespected(self::MAX_LENGTH_URL_BADGE, $_POST['picture_url'], 'picture_url');
+            $errors = $badgeCheck->getErrors();
             if (empty($errors)) {
-                $badgeManager = new BadgeManager();
-                $userManager = new UserManager();
                 $badgeManager->insert($_POST);
-                $users = $userManager->selectAll();
                 $badges = $badgeManager->selectAll();
                 return $this->twig->render('admin/badges.html.twig', [
                     'badges' => $badges,
                     'users' => $users,
                     'success_badge_create' => true,
+                ]);
+            } else {
+                $badges = $badgeManager->selectAll();
+                return $this->twig->render('admin/badges.html.twig', [
+                    'badges' => $badges,
+                    'users'  => $users,
+                    'errors' => $errors,
                 ]);
             }
         }
