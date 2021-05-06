@@ -27,7 +27,6 @@ for (let i = 0; i < powerButtons.length; i++) {
         }
 
         clickPerSecond += 1;
-        console.log(clickPerSecond);
         fetch('/Home/powerUpById/' + e.target.dataset.id, {method: 'POST'})
             .then(data => data.json())
             .then(data => displayChanges(data, powerNumber))
