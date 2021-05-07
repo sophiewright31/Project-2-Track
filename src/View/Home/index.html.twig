@@ -37,13 +37,17 @@
             {% endfor %}
         </div>
 
-        <div class="progress mt-3">
+        <div class="progress mt-3 mb-5">
             <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: {{ "now"|date("d") /daysInMonth *100 }}%" aria-valuenow="{{ "now"|date("d") }}" aria-valuemin="0" aria-valuemax="{{ daysInMonth }}">
                 Plus que {{ daysInMonth - "now"|date("d")}} jours pour soutenir ta chanson préférée!
             </div>
         </div>
 
     </div>
+
+    <div class="mb-5 mt-5"></div>
+
+
 
 {% endblock %}
     {% block javascript %}
