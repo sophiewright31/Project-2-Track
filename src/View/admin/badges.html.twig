@@ -42,7 +42,7 @@
 
     {% include 'component/_attributebadge.html.twig' %}
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-5">
         {% for badge in badges %}
             <div class="card col-sm-3" style="width: 18rem;">
                 <img src="{{ badge.picture_url}}" class="card-img-top" alt="image du badge : {{ badge.name}}">
