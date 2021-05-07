@@ -12,7 +12,7 @@ class VideoCheck extends FormCheck
         $monthSongs = $songManager->selectAll();
         foreach ($monthSongs as $monthSong) {
             if ($monthSong['youtube_id'] === $videoId) {
-                $this->errors['videoExist'] = 'La musique que vous proposez a déjà été proposé ce mois-ci !';
+                $this->errors['videoExist'] = 'La musique que vous proposez a déjà été proposé ce mois-ci';
                 return true;
             }
         }
